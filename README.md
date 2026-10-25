@@ -14,6 +14,8 @@ nothing here links to schoolofadults.com, and the live site is untouched.
   - **E · The Lofi Mess** — the current direction: a random, lived-in,
     lofi-animated mess (warm light, steam, flicker, drifting dust, fluttering
     tickets) with the important things highlighted.
+  - **F · Isometric Room** — the same desk as a little 3D world: iso floor and
+    furniture, objects standing on them, highlights floating above the scene.
 - Tap any object in the preview and it tells you which topic page it would open.
 
 ## Highlight rule (applies to every board)

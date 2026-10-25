@@ -81,6 +81,10 @@
   .steam path { stroke-dasharray: 20; animation: steam 3s ease-in-out infinite; opacity: 0; }
   .steam path:nth-child(2) { animation-delay: 1.5s; }
   @keyframes steam { 0% { opacity: 0; transform: translateY(4px); } 30% { opacity: 0.8; } 100% { opacity: 0; transform: translateY(-8px); } }
+  .isosvg { width: 100%; height: auto; display: block; }
+  .isoglow { animation: isoglow 2.2s ease-in-out infinite; }
+  @keyframes isoglow { 0%, 100% { filter: drop-shadow(0 0 0 rgba(200,120,0,0)); } 50% { filter: drop-shadow(0 0 10px rgba(200,120,0,0.9)); } }
+  .legend { font-size: 13px; color: #5c6653; margin-top: 10px; }
   #toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: #1F1C18; color: #F7F3E8; padding: 10px 18px; border-radius: 999px; font-size: 14px; display: none; z-index: 10; white-space: nowrap; }
   @media (max-width: 560px) { .minigrid { grid-template-columns: repeat(3, 1fr); } .treats { grid-template-columns: 1fr; } }
 </style>
@@ -117,6 +121,7 @@
     <a href="#hero">C · Hero + Shelf</a>
     <a href="#day">D · The Day Strip</a>
     <a href="#mess">E · Lofi Mess</a>
+    <a href="#iso">F · Isometric</a>
     <a href="#hl">Highlight styles</a>
   </div>
   <div id="toast"></div>
@@ -273,6 +278,63 @@
     <div class="verdict"><b>Best at:</b> vibe and identity — it feels like a lofi stream you want to stay in, and the mess is the point: real life isn't a grid. <b>Risk:</b> mess can bury topics — the fix is what you see here: labels always on, only two things lit up, and tapping anything reveals its topic.</div>
   </section>
 
+  <!-- CONCEPT F : ISOMETRIC -->
+  <section class="board" id="iso">
+    <h2>F · Isometric Room</h2>
+    <p class="why">The same desk, seen from above at an angle — a little 3D world. Iso floor and furniture, the flat objects standing on them, highlights floating above the scene. Tap any object to see its topic.</p>
+    <svg class="isosvg" viewBox="0 0 800 560" role="img" aria-label="Isometric room with everyday objects">
+      <!-- floor -->
+      <polygon points="400,60 740,230 400,400 60,230" fill="#EAD9B8" stroke="#1F1C18" stroke-width="3" stroke-linejoin="round"/>
+      <g stroke="#1F1C18" stroke-width="1" opacity="0.15">
+        <line x1="230" y1="145" x2="570" y2="315"/><line x1="400" y1="60" x2="400" y2="400"/>
+        <line x1="570" y1="145" x2="230" y2="315"/><line x1="145" y1="280" x2="655" y2="280"/>
+      </g>
+      <!-- rug -->
+      <polygon points="400,180 560,260 400,340 240,260" fill="#D9A07A" opacity="0.55"/>
+      <!-- desk: iso box, left area -->
+      <polygon points="270,190 350,230 270,270 190,230" fill="#C9A96A" stroke="#1F1C18" stroke-width="2" stroke-linejoin="round"/>
+      <polygon points="190,230 270,270 270,320 190,280" fill="#A98A52" stroke="#1F1C18" stroke-width="2" stroke-linejoin="round"/>
+      <polygon points="270,270 350,230 350,280 270,320" fill="#8A6D3B" stroke="#1F1C18" stroke-width="2" stroke-linejoin="round"/>
+      <!-- shelf: iso box, right area -->
+      <polygon points="560,150 620,180 560,210 500,180" fill="#C9A96A" stroke="#1F1C18" stroke-width="2" stroke-linejoin="round"/>
+      <polygon points="500,180 560,210 560,250 500,220" fill="#A98A52" stroke="#1F1C18" stroke-width="2" stroke-linejoin="round"/>
+      <polygon points="560,210 620,180 620,220 560,250" fill="#8A6D3B" stroke="#1F1C18" stroke-width="2" stroke-linejoin="round"/>
+      <!-- shadows -->
+      <g fill="rgba(0,0,0,0.12)">
+        <ellipse cx="255" cy="252" rx="34" ry="10"/><ellipse cx="330" cy="272" rx="34" ry="10"/>
+        <ellipse cx="300" cy="330" rx="30" ry="9"/><ellipse cx="385" cy="375" rx="34" ry="10"/>
+        <ellipse cx="455" cy="395" rx="32" ry="10"/><ellipse cx="560" cy="205" rx="36" ry="10"/>
+      </g>
+      <!-- objects on the desk -->
+      <g data-t="Travel"><use href="#o-train" x="215" y="175" width="72" height="72"/></g>
+      <g data-t="Travel"><use href="#o-flight" x="290" y="195" width="72" height="72" class="flutter"/></g>
+      <g data-t="Wealth"><use href="#o-wallet" x="255" y="250" width="58" height="58"/></g>
+      <!-- highlighted bill + sticky note -->
+      <g data-t="Wealth"><use href="#o-bill" x="330" y="235" width="58" height="58" class="isoglow"/></g>
+      <g transform="rotate(-3 385 205)"><rect x="330" y="192" width="112" height="26" rx="4" fill="#FFE08A" stroke="#D9A400" stroke-width="1.5"/><text x="386" y="210" text-anchor="middle" font-size="12" font-weight="bold" fill="#1F1C18">Tax season — due soon</text></g>
+      <!-- shelf objects -->
+      <g data-t="Content"><use href="#o-tv" x="520" y="120" width="76" height="76" class="flicker"/></g>
+      <g data-t="Life Events"><use href="#o-gift" x="610" y="165" width="56" height="56"/></g>
+      <!-- floor objects -->
+      <g data-t="Pets"><use href="#o-dog" x="350" y="330" width="66" height="66"/></g>
+      <g data-t="Pets"><use href="#o-cat" x="425" y="350" width="60" height="60"/></g>
+      <g data-t="People"><use href="#o-cups" x="270" y="300" width="60" height="60"/></g>
+      <g data-t="Health"><use href="#o-bottle" x="620" y="300" width="48" height="48"/></g>
+      <g data-t="Tech"><use href="#o-phone" x="555" y="270" width="48" height="48"/></g>
+      <g data-t="Home"><use href="#o-key" x="175" y="270" width="50" height="50"/></g>
+      <g data-t="Career"><use href="#o-badge" x="225" y="330" width="52" height="52"/></g>
+      <g data-t="Legal"><use href="#o-doc" x="500" y="340" width="52" height="52"/></g>
+      <g data-t="Life Skills"><use href="#o-toolbox" x="460" y="280" width="62" height="62"/></g>
+      <g data-t="Fashion"><use href="#o-tee" x="130" y="195" width="56" height="56"/></g>
+      <!-- floating community highlight -->
+      <g data-t="Community"><use href="#o-chat" x="640" y="40" width="64" height="64" class="floaty"/></g>
+      <circle cx="706" cy="52" r="13" fill="#C0392B" stroke="#fff" stroke-width="2"/><text x="706" y="56" text-anchor="middle" font-size="9" font-weight="bold" fill="#fff">NEW</text>
+      <g><use href="#o-lamp" x="80" y="110" width="56" height="56"/></g>
+    </svg>
+    <p class="legend">In this room: train + flight tickets → Travel · wallet + bill → Wealth · dog + cat → Pets · TV → Content · coffee → People · key → Home · bottle → Health · badge → Career · phone → Tech · document → Legal · toolbox → Life Skills · gift → Life Events · jacket → Fashion · chat → Community. The bill glows with its sticky note; the chat floats with its NEW badge.</p>
+    <div class="verdict"><b>Best at:</b> depth and wow — it feels like a little world you could walk into, the most game-like of all six boards. <b>Risk:</b> the hardest to keep readable on a phone (objects shrink as the scene scales), and the most illustration work to do properly. Highlights need the floating treatment — glow alone drowns in a busy scene.</div>
+  </section>
+
   <!-- HIGHLIGHT STYLES -->
   <section class="board" id="hl">
     <h2>How "important" could look</h2>
@@ -285,7 +347,7 @@
     <div class="verdict"><b>My read, for when you're ready to pick:</b> B (the shelf) is the safest real homepage — it works on a phone and never confuses anyone. C (hero + shelf) is the most School of Adults: it gives the site a voice that says "this week, this matters". A is the most lovable and the hardest to keep tidy. D is a lovely second screen, not a homepage.</div>
   </section>
 
-  <p style="text-align:center; color:#7a7f72; font-size:14px;">Mockups only. Tell me a letter — A, B, C, D, E — or mix pieces. E (the lofi mess) is the current direction; the others stay for reference. The real site stays untouched until you say build.</p>
+  <p style="text-align:center; color:#7a7f72; font-size:14px;">Mockups only. Tell me a letter — A, B, C, D, E, F — or mix pieces. E (the lofi mess) is the current direction; the others stay for reference. The real site stays untouched until you say build.</p>
 </div>
 <script>
   var toast = document.getElementById('toast'), timer = null;
