@@ -7,10 +7,11 @@ nothing here links to schoolofadults.com, and the live site is untouched.
 
 - `index.html` — one preview page with five concept boards, all using the same
   hand-drawn flat SVG objects (no AI-generated imagery):
-- `desk.html` — the Whole Desk as its own fullscreen page: the room is bigger
-  than the screen, and the screen is a window into it — drag to pan around,
-  tap a cluster to focus it, double-tap (or the Whole desk button) for the
-  everything-at-once overview.
+- `desk.html` — the Whole Desk as its own fullscreen page, smart layout: no
+  banner, the page measures the real viewport, works out how many icons fit,
+  shows all 14 topics plus as many subtopics as fit, and tapping a topic fans
+  its subtopics out around it while everything else shrinks and shifts aside
+  — all inside one viewport, no scrolling.
   - **A · The Room** — an illustrated scene: shelf, desk, floor.
   - **B · The Shelf** — a clean grid of object cards for all 14 topics.
   - **C · Hero + Shelf** — one "object of the week" over a quiet grid.
