@@ -94,6 +94,19 @@
   .mini2 { display: inline-flex; flex-direction: column; align-items: center; cursor: pointer; padding: 3px; margin: 2px; vertical-align: top; width: 64px; }
   .mini2 svg { width: 42px; height: 42px; }
   .mini2 span { font-size: 10px; letter-spacing: 0.03em; text-transform: uppercase; font-weight: 600; text-align: center; line-height: 1.25; }
+  .desk-wrap { position: relative; height: 100dvh; overflow: hidden; background: radial-gradient(600px 300px at 82% 8%, rgba(255,214,120,0.55), rgba(255,214,120,0) 70%), linear-gradient(180deg, #FBEED3, #F6DFAE); border-top: 2px solid #1F1C18; border-bottom: 2px solid #1F1C18; }
+  .desk { position: absolute; left: 0; top: 0; width: 1280px; padding: 24px; transform-origin: 0 0; transition: transform 0.45s ease; }
+  .dzone { margin-bottom: 20px; }
+  .dzone-label { font-family: Georgia, serif; font-size: 15px; letter-spacing: 0.08em; text-transform: uppercase; color: #8a6d3b; border-bottom: 1px dashed #C9A96A; padding-bottom: 3px; margin-bottom: 10px; }
+  .dclust { display: inline-block; vertical-align: top; margin: 0 22px 14px 0; max-width: 330px; transition: opacity 0.25s; }
+  .dclust.dim { opacity: 0.18; }
+  .demblem { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+  .demblem svg { width: 54px; height: 54px; flex-shrink: 0; }
+  .demblem .dt { font-family: Georgia, serif; font-size: 20px; font-weight: bold; }
+  .dsub { display: inline-flex; flex-direction: column; align-items: center; cursor: pointer; padding: 2px; margin: 2px; vertical-align: top; width: 60px; }
+  .dsub svg { width: 40px; height: 40px; }
+  .dsub span { font-size: 11px; font-weight: 600; text-align: center; line-height: 1.25; }
+  .dpill { display: inline-block; font-size: 11px; font-weight: 600; padding: 3px 9px; margin: 2px; border: 1.5px solid #1F1C18; border-radius: 999px; background: #fff; cursor: pointer; }
   #toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: #1F1C18; color: #F7F3E8; padding: 10px 18px; border-radius: 999px; font-size: 14px; display: none; z-index: 10; white-space: nowrap; }
   @media (max-width: 560px) { .minigrid { grid-template-columns: repeat(3, 1fr); } .treats { grid-template-columns: 1fr; } }
 </style>
@@ -149,6 +162,14 @@
   <symbol id="o-waves" viewBox="0 0 96 96" fill="none" stroke="#2E86C1" stroke-width="3" stroke-linecap="round"><path d="M14 38 Q24 28 34 38 Q44 48 54 38 Q64 28 74 38"/><path d="M14 58 Q24 48 34 58 Q44 68 54 58 Q64 48 74 58"/></symbol>
   <symbol id="o-star" viewBox="0 0 96 96" fill="none" stroke="#1F1C18" stroke-width="2.5"><polygon points="48,14 58,38 82,38 62,52 70,76 48,62 26,76 34,52 14,38 38,38" fill="#F2C94C" stroke-linejoin="round"/></symbol>
   <symbol id="o-cal" viewBox="0 0 96 96" fill="none" stroke="#1F1C18" stroke-width="2.5"><rect x="18" y="22" width="60" height="56" rx="6" fill="#fff"/><line x1="18" y1="36" x2="78" y2="36" stroke-width="2"/><line x1="32" y1="14" x2="32" y2="26" stroke-width="4" stroke-linecap="round"/><line x1="64" y1="14" x2="64" y2="26" stroke-width="4" stroke-linecap="round"/><circle cx="32" cy="50" r="4" fill="#C0392B" stroke="none"/><circle cx="48" cy="50" r="4" fill="#1F1C18" stroke="none"/><circle cx="64" cy="50" r="4" fill="#1F1C18" stroke="none"/><circle cx="32" cy="64" r="4" fill="#1F1C18" stroke="none"/><circle cx="48" cy="64" r="4" fill="#1F1C18" stroke="none"/></symbol>
+  <symbol id="o-paw" viewBox="0 0 96 96" fill="none" stroke="#1F1C18" stroke-width="2.5"><ellipse cx="48" cy="62" rx="17" ry="12" fill="#D9C7A5"/><circle cx="28" cy="42" r="7" fill="#D9C7A5"/><circle cx="48" cy="32" r="7" fill="#D9C7A5"/><circle cx="68" cy="42" r="7" fill="#D9C7A5"/></symbol>
+  <symbol id="o-ball" viewBox="0 0 96 96" fill="none" stroke="#1F1C18" stroke-width="2.5"><circle cx="48" cy="48" r="26" fill="#F5CBA7"/><path d="M24 40 Q48 52 72 40" stroke-width="2"/></symbol>
+  <symbol id="o-tie" viewBox="0 0 96 96" fill="none" stroke="#1F1C18" stroke-width="2.5"><path d="M40 16 H56 L52 30 L60 74 L48 88 L36 74 L44 30 Z" fill="#C0392B" stroke-linejoin="round"/></symbol>
+  <symbol id="o-dress" viewBox="0 0 96 96" fill="none" stroke="#1F1C18" stroke-width="2.5"><path d="M36 16 Q48 24 60 16 L66 30 L78 76 Q48 86 18 76 L30 30 Z" fill="#F5B7B1" stroke-linejoin="round"/></symbol>
+  <symbol id="o-truck" viewBox="0 0 96 96" fill="none" stroke="#1F1C18" stroke-width="2.5"><rect x="12" y="30" width="42" height="30" rx="3" fill="#AED6F1"/><rect x="54" y="42" width="26" height="18" rx="3" fill="#F2C94C"/><circle cx="28" cy="66" r="9" fill="#1F1C18" stroke="none"/><circle cx="66" cy="66" r="9" fill="#1F1C18" stroke="none"/></symbol>
+  <symbol id="o-chip" viewBox="0 0 96 96" fill="none" stroke="#1F1C18" stroke-width="2.5"><rect x="28" y="28" width="40" height="40" rx="6" fill="#2C3E50"/><line x1="38" y1="28" x2="38" y2="18" stroke-width="3"/><line x1="58" y1="28" x2="58" y2="18" stroke-width="3"/><line x1="38" y1="68" x2="38" y2="78" stroke-width="3"/><line x1="58" y1="68" x2="58" y2="78" stroke-width="3"/><line x1="28" y1="38" x2="18" y2="38" stroke-width="3"/><line x1="28" y1="58" x2="18" y2="58" stroke-width="3"/><line x1="68" y1="38" x2="78" y2="38" stroke-width="3"/><line x1="68" y1="58" x2="78" y2="58" stroke-width="3"/></symbol>
+  <symbol id="o-bookmark" viewBox="0 0 96 96" fill="none" stroke="#1F1C18" stroke-width="2.5"><path d="M30 16 H66 V80 L48 66 L30 80 Z" fill="#F2C94C" stroke-linejoin="round"/></symbol>
+  <symbol id="o-wheel" viewBox="0 0 96 96" fill="none" stroke="#1F1C18" stroke-width="2.5"><circle cx="48" cy="48" r="26"/><circle cx="48" cy="48" r="8"/><line x1="48" y1="22" x2="48" y2="40" stroke-width="3"/><line x1="26" y1="61" x2="41" y2="52" stroke-width="3"/><line x1="70" y1="61" x2="55" y2="52" stroke-width="3"/></symbol>
 </defs></svg>
 
 <div class="wrap">
@@ -282,134 +303,137 @@
     <div class="verdict"><b>Best at:</b> the "this is your life" feeling — it tells a story as you scroll. <b>Risk:</b> some topics don't belong to a time of day (Legal? Wealth?), so they get exiled to "Anytime" and the story frays.</div>
   </section>
 
-    <!-- CONCEPT E : THE WHOLE DESK -->
-  <section class="board" id="mess">
-    <h2>E · The Whole Desk</h2>
-    <p class="why">The lofi mess, exhaustive: every topic and its subtopics, as one big desk. Related things sit closer together — money &amp; work at the top, home &amp; body next, out &amp; about, then screens &amp; skills. Scroll the desk. Tap anything to see where it goes.</p>
-    <div class="mess">
-      <span class="mote" style="left:12%; top:6%;"></span>
-      <span class="mote" style="left:55%; top:3%; animation-delay:1.2s;"></span>
-      <span class="mote" style="left:88%; top:12%; animation-delay:2.1s;"></span>
-      <div class="mob r3" style="position:absolute; right:14px; top:10px;"><svg><use href="#o-lamp"/></svg><span style="opacity:0.45; font-size:11px;">lamp · just vibes</span></div>
-      <div class="zone"><div class="zone-label">Money &amp; Work</div>
-        <div class="cluster r1">
-          <div class="hero2" data-t="Wealth"><svg><use href="#o-wallet"/></svg><span class="ht2">Wealth</span></div>
-          <div class="mini2 r2" data-t="Wealth — Generating Wealth"><svg><use href="#o-chart"/></svg><span>Generating Wealth</span></div>
-          <div class="mini2 r5" data-t="Wealth — Investing"><svg><use href="#o-coin"/></svg><span>Investing</span></div>
-          <div class="mini2 r6 hl-glow" data-t="Wealth — Insurance &amp; Tax"><svg><use href="#o-bill"/></svg><span>Insurance &amp; Tax</span><span class="note">Tax season — due soon</span></div>
-          <div class="mini2 r3" data-t="Wealth — Spending &amp; Tracking"><svg><use href="#o-cal"/></svg><span>Spending &amp; Tracking</span></div>
-          <div class="mini2 r4" data-t="Wealth — Credit Cards &amp; Loans"><svg><use href="#o-card"/></svg><span>Cards &amp; Loans</span></div>
+      <!-- CONCEPT E : THE WHOLE DESK (viewport stage) -->
+  <section class="board" id="mess" style="padding:0; overflow:hidden;">
+    <div style="padding:20px 16px 8px;">
+      <h2>E · The Whole Desk</h2>
+      <p class="why" style="margin-bottom:0;">All of it, in one viewport — no scrolling. 14 topics, 67 subtopics, repetitions removed, everything vector-crisp. Tap any cluster to zoom it sharp; tap again (or the empty desk) to pull back.</p>
+    </div>
+    <div class="desk-wrap" id="deskWrap">
+      <div class="desk" id="desk">
+        <span class="mote" style="left:10%; top:4%;"></span>
+        <span class="mote" style="left:52%; top:2%; animation-delay:1.2s;"></span>
+        <span class="mote" style="left:90%; top:8%; animation-delay:2.1s;"></span>
+        <div class="dzone"><div class="dzone-label">Money &amp; Work</div>
+          <div class="dclust" style="transform:rotate(-2deg);">
+            <div class="demblem" data-t="Wealth"><svg><use href="#o-wallet"/></svg><span class="dt">Wealth</span></div>
+            <div class="dsub" data-t="Wealth — Generating Wealth"><svg><use href="#o-chart"/></svg><span>Generating Wealth</span></div>
+            <div class="dsub" data-t="Wealth — Investing"><svg><use href="#o-coin"/></svg><span>Investing</span></div>
+            <div class="dsub hl-glow" data-t="Wealth — Insurance &amp; Tax"><svg><use href="#o-bill"/></svg><span>Insurance &amp; Tax</span><span class="note">Tax season — due soon</span></div>
+            <div class="dsub" data-t="Wealth — Spending &amp; Tracking"><svg><use href="#o-cal"/></svg><span>Spending &amp; Tracking</span></div>
+            <div class="dsub" data-t="Wealth — Credit Cards &amp; Loans"><svg><use href="#o-card"/></svg><span>Cards &amp; Loans</span></div>
+          </div>
+          <div class="dclust" style="transform:rotate(2deg);">
+            <div class="demblem" data-t="Career"><svg><use href="#o-badge"/></svg><span class="dt">Career</span></div>
+            <div class="dsub" data-t="Career — Choosing Career"><svg><use href="#o-compass"/></svg><span>Choosing Career</span></div>
+            <div class="dsub" data-t="Career — Job Search"><svg><use href="#o-mag"/></svg><span>Job Search</span></div>
+            <div class="dsub" data-t="Career — Career Ladder"><svg><use href="#o-ladder"/></svg><span>Career Ladder</span></div>
+            <div class="dsub" data-t="Career — Resigning"><svg><use href="#o-door"/></svg><span>Resigning</span></div>
+          </div>
+          <div class="dclust" style="transform:rotate(-1deg);">
+            <div class="demblem" data-t="Legal"><svg><use href="#o-doc"/></svg><span class="dt">Legal</span></div>
+            <div class="dsub" data-t="Legal — Basic"><svg><use href="#o-shield"/></svg><span>Basic</span></div>
+          </div>
+          <div class="dclust" style="transform:rotate(1deg);">
+            <div class="demblem" data-t="Community"><svg><use href="#o-chat"/></svg><span class="dt"><span class="dot"></span>Community · NEW</span></div>
+            <span class="dpill" data-t="Community — Analytics">Analytics</span>
+            <span class="dpill" data-t="Community — Credit Risk">Credit Risk</span>
+            <span class="dpill" data-t="Community — CXOs">CXOs</span>
+            <span class="dpill" data-t="Community — Cybersecurity">Cybersecurity</span>
+            <span class="dpill" data-t="Community — Design">Design</span>
+            <span class="dpill" data-t="Community — Finance">Finance</span>
+            <span class="dpill" data-t="Community — Freshers">Freshers</span>
+            <span class="dpill" data-t="Community — Healthcare">Healthcare</span>
+            <span class="dpill" data-t="Community — HRs">HRs</span>
+            <span class="dpill" data-t="Community — Legal">Legal</span>
+            <span class="dpill" data-t="Community — Marketing">Marketing</span>
+            <span class="dpill" data-t="Community — Sales">Sales</span>
+            <span class="dpill" data-t="Community — Software Eng.">Software Eng.</span>
+            <span class="dpill" data-t="Community — Supply Chain">Supply Chain</span>
+          </div>
         </div>
-        <div class="cluster r2">
-          <div class="hero2" data-t="Career"><svg><use href="#o-badge"/></svg><span class="ht2">Career</span></div>
-          <div class="mini2 r5" data-t="Career — Choosing Career"><svg><use href="#o-compass"/></svg><span>Choosing Career</span></div>
-          <div class="mini2 r1" data-t="Career — Job Search"><svg><use href="#o-mag"/></svg><span>Job Search</span></div>
-          <div class="mini2 r4" data-t="Career — Career Ladder"><svg><use href="#o-ladder"/></svg><span>Career Ladder</span></div>
-          <div class="mini2 r6" data-t="Career — Resigning"><svg><use href="#o-door"/></svg><span>Resigning</span></div>
+        <div class="dzone"><div class="dzone-label">Home &amp; Body</div>
+          <div class="dclust" style="transform:rotate(2deg);">
+            <div class="demblem" data-t="Home"><svg><use href="#o-key"/></svg><span class="dt">Home</span></div>
+            <div class="dsub" data-t="Home — Kitchen"><svg><use href="#o-pan"/></svg><span>Kitchen</span></div>
+            <div class="dsub" data-t="Home — Bedroom"><svg><use href="#o-bed"/></svg><span>Bedroom</span></div>
+            <div class="dsub" data-t="Home — Living Room"><svg><use href="#o-sofa"/></svg><span>Living Room</span></div>
+            <div class="dsub" data-t="Home — Bathroom"><svg><use href="#o-bath"/></svg><span>Bathroom</span></div>
+            <div class="dsub" data-t="Home — Garden"><svg><use href="#o-plant"/></svg><span>Garden</span></div>
+          </div>
+          <div class="dclust" style="transform:rotate(-2deg);">
+            <div class="demblem" data-t="Health"><svg><use href="#o-bottle"/></svg><span class="dt">Health</span></div>
+            <div class="dsub" data-t="Health — Basics"><svg><use href="#o-apple"/></svg><span>Basics</span></div>
+            <div class="dsub" data-t="Health — Exercise"><svg><use href="#o-dumb"/></svg><span>Exercise</span></div>
+            <div class="dsub" data-t="Health — Check Up"><svg><use href="#o-heart"/></svg><span>Check Up</span></div>
+            <div class="dsub" data-t="Health — Mental Health"><svg><use href="#o-bulb"/></svg><span>Mental Health</span></div>
+            <div class="dsub" data-t="Health — Periods"><svg><use href="#o-drop"/></svg><span>Periods</span></div>
+          </div>
+          <div class="dclust" style="transform:rotate(1deg);">
+            <div class="demblem" data-t="Pets"><svg><use href="#o-paw"/></svg><span class="dt">Pets</span></div>
+            <div class="dsub" data-t="Pets — Cats"><svg><use href="#o-cat"/></svg><span>Cats</span></div>
+            <div class="dsub" data-t="Pets — Dogs"><svg><use href="#o-dog"/></svg><span>Dogs</span></div>
+          </div>
+          <div class="dclust" style="transform:rotate(-3deg);">
+            <div class="demblem" data-t="People"><svg><use href="#o-cups"/></svg><span class="dt">People</span></div>
+            <div class="dsub" data-t="People — Self"><svg><use href="#o-star"/></svg><span>Self</span></div>
+            <div class="dsub" data-t="People — Parents"><svg><use href="#o-heart"/></svg><span>Parents</span></div>
+            <div class="dsub" data-t="People — Partner"><svg><use href="#o-ring"/></svg><span>Partner</span></div>
+            <div class="dsub" data-t="People — Kids"><svg><use href="#o-ball"/></svg><span>Kids</span></div>
+            <div class="dsub" data-t="People — Friends"><svg><use href="#o-users"/></svg><span>Friends</span></div>
+            <div class="dsub" data-t="People — Relatives"><svg><use href="#o-house"/></svg><span>Relatives</span></div>
+            <div class="dsub" data-t="People — Colleagues"><svg><use href="#o-chat"/></svg><span>Colleagues</span></div>
+            <div class="dsub" data-t="People — Roommate"><svg><use href="#o-key"/></svg><span>Roommate</span></div>
+            <div class="dsub" data-t="People — Enemies"><svg><use href="#o-no"/></svg><span>Enemies</span></div>
+          </div>
         </div>
-        <div class="cluster r5">
-          <div class="hero2" data-t="Legal"><svg><use href="#o-doc"/></svg><span class="ht2">Legal</span></div>
-          <div class="mini2 r2" data-t="Legal — Basic"><svg><use href="#o-doc"/></svg><span>Basic</span></div>
+        <div class="dzone"><div class="dzone-label">Out &amp; About</div>
+          <div class="dclust" style="transform:rotate(-2deg);">
+            <div class="demblem" data-t="Travel"><span class="dt">Travel</span></div>
+            <div class="dsub" data-t="Travel — Train"><svg class="flutter"><use href="#o-train"/></svg><span>Train</span></div>
+            <div class="dsub" data-t="Travel — Flights"><svg class="flutter"><use href="#o-flight"/></svg><span>Flights</span></div>
+          </div>
+          <div class="dclust" style="transform:rotate(3deg);">
+            <div class="demblem" data-t="Fashion"><svg><use href="#o-tee"/></svg><span class="dt">Fashion</span></div>
+            <div class="dsub" data-t="Fashion — Men"><svg><use href="#o-tie"/></svg><span>Men</span></div>
+            <div class="dsub" data-t="Fashion — Women"><svg><use href="#o-dress"/></svg><span>Women</span></div>
+          </div>
+          <div class="dclust" style="transform:rotate(-1deg);">
+            <div class="demblem" data-t="Life Events"><svg><use href="#o-gift"/></svg><span class="dt">Life Events</span></div>
+            <div class="dsub" data-t="Life Events — Buying Home"><svg><use href="#o-house"/></svg><span>Buying Home</span></div>
+            <div class="dsub" data-t="Life Events — Marriage"><svg><use href="#o-ring"/></svg><span>Marriage</span></div>
+            <div class="dsub" data-t="Life Events — Pregnancy"><svg><use href="#o-heart"/></svg><span>Pregnancy</span></div>
+            <div class="dsub" data-t="Life Events — Buying a Car"><svg><use href="#o-car"/></svg><span>Buying a Car</span></div>
+            <div class="dsub" data-t="Life Events — Moving to a New City"><svg><use href="#o-truck"/></svg><span>Moving City</span></div>
+          </div>
         </div>
-        <div class="cluster r3">
-          <div class="hero2" data-t="Community"><svg><use href="#o-chat"/></svg><span class="ht2"><span class="dot"></span>Community · NEW</span></div>
-          <div class="mini2 r1" data-t="Community — Analytics"><svg><use href="#o-chat"/></svg><span>Analytics</span></div>
-          <div class="mini2 r4" data-t="Community — Credit Risk"><svg><use href="#o-chat"/></svg><span>Credit Risk</span></div>
-          <div class="mini2 r2" data-t="Community — CXOs"><svg><use href="#o-chat"/></svg><span>CXOs</span></div>
-          <div class="mini2 r6" data-t="Community — Cybersecurity"><svg><use href="#o-chat"/></svg><span>Cybersecurity</span></div>
-          <div class="mini2 r3" data-t="Community — Design"><svg><use href="#o-chat"/></svg><span>Design</span></div>
-          <div class="mini2 r5" data-t="Community — Finance"><svg><use href="#o-chat"/></svg><span>Finance</span></div>
-          <div class="mini2 r2" data-t="Community — Freshers"><svg><use href="#o-chat"/></svg><span>Freshers</span></div>
-          <div class="mini2 r4" data-t="Community — Healthcare"><svg><use href="#o-chat"/></svg><span>Healthcare</span></div>
-          <div class="mini2 r1" data-t="Community — HRs"><svg><use href="#o-chat"/></svg><span>HRs</span></div>
-          <div class="mini2 r6" data-t="Community — Legal"><svg><use href="#o-chat"/></svg><span>Legal</span></div>
-          <div class="mini2 r3" data-t="Community — Marketing"><svg><use href="#o-chat"/></svg><span>Marketing</span></div>
-          <div class="mini2 r5" data-t="Community — Sales"><svg><use href="#o-chat"/></svg><span>Sales</span></div>
-          <div class="mini2 r2" data-t="Community — Software Eng."><svg><use href="#o-chat"/></svg><span>Software Eng.</span></div>
-          <div class="mini2 r4" data-t="Community — Supply Chain"><svg><use href="#o-chat"/></svg><span>Supply Chain</span></div>
-        </div>
-      </div>
-      <div class="zone"><div class="zone-label">Home &amp; Body</div>
-        <div class="cluster r2">
-          <div class="hero2" data-t="Home"><svg><use href="#o-key"/></svg><span class="ht2">Home</span></div>
-          <div class="mini2 r5" data-t="Home — Kitchen"><svg><use href="#o-pan"/></svg><span>Kitchen</span></div>
-          <div class="mini2 r1" data-t="Home — Bedroom"><svg><use href="#o-bed"/></svg><span>Bedroom</span></div>
-          <div class="mini2 r4" data-t="Home — Living Room"><svg><use href="#o-sofa"/></svg><span>Living Room</span></div>
-          <div class="mini2 r6" data-t="Home — Bathroom"><svg><use href="#o-bath"/></svg><span>Bathroom</span></div>
-          <div class="mini2 r3" data-t="Home — Garden"><svg><use href="#o-plant"/></svg><span>Garden</span></div>
-        </div>
-        <div class="cluster r4">
-          <div class="hero2" data-t="Health"><svg><use href="#o-bottle"/></svg><span class="ht2">Health</span></div>
-          <div class="mini2 r2" data-t="Health — Basics"><svg><use href="#o-apple"/></svg><span>Basics</span></div>
-          <div class="mini2 r6" data-t="Health — Exercise"><svg><use href="#o-dumb"/></svg><span>Exercise</span></div>
-          <div class="mini2 r1" data-t="Health — Check Up"><svg><use href="#o-heart"/></svg><span>Check Up</span></div>
-          <div class="mini2 r5" data-t="Health — Mental Health"><svg><use href="#o-bulb"/></svg><span>Mental Health</span></div>
-          <div class="mini2 r3" data-t="Health — Periods"><svg><use href="#o-drop"/></svg><span>Periods</span></div>
-        </div>
-        <div class="cluster r1">
-          <div class="hero2" data-t="Pets"><svg><use href="#o-dog"/></svg><svg><use href="#o-cat"/></svg><span class="ht2">Pets</span></div>
-          <div class="mini2 r5" data-t="Pets — Cats"><svg><use href="#o-cat"/></svg><span>Cats</span></div>
-          <div class="mini2 r2" data-t="Pets — Dogs"><svg><use href="#o-dog"/></svg><span>Dogs</span></div>
-        </div>
-        <div class="cluster r6">
-          <div class="hero2" data-t="People"><svg><use href="#o-cups"/></svg><span class="ht2">People</span></div>
-          <div class="mini2 r3" data-t="People — Self"><svg><use href="#o-star"/></svg><span>Self</span></div>
-          <div class="mini2 r1" data-t="People — Parents"><svg><use href="#o-heart"/></svg><span>Parents</span></div>
-          <div class="mini2 r5" data-t="People — Partner"><svg><use href="#o-ring"/></svg><span>Partner</span></div>
-          <div class="mini2 r2" data-t="People — Kids"><svg><use href="#o-users"/></svg><span>Kids</span></div>
-          <div class="mini2 r4" data-t="People — Friends"><svg><use href="#o-cups"/></svg><span>Friends</span></div>
-          <div class="mini2 r6" data-t="People — Relatives"><svg><use href="#o-users"/></svg><span>Relatives</span></div>
-          <div class="mini2 r3" data-t="People — Colleagues"><svg><use href="#o-chat"/></svg><span>Colleagues</span></div>
-          <div class="mini2 r1" data-t="People — Roommate"><svg><use href="#o-key"/></svg><span>Roommate</span></div>
-          <div class="mini2 r5" data-t="People — Enemies"><svg><use href="#o-no"/></svg><span>Enemies</span></div>
-        </div>
-      </div>
-      <div class="zone"><div class="zone-label">Out &amp; About</div>
-        <div class="cluster r3">
-          <div class="hero2" data-t="Travel"><svg class="flutter"><use href="#o-train"/></svg><svg class="flutter"><use href="#o-flight"/></svg><span class="ht2">Travel</span></div>
-          <div class="mini2 r1" data-t="Travel — Train"><svg class="flutter"><use href="#o-train"/></svg><span>Train</span></div>
-          <div class="mini2 r5" data-t="Travel — Flights"><svg class="flutter"><use href="#o-flight"/></svg><span>Flights</span></div>
-        </div>
-        <div class="cluster r5">
-          <div class="hero2" data-t="Fashion"><svg><use href="#o-tee"/></svg><span class="ht2">Fashion</span></div>
-          <div class="mini2 r2" data-t="Fashion — Men"><svg><use href="#o-tee"/></svg><span>Men</span></div>
-          <div class="mini2 r6" data-t="Fashion — Women"><svg><use href="#o-tee"/></svg><span>Women</span></div>
-        </div>
-        <div class="cluster r1">
-          <div class="hero2" data-t="Life Events"><svg><use href="#o-gift"/></svg><span class="ht2">Life Events</span></div>
-          <div class="mini2 r4" data-t="Life Events — Buying Home"><svg><use href="#o-house"/></svg><span>Buying Home</span></div>
-          <div class="mini2 r2" data-t="Life Events — Marriage"><svg><use href="#o-ring"/></svg><span>Marriage</span></div>
-          <div class="mini2 r6" data-t="Life Events — Pregnancy"><svg><use href="#o-heart"/></svg><span>Pregnancy</span></div>
-          <div class="mini2 r3" data-t="Life Events — Buying a Car"><svg><use href="#o-car"/></svg><span>Buying a Car</span></div>
-          <div class="mini2 r5" data-t="Life Events — Moving to a New City"><svg><use href="#o-key"/></svg><span>Moving City</span></div>
-        </div>
-      </div>
-      <div class="zone"><div class="zone-label">Screens &amp; Skills</div>
-        <div class="cluster r2">
-          <div class="hero2" data-t="Tech"><svg><use href="#o-phone"/></svg><span class="ht2">Tech</span></div>
-          <div class="mini2 r5" data-t="Tech — Mobile"><svg><use href="#o-phone"/></svg><span>Mobile</span></div>
-          <div class="mini2 r1" data-t="Tech — TV"><svg class="flicker"><use href="#o-tv"/></svg><span>TV</span></div>
-          <div class="mini2 r4" data-t="Tech — Earphones"><svg><use href="#o-ears"/></svg><span>Earphones</span></div>
-          <div class="mini2 r6" data-t="Tech — Power Bank"><svg><use href="#o-batt"/></svg><span>Power Bank</span></div>
-        </div>
-        <div class="cluster r6">
-          <div class="hero2" data-t="Content"><svg><use href="#o-book"/></svg><span class="ht2">Content</span></div>
-          <div class="mini2 r3" data-t="Content — News"><svg><use href="#o-news"/></svg><span>News</span></div>
-          <div class="mini2 r1" data-t="Content — Movies &amp; Shows"><svg class="flicker"><use href="#o-tv"/></svg><span>Movies &amp; Shows</span></div>
-          <div class="mini2 r5" data-t="Content — Songs"><svg><use href="#o-note"/></svg><span>Songs</span></div>
-          <div class="mini2 r2" data-t="Content — Books"><svg><use href="#o-book"/></svg><span>Books</span></div>
-        </div>
-        <div class="cluster r4">
-          <div class="hero2" data-t="Life Skills"><svg><use href="#o-toolbox"/></svg><span class="ht2">Life Skills</span></div>
-          <div class="mini2 r1" data-t="Life Skills — Driving"><svg><use href="#o-car"/></svg><span>Driving</span></div>
-          <div class="mini2 r5" data-t="Life Skills — Swimming"><svg><use href="#o-waves"/></svg><span>Swimming</span></div>
-          <div class="mini2 r3" data-t="Life Skills — Hobbies"><svg><use href="#o-star"/></svg><span>Hobbies</span></div>
-          <div class="mini2 r6" data-t="Life Skills — Problem Solving"><svg><use href="#o-bulb"/></svg><span>Problem Solving</span></div>
-          <div class="mini2 r2" data-t="Life Skills — Reminders"><svg><use href="#o-cal"/></svg><span>Reminders</span></div>
+        <div class="dzone"><div class="dzone-label">Screens &amp; Skills</div>
+          <div class="dclust" style="transform:rotate(2deg);">
+            <div class="demblem" data-t="Tech"><svg><use href="#o-chip"/></svg><span class="dt">Tech</span></div>
+            <div class="dsub" data-t="Tech — Mobile"><svg><use href="#o-phone"/></svg><span>Mobile</span></div>
+            <div class="dsub" data-t="Tech — TV"><svg class="flicker"><use href="#o-tv"/></svg><span>TV</span></div>
+            <div class="dsub" data-t="Tech — Earphones"><svg><use href="#o-ears"/></svg><span>Earphones</span></div>
+            <div class="dsub" data-t="Tech — Power Bank"><svg><use href="#o-batt"/></svg><span>Power Bank</span></div>
+          </div>
+          <div class="dclust" style="transform:rotate(-2deg);">
+            <div class="demblem" data-t="Content"><svg><use href="#o-book"/></svg><span class="dt">Content</span></div>
+            <div class="dsub" data-t="Content — News"><svg><use href="#o-news"/></svg><span>News</span></div>
+            <div class="dsub" data-t="Content — Movies &amp; Shows"><svg class="flicker"><use href="#o-tv"/></svg><span>Movies &amp; Shows</span></div>
+            <div class="dsub" data-t="Content — Songs"><svg><use href="#o-note"/></svg><span>Songs</span></div>
+            <div class="dsub" data-t="Content — Books"><svg><use href="#o-bookmark"/></svg><span>Books</span></div>
+          </div>
+          <div class="dclust" style="transform:rotate(1deg);">
+            <div class="demblem" data-t="Life Skills"><svg><use href="#o-toolbox"/></svg><span class="dt">Life Skills</span></div>
+            <div class="dsub" data-t="Life Skills — Driving"><svg><use href="#o-wheel"/></svg><span>Driving</span></div>
+            <div class="dsub" data-t="Life Skills — Swimming"><svg><use href="#o-waves"/></svg><span>Swimming</span></div>
+            <div class="dsub" data-t="Life Skills — Hobbies"><svg><use href="#o-star"/></svg><span>Hobbies</span></div>
+            <div class="dsub" data-t="Life Skills — Problem Solving"><svg><use href="#o-bulb"/></svg><span>Problem Solving</span></div>
+            <div class="dsub" data-t="Life Skills — Reminders"><svg><use href="#o-cal"/></svg><span>Reminders</span></div>
+          </div>
         </div>
       </div>
     </div>
-    <div class="verdict"><b>Best at:</b> completeness without losing the vibe — everything the site actually has, on one scrollable desk, and closeness means something: money topics huddle, home topics huddle, going-out topics huddle. <b>Risk:</b> it's a lot — 14 topics, 67 subtopics, 81 things. The fix is the rule that already holds: only two things lit up (the tax bill, the NEW community), everything else quiet, and tapping anything says exactly where it goes. In the real build, the lit-up things would rotate — tax season now, something else next month.</div>
+    <div class="verdict" style="margin:16px;"><b>How it fits:</b> the whole desk is drawn once at a fixed size, then scaled to your exact screen — no scrolling, nothing cut off. <b>How it stays crisp:</b> every object is vector, so it never blurs, and tapping a cluster zooms it to full sharpness while the rest dims. <b>What got cut:</b> 15 repeated icons — the 14 identical Community bubbles are now one emblem + compact pills, and no topic emblem repeats one of its own subtopics. A few generic icons (heart, ring) still do double duty as vocabulary, not as repeats.</div>
   </section>
 
 <!-- CONCEPT F : ISOMETRIC -->
@@ -493,6 +517,41 @@
       timer = setTimeout(function () { toast.style.display = 'none'; }, 1600);
     });
   });
+</script>
+<script>
+  (function () {
+    var wrap = document.getElementById('deskWrap');
+    var desk = document.getElementById('desk');
+    if (!wrap || !desk) return;
+    var fit = 1, focused = null;
+    function applyFit() {
+      var s = Math.min(wrap.clientWidth / 1280, wrap.clientHeight / desk.offsetHeight);
+      fit = s;
+      if (!focused) desk.style.transform = 'scale(' + s + ')';
+    }
+    function focusCluster(el) {
+      var cx = el.offsetLeft + el.offsetWidth / 2;
+      var cy = el.offsetTop + el.offsetHeight / 2;
+      var z = fit * 2;
+      desk.style.transform = 'translate(' + (wrap.clientWidth / 2 - cx * z) + 'px,' + (wrap.clientHeight / 2 - cy * z) + 'px) scale(' + z + ')';
+      document.querySelectorAll('.dclust').forEach(function (c) { c.classList.toggle('dim', c !== el); });
+      focused = el;
+    }
+    function unfocus() {
+      focused = null;
+      document.querySelectorAll('.dclust').forEach(function (c) { c.classList.remove('dim'); });
+      applyFit();
+    }
+    document.querySelectorAll('.dclust').forEach(function (el) {
+      el.addEventListener('click', function (ev) {
+        ev.stopPropagation();
+        if (focused === el) unfocus(); else focusCluster(el);
+      });
+    });
+    wrap.addEventListener('click', function () { if (focused) unfocus(); });
+    window.addEventListener('resize', function () { if (focused) focusCluster(focused); else applyFit(); });
+    applyFit();
+  })();
 </script>
 </body>
 </html>
