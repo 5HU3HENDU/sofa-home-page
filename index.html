@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>School of Adults — homepage concept boards (mockups)</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #F7F3E8; color: #1F1C18; line-height: 1.5; }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 24px 16px 60px; }
+  h1 { font-family: Georgia, serif; font-size: 34px; margin: 0 0 6px; }
+  .sub { color: #5c6653; margin: 0 0 4px; }
+  .mocknote { background: #FFF3CD; border: 1px solid #E5C07B; border-radius: 8px; padding: 10px 14px; font-size: 14px; margin: 16px 0 24px; }
+  .nav { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 32px; }
+  .nav a { background: #1F1C18; color: #F7F3E8; text-decoration: none; padding: 8px 14px; border-radius: 999px; font-size: 14px; }
+  section.board { background: #FFFEF9; border: 2px solid #1F1C18; border-radius: 16px; padding: 20px 16px; margin-bottom: 36px; }
+  section.board h2 { font-family: Georgia, serif; font-size: 24px; margin: 0 0 4px; }
+  section.board .why { color: #5c6653; margin: 0 0 18px; font-size: 15px; }
+  .verdict { background: #F0EDE2; border-radius: 8px; padding: 10px 14px; font-size: 14px; margin-top: 18px; }
+  .verdict b { font-family: Georgia, serif; }
+  .ob { display: inline-flex; flex-direction: column; align-items: center; gap: 2px; cursor: pointer; padding: 6px; border-radius: 10px; }
+  .ob:active { background: #F0EDE2; }
+  .ob svg { width: 64px; height: 64px; }
+  .ob span { font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600; text-align: center; }
+  .ob small { font-size: 11px; color: #7a7f72; text-transform: none; letter-spacing: 0; font-weight: 400; }
+  /* room scene */
+  .room { border: 2px solid #1F1C18; border-radius: 12px; overflow: hidden; background: #FBF6E9; }
+  .room .shelfrow, .room .deskrow, .room .floorrow { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 10px; padding: 10px 6px; }
+  .room .shelfrow { border-bottom: 3px solid #C9A96A; }
+  .room .deskrow { border-bottom: 3px solid #8A6D3B; background: #F3EAD3; }
+  .room .floorrow { background: #EDE3CB; }
+  .room .rowlabel { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #8a8f82; text-align: center; padding-top: 8px; }
+  /* shelf grid */
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .card { border: 2px solid #1F1C18; border-radius: 12px; padding: 14px 10px; text-align: center; background: #fff; cursor: pointer; }
+  .card svg { width: 72px; height: 72px; }
+  .card .t { font-family: Georgia, serif; font-size: 18px; }
+  .card .d { font-size: 13px; color: #5c6653; }
+  /* hero */
+  .hero { border: 2px solid #1F1C18; border-radius: 12px; padding: 18px; text-align: center; background: #FFF8DC; margin-bottom: 14px; }
+  .hero svg { width: 110px; height: 110px; }
+  .hero .kicker { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #8a5a00; font-weight: 700; }
+  .hero .ht { font-family: Georgia, serif; font-size: 26px; margin: 4px 0; }
+  .hero .hw { font-size: 15px; color: #5c6653; }
+  .minigrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .mini { text-align: center; padding: 8px 2px; }
+  .mini svg { width: 48px; height: 48px; }
+  .mini span { display: block; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; font-weight: 600; }
+  /* day strip */
+  .slot { margin-bottom: 14px; }
+  .slot .when { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #8a8f82; font-weight: 700; margin-bottom: 4px; }
+  .slot .objs { display: flex; flex-wrap: wrap; gap: 4px 10px; }
+  /* highlight treatments */
+  .hl-glow { animation: glow 2.2s ease-in-out infinite; border-radius: 12px; }
+  @keyframes glow { 0%, 100% { box-shadow: 0 0 0 0 rgba(200,120,0,0); } 50% { box-shadow: 0 0 0 4px rgba(200,120,0,0.35), 0 0 22px 4px rgba(200,120,0,0.35); } }
+  .note { display: inline-block; background: #FFE08A; border: 1px solid #D9A400; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px; transform: rotate(-2deg); }
+  .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #C0392B; animation: blink 1.6s ease-in-out infinite; vertical-align: middle; margin-right: 4px; }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
+  .flutter { animation: flutter 3.5s ease-in-out infinite; transform-origin: bottom left; }
+  @keyframes flutter { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(-2.5deg); } }
+  .flicker { animation: flick 4s linear infinite; }
+  @keyframes flick { 0%, 92%, 100% { opacity: 1; } 93% { opacity: 0.6; } 94% { opacity: 1; } 96% { opacity: 0.75; } }
+  .floaty { animation: floaty 3s ease-in-out infinite; }
+  @keyframes floaty { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+  .treats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .treat { border: 2px solid #1F1C18; border-radius: 12px; padding: 14px; text-align: center; background: #fff; }
+  .treat svg { width: 64px; height: 64px; }
+  .treat p { font-size: 13px; color: #5c6653; margin: 8px 0 0; }
+  .mess { position: relative; border: 2px solid #1F1C18; border-radius: 12px; overflow: hidden; padding: 22px 10px 16px; background: radial-gradient(600px 300px at 82% 8%, rgba(255,214,120,0.55), rgba(255,214,120,0) 70%), linear-gradient(180deg, #FBEED3, #F6DFAE); }
+  .mess .mrow { display: flex; flex-wrap: wrap; justify-content: space-around; align-items: flex-end; gap: 6px 14px; }
+  .mess .mrow + .mrow { margin-top: 16px; }
+  .mob { display: inline-flex; flex-direction: column; align-items: center; cursor: pointer; padding: 4px; }
+  .mob svg { width: 64px; height: 64px; }
+  .mob.big svg { width: 88px; height: 88px; }
+  .mob.small svg { width: 50px; height: 50px; }
+  .mob svg.steam { width: 36px; height: 28px; }
+  .mob span { font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; font-weight: 600; text-align: center; }
+  .r1 { transform: rotate(-7deg); } .r2 { transform: rotate(5deg); } .r3 { transform: rotate(-3deg); } .r4 { transform: rotate(8deg); } .r5 { transform: rotate(-10deg); } .r6 { transform: rotate(3deg); }
+  .overlap { margin-left: -16px; }
+  .mote { position: absolute; width: 5px; height: 5px; border-radius: 50%; background: rgba(120,90,40,0.35); animation: floaty 5s ease-in-out infinite; }
+  .steam path { stroke-dasharray: 20; animation: steam 3s ease-in-out infinite; opacity: 0; }
+  .steam path:nth-child(2) { animation-delay: 1.5s; }
+  @keyframes steam { 0% { opacity: 0; transform: translateY(4px); } 30% { opacity: 0.8; } 100% { opacity: 0; transform: translateY(-8px); } }
+  #toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: #1F1C18; color: #F7F3E8; padding: 10px 18px; border-radius: 999px; font-size: 14px; display: none; z-index: 10; white-space: nowrap; }
+  @media (max-width: 560px) { .minigrid { grid-template-columns: repeat(3, 1fr); } .treats { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="o-train" viewBox="0 0 96 96"><rect x="8" y="30" width="80" height="38" rx="6" fill="#DCE9F5" stroke="#1F1C18" stroke-width="2.5"/><line x1="60" y1="30" x2="60" y2="68" stroke="#1F1C18" stroke-width="2" stroke-dasharray="4 4"/><rect x="16" y="38" width="14" height="10" rx="2" fill="#fff" stroke="#1F1C18" stroke-width="1.5"/><rect x="34" y="38" width="14" height="10" rx="2" fill="#fff" stroke="#1F1C18" stroke-width="1.5"/><text x="34" y="63" text-anchor="middle" font-size="10" font-weight="bold" fill="#1F1C18">TRAIN</text><circle cx="72" cy="49" r="7" fill="#fff" stroke="#1F1C18" stroke-width="1.5"/></symbol>
+  <symbol id="o-flight" viewBox="0 0 96 96"><rect x="8" y="30" width="80" height="38" rx="6" fill="#FDEBD7" stroke="#1F1C18" stroke-width="2.5"/><line x1="60" y1="30" x2="60" y2="68" stroke="#1F1C18" stroke-width="2" stroke-dasharray="4 4"/><path d="M30 52 L52 40 L52 46 L34 56 Z" fill="#1F1C18"/><path d="M30 56 L46 52 L46 58 L30 60 Z" fill="#1F1C18"/><text x="34" y="66" font-size="9" font-weight="bold" fill="#1F1C18">FLIGHT</text></symbol>
+  <symbol id="o-wallet" viewBox="0 0 96 96"><rect x="14" y="28" width="68" height="42" rx="8" fill="#B07D4F" stroke="#1F1C18" stroke-width="2.5"/><path d="M14 38 H82" stroke="#1F1C18" stroke-width="2"/><rect x="52" y="46" width="22" height="12" rx="4" fill="#F7F3E8" stroke="#1F1C18" stroke-width="1.5"/><circle cx="63" cy="52" r="2.5" fill="#1F1C18"/></symbol>
+  <symbol id="o-bill" viewBox="0 0 96 96"><rect x="22" y="20" width="52" height="58" rx="4" fill="#fff" stroke="#1F1C18" stroke-width="2.5"/><path d="M22 28 H60 L74 42 V78" fill="none" stroke="#1F1C18" stroke-width="2"/><line x1="30" y1="48" x2="66" y2="48" stroke="#1F1C18" stroke-width="2"/><line x1="30" y1="56" x2="66" y2="56" stroke="#1F1C18" stroke-width="2"/><line x1="30" y1="64" x2="52" y2="64" stroke="#1F1C18" stroke-width="2"/><text x="48" y="38" text-anchor="middle" font-size="10" font-weight="bold" fill="#C0392B">DUE</text></symbol>
+  <symbol id="o-dog" viewBox="0 0 96 96"><ellipse cx="28" cy="44" rx="10" ry="18" fill="#8A6D3B" stroke="#1F1C18" stroke-width="2.5"/><ellipse cx="68" cy="44" rx="10" ry="18" fill="#8A6D3B" stroke="#1F1C18" stroke-width="2.5"/><circle cx="48" cy="50" r="26" fill="#E8C98A" stroke="#1F1C18" stroke-width="2.5"/><ellipse cx="48" cy="60" rx="11" ry="8" fill="#fff" stroke="#1F1C18" stroke-width="1.5"/><circle cx="48" cy="56" r="3.5" fill="#1F1C18"/><circle cx="38" cy="44" r="3" fill="#1F1C18"/><circle cx="58" cy="44" r="3" fill="#1F1C18"/></symbol>
+  <symbol id="o-cat" viewBox="0 0 96 96"><path d="M24 34 L20 14 L40 24 Z" fill="#9AA0A6" stroke="#1F1C18" stroke-width="2.5" stroke-linejoin="round"/><path d="M72 34 L76 14 L56 24 Z" fill="#9AA0A6" stroke="#1F1C18" stroke-width="2.5" stroke-linejoin="round"/><circle cx="48" cy="52" r="26" fill="#D5D8DC" stroke="#1F1C18" stroke-width="2.5"/><line x1="14" y1="52" x2="28" y2="54" stroke="#1F1C18" stroke-width="1.5"/><line x1="14" y1="60" x2="28" y2="58" stroke="#1F1C18" stroke-width="1.5"/><line x1="82" y1="52" x2="68" y2="54" stroke="#1F1C18" stroke-width="1.5"/><line x1="82" y1="60" x2="68" y2="58" stroke="#1F1C18" stroke-width="1.5"/><circle cx="38" cy="46" r="3" fill="#1F1C18"/><circle cx="58" cy="46" r="3" fill="#1F1C18"/><path d="M44 56 Q48 60 52 56" fill="none" stroke="#1F1C18" stroke-width="1.5"/></symbol>
+  <symbol id="o-tv" viewBox="0 0 96 96"><rect x="10" y="24" width="76" height="48" rx="8" fill="#5D6D7E" stroke="#1F1C18" stroke-width="2.5"/><rect x="18" y="32" width="46" height="32" rx="3" fill="#AED6F1" stroke="#1F1C18" stroke-width="1.5"/><line x1="22" y1="40" x2="46" y2="40" stroke="#1F1C18" stroke-width="1.5" opacity="0.5"/><line x1="22" y1="48" x2="56" y2="48" stroke="#1F1C18" stroke-width="1.5" opacity="0.5"/><line x1="22" y1="56" x2="40" y2="56" stroke="#1F1C18" stroke-width="1.5" opacity="0.5"/><circle cx="72" cy="40" r="3" fill="#F7F3E8" stroke="#1F1C18" stroke-width="1.5"/><circle cx="72" cy="54" r="3" fill="#F7F3E8" stroke="#1F1C18" stroke-width="1.5"/><line x1="30" y1="72" x2="26" y2="82" stroke="#1F1C18" stroke-width="2.5"/><line x1="66" y1="72" x2="70" y2="82" stroke="#1F1C18" stroke-width="2.5"/><line x1="34" y1="24" x2="22" y2="10" stroke="#1F1C18" stroke-width="2"/><line x1="62" y1="24" x2="74" y2="10" stroke="#1F1C18" stroke-width="2"/></symbol>
+  <symbol id="o-key" viewBox="0 0 96 96"><circle cx="36" cy="34" r="14" fill="#F2C94C" stroke="#1F1C18" stroke-width="2.5"/><circle cx="36" cy="34" r="5" fill="#F7F3E8" stroke="#1F1C18" stroke-width="2"/><line x1="48" y1="42" x2="76" y2="70" stroke="#1F1C18" stroke-width="5" stroke-linecap="round"/><line x1="66" y1="60" x2="66" y2="70" stroke="#1F1C18" stroke-width="4"/><line x1="74" y1="68" x2="74" y2="78" stroke="#1F1C18" stroke-width="4"/></symbol>
+  <symbol id="o-bottle" viewBox="0 0 96 96"><rect x="40" y="12" width="16" height="10" rx="3" fill="#2E86C1" stroke="#1F1C18" stroke-width="2.5"/><path d="M40 22 H56 L60 32 V74 Q60 82 52 82 H44 Q36 82 36 74 V32 Z" fill="#AED6F1" stroke="#1F1C18" stroke-width="2.5"/><path d="M36 54 H60 V74 Q60 82 52 82 H44 Q36 82 36 74 Z" fill="#2E86C1" opacity="0.65"/></symbol>
+  <symbol id="o-badge" viewBox="0 0 96 96"><rect x="28" y="22" width="40" height="54" rx="6" fill="#F7F3E8" stroke="#1F1C18" stroke-width="2.5"/><circle cx="48" cy="38" r="8" fill="#F2C94C" stroke="#1F1C18" stroke-width="2"/><path d="M36 54 Q48 46 60 54 V70 H36 Z" fill="#DCE9F5" stroke="#1F1C18" stroke-width="1.5"/><rect x="42" y="12" width="12" height="12" rx="3" fill="#1F1C18"/></symbol>
+  <symbol id="o-cups" viewBox="0 0 96 96"><path d="M16 40 H40 L38 74 H18 Z" fill="#fff" stroke="#1F1C18" stroke-width="2.5"/><path d="M40 48 Q50 48 50 56 Q50 64 40 64" fill="none" stroke="#1F1C18" stroke-width="2.5"/><path d="M56 40 H80 L78 74 H58 Z" fill="#F5CBA7" stroke="#1F1C18" stroke-width="2.5"/><path d="M80 48 Q90 48 90 56 Q90 64 80 64" fill="none" stroke="#1F1C18" stroke-width="2.5"/><path d="M26 32 Q22 26 26 20 M34 32 Q30 26 34 20 M66 32 Q62 26 66 20 M74 32 Q70 26 74 20" fill="none" stroke="#1F1C18" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="o-toolbox" viewBox="0 0 96 96"><rect x="14" y="34" width="68" height="38" rx="6" fill="#C0392B" stroke="#1F1C18" stroke-width="2.5"/><path d="M34 34 V26 Q34 18 48 18 Q62 18 62 26 V34" fill="none" stroke="#1F1C18" stroke-width="4"/><rect x="42" y="44" width="12" height="10" rx="2" fill="#F2C94C" stroke="#1F1C18" stroke-width="1.5"/><line x1="14" y1="46" x2="82" y2="46" stroke="#1F1C18" stroke-width="2"/></symbol>
+  <symbol id="o-gift" viewBox="0 0 96 96"><rect x="20" y="34" width="56" height="42" rx="4" fill="#F5B7B1" stroke="#1F1C18" stroke-width="2.5"/><rect x="44" y="34" width="8" height="42" fill="#C0392B"/><rect x="16" y="24" width="64" height="12" rx="4" fill="#C0392B" stroke="#1F1C18" stroke-width="2"/><path d="M48 24 Q36 8 26 14 Q20 20 32 26 Q40 28 48 24" fill="#F7F3E8" stroke="#1F1C18" stroke-width="2"/><path d="M48 24 Q60 8 70 14 Q76 20 64 26 Q56 28 48 24" fill="#F7F3E8" stroke="#1F1C18" stroke-width="2"/></symbol>
+  <symbol id="o-phone" viewBox="0 0 96 96"><rect x="28" y="10" width="40" height="76" rx="10" fill="#2C3E50" stroke="#1F1C18" stroke-width="2.5"/><rect x="34" y="20" width="28" height="52" rx="3" fill="#AED6F1" stroke="#1F1C18" stroke-width="1.5"/><circle cx="48" cy="79" r="3" fill="#F7F3E8"/></symbol>
+  <symbol id="o-doc" viewBox="0 0 96 96"><rect x="26" y="12" width="44" height="72" rx="4" fill="#fff" stroke="#1F1C18" stroke-width="2.5"/><path d="M58 12 L70 24 H58 Z" fill="#D5D8DC" stroke="#1F1C18" stroke-width="1.5"/><line x1="34" y1="36" x2="62" y2="36" stroke="#1F1C18" stroke-width="2"/><line x1="34" y1="44" x2="62" y2="44" stroke="#1F1C18" stroke-width="2"/><line x1="34" y1="52" x2="52" y2="52" stroke="#1F1C18" stroke-width="2"/><circle cx="56" cy="66" r="9" fill="#F2C94C" stroke="#1F1C18" stroke-width="2"/></symbol>
+  <symbol id="o-chat" viewBox="0 0 96 96"><rect x="10" y="20" width="76" height="48" rx="14" fill="#ABEBC6" stroke="#1F1C18" stroke-width="2.5"/><path d="M28 68 L24 84 L44 68 Z" fill="#ABEBC6" stroke="#1F1C18" stroke-width="2.5" stroke-linejoin="round"/><circle cx="32" cy="44" r="4" fill="#1F1C18"/><circle cx="48" cy="44" r="4" fill="#1F1C18"/><circle cx="64" cy="44" r="4" fill="#1F1C18"/></symbol>
+  <symbol id="o-tee" viewBox="0 0 96 96"><path d="M34 22 Q34 12 48 12 Q62 12 62 22" fill="none" stroke="#1F1C18" stroke-width="2.5"/><path d="M26 26 L14 38 L24 48 L30 42 V76 H66 V42 L72 48 L82 38 L70 26 Q62 34 48 34 Q34 34 26 26 Z" fill="#A9CCE3" stroke="#1F1C18" stroke-width="2.5" stroke-linejoin="round"/></symbol>
+  <symbol id="o-lamp" viewBox="0 0 96 96"><circle cx="48" cy="30" r="20" fill="#FFE08A" opacity="0.5"/><path d="M32 34 H64 L56 58 H40 Z" fill="#F2C94C" stroke="#1F1C18" stroke-width="2.5"/><line x1="48" y1="58" x2="48" y2="82" stroke="#1F1C18" stroke-width="3"/><line x1="36" y1="82" x2="60" y2="82" stroke="#1F1C18" stroke-width="3" stroke-linecap="round"/></symbol>
+</defs></svg>
+
+<div class="wrap">
+  <h1>School of Adults — homepage concepts</h1>
+  <p class="sub">A little less figuring it out alone. The manual, as objects on your desk.</p>
+  <div class="mocknote">⚠️ Mockup boards only — tap any object and it just tells you which topic it would open. Nothing here links to the real site, and nothing on schoolofadults.com has changed.</div>
+  <div class="nav">
+    <a href="#room">A · The Room</a>
+    <a href="#shelf">B · The Shelf</a>
+    <a href="#hero">C · Hero + Shelf</a>
+    <a href="#day">D · The Day Strip</a>
+    <a href="#mess">E · Lofi Mess</a>
+    <a href="#hl">Highlight styles</a>
+  </div>
+  <div id="toast"></div>
+  <!-- CONCEPT A : THE ROOM -->
+  <section class="board" id="room">
+    <h2>A · The Room</h2>
+    <p class="why">One illustrated scene. Your life, laid out in a room — shelf, desk, floor. The objects live where they'd live.</p>
+    <div class="room">
+      <div class="rowlabel">On the shelf</div>
+      <div class="shelfrow">
+        <div class="ob" data-t="Content"><svg><use href="#o-tv" class="flicker"/></svg><span>TV</span><small>Content</small></div>
+        <div class="ob" data-t="Life Events"><svg><use href="#o-gift"/></svg><span>Gift box</span><small>Life Events</small></div>
+        <div class="ob" data-t="Life Skills"><svg><use href="#o-toolbox"/></svg><span>Toolbox</span><small>Life Skills</small></div>
+        <div class="ob" data-t="Fashion"><svg><use href="#o-tee"/></svg><span>Jacket</span><small>Fashion</small></div>
+      </div>
+      <div class="rowlabel">On the desk</div>
+      <div class="deskrow">
+        <div class="ob" data-t="Travel"><svg class="flutter"><use href="#o-train"/></svg><span>Train ticket</span><small>Travel</small></div>
+        <div class="ob" data-t="Travel"><svg class="flutter"><use href="#o-flight"/></svg><span>Flight ticket</span><small>Travel</small></div>
+        <div class="ob" data-t="Wealth"><svg><use href="#o-wallet"/></svg><span>Wallet</span><small>Wealth</small></div>
+        <div class="ob hl-glow" data-t="Wealth"><svg><use href="#o-bill"/></svg><span>Bill</span><small>Wealth</small><span class="note">Tax season — due soon</span></div>
+        <div class="ob" data-t="Tech"><svg><use href="#o-phone"/></svg><span>Phone</span><small>Tech</small></div>
+        <div class="ob" data-t="Legal"><svg><use href="#o-doc"/></svg><span>Document</span><small>Legal</small></div>
+        <div class="ob" data-t="Career"><svg><use href="#o-badge"/></svg><span>ID badge</span><small>Career</small></div>
+      </div>
+      <div class="rowlabel">Around the room</div>
+      <div class="floorrow">
+        <div class="ob" data-t="Pets"><svg><use href="#o-dog"/></svg><span>Dog</span><small>Pets</small></div>
+        <div class="ob" data-t="Pets"><svg><use href="#o-cat"/></svg><span>Cat</span><small>Pets</small></div>
+        <div class="ob" data-t="Health"><svg><use href="#o-bottle"/></svg><span>Bottle</span><small>Health</small></div>
+        <div class="ob" data-t="Home"><svg><use href="#o-key"/></svg><span>Key</span><small>Home</small></div>
+        <div class="ob" data-t="People"><svg><use href="#o-cups"/></svg><span>Coffee</span><small>People</small></div>
+        <div class="ob" data-t="Community"><svg><use href="#o-chat"/></svg><span>Chat</span><small>Community</small></div>
+      </div>
+    </div>
+    <div class="verdict"><b>Best at:</b> charm and first impression — it feels like a place, not a menu. <b>Risk:</b> busy on a phone screen; objects get small. The glow + sticky note is the highlight treatment here.</div>
+  </section>
+
+  <!-- CONCEPT B : THE SHELF -->
+  <section class="board" id="shelf">
+    <h2>B · The Shelf</h2>
+    <p class="why">A clean grid of object cards. Every topic equal, every object labelled, nothing to decode. The honest, fast structure.</p>
+    <div class="grid">
+      <div class="card hl-glow" data-t="Community"><svg><use href="#o-chat"/></svg><div class="t"><span class="dot"></span>Community · NEW</div><div class="d">Find people figuring it out too.</div></div>
+      <div class="card" data-t="Health"><svg><use href="#o-bottle"/></svg><div class="t">Health</div><div class="d">A body. A mind. A little care.</div></div>
+      <div class="card" data-t="Wealth"><svg><use href="#o-wallet"/></svg><div class="t">Wealth</div><div class="d">Make money make sense.</div></div>
+      <div class="card" data-t="Career"><svg><use href="#o-badge"/></svg><div class="t">Career</div><div class="d">Find your next chapter.</div></div>
+      <div class="card" data-t="Home"><svg><use href="#o-key"/></svg><div class="t">Home</div><div class="d">Make your corner yours.</div></div>
+      <div class="card" data-t="People"><svg><use href="#o-cups"/></svg><div class="t">People</div><div class="d">The wonderfully messy part.</div></div>
+      <div class="card" data-t="Pets"><svg><use href="#o-dog"/></svg><div class="t">Pets</div><div class="d">Roommates with paws.</div></div>
+      <div class="card" data-t="Travel"><svg><use href="#o-train"/></svg><div class="t">Travel</div><div class="d">For getting out there.</div></div>
+      <div class="card" data-t="Fashion"><svg><use href="#o-tee"/></svg><div class="t">Fashion</div><div class="d">Wear a little you.</div></div>
+      <div class="card" data-t="Life Skills"><svg><use href="#o-toolbox"/></svg><div class="t">Life Skills</div><div class="d">Things worth knowing how to do.</div></div>
+      <div class="card" data-t="Life Events"><svg><use href="#o-gift"/></svg><div class="t">Life Events</div><div class="d">Big days. Bigger questions.</div></div>
+      <div class="card" data-t="Tech"><svg><use href="#o-phone"/></svg><div class="t">Tech</div><div class="d">Less spec talk. Better choices.</div></div>
+      <div class="card" data-t="Legal"><svg><use href="#o-doc"/></svg><div class="t">Legal</div><div class="d">Know where you stand.</div></div>
+      <div class="card" data-t="Content"><svg><use href="#o-tv"/></svg><div class="t">Content</div><div class="d">A good story goes a long way.</div></div>
+    </div>
+    <div class="verdict"><b>Best at:</b> clarity and speed — a new visitor finds their topic in seconds, and it works perfectly on a phone. <b>Risk:</b> less magical than the room; it reads like an app menu. The highlight here is a pulsing dot + NEW tag.</div>
+  </section>
+  <!-- CONCEPT C : HERO + SHELF -->
+  <section class="board" id="hero">
+    <h2>C · Hero + Shelf</h2>
+    <p class="why">One object takes the stage each week — the thing that matters right now. Everything else waits quietly on the shelf below.</p>
+    <div class="hero">
+      <div class="kicker">★ Object of the week</div>
+      <svg class="floaty"><use href="#o-train"/></svg>
+      <div class="ht">Travel — the train ticket</div>
+      <div class="hw">Train sale ends Sunday. If a trip has been on your mind, this is the week to plan it.</div>
+    </div>
+    <div class="minigrid">
+      <div class="mini" data-t="Community"><svg><use href="#o-chat"/></svg><span>Community</span></div>
+      <div class="mini" data-t="Health"><svg><use href="#o-bottle"/></svg><span>Health</span></div>
+      <div class="mini" data-t="Wealth"><svg><use href="#o-wallet"/></svg><span>Wealth</span></div>
+      <div class="mini" data-t="Career"><svg><use href="#o-badge"/></svg><span>Career</span></div>
+      <div class="mini" data-t="Home"><svg><use href="#o-key"/></svg><span>Home</span></div>
+      <div class="mini" data-t="People"><svg><use href="#o-cups"/></svg><span>People</span></div>
+      <div class="mini" data-t="Pets"><svg><use href="#o-dog"/></svg><span>Pets</span></div>
+      <div class="mini" data-t="Travel"><svg><use href="#o-flight"/></svg><span>Travel</span></div>
+      <div class="mini" data-t="Fashion"><svg><use href="#o-tee"/></svg><span>Fashion</span></div>
+      <div class="mini" data-t="Life Skills"><svg><use href="#o-toolbox"/></svg><span>Life Skills</span></div>
+      <div class="mini" data-t="Life Events"><svg><use href="#o-gift"/></svg><span>Life Events</span></div>
+      <div class="mini" data-t="Tech"><svg><use href="#o-phone"/></svg><span>Tech</span></div>
+      <div class="mini" data-t="Legal"><svg><use href="#o-doc"/></svg><span>Legal</span></div>
+      <div class="mini" data-t="Content"><svg><use href="#o-tv"/></svg><span>Content</span></div>
+    </div>
+    <div class="verdict"><b>Best at:</b> guiding attention — the homepage always has one clear answer to "what matters this week?" <b>Risk:</b> the hero goes stale if nobody updates it; it needs a human picking it regularly.</div>
+  </section>
+
+  <!-- CONCEPT D : THE DAY STRIP -->
+  <section class="board" id="day">
+    <h2>D · The Day Strip</h2>
+    <p class="why">Your life in a day, morning to night. Objects appear when you'd actually reach for them.</p>
+    <div class="slot"><div class="when">Morning</div><div class="objs">
+      <div class="ob" data-t="Health"><svg><use href="#o-bottle"/></svg><span>Bottle</span></div>
+      <div class="ob" data-t="Home"><svg><use href="#o-key"/></svg><span>Key</span></div>
+      <div class="ob" data-t="People"><svg><use href="#o-cups"/></svg><span>Coffee</span></div>
+    </div></div>
+    <div class="slot"><div class="when">Midday</div><div class="objs">
+      <div class="ob" data-t="Career"><svg><use href="#o-badge"/></svg><span>Badge</span></div>
+      <div class="ob" data-t="Tech"><svg><use href="#o-phone"/></svg><span>Phone</span></div>
+      <div class="ob" data-t="Legal"><svg><use href="#o-doc"/></svg><span>Document</span></div>
+      <div class="ob" data-t="Life Skills"><svg><use href="#o-toolbox"/></svg><span>Toolbox</span></div>
+    </div></div>
+    <div class="slot"><div class="when">Evening · <span class="dot"></span>you are here</div><div class="objs">
+      <div class="ob" data-t="Pets"><svg><use href="#o-dog"/></svg><span>Dog</span></div>
+      <div class="ob" data-t="Pets"><svg><use href="#o-cat"/></svg><span>Cat</span></div>
+      <div class="ob hl-glow" data-t="Content"><svg><use href="#o-tv"/></svg><span>TV</span></div>
+      <div class="ob" data-t="Fashion"><svg><use href="#o-tee"/></svg><span>Jacket</span></div>
+    </div></div>
+    <div class="slot"><div class="when">Anytime</div><div class="objs">
+      <div class="ob" data-t="Travel"><svg><use href="#o-train"/></svg><span>Train ticket</span></div>
+      <div class="ob" data-t="Travel"><svg><use href="#o-flight"/></svg><span>Flight ticket</span></div>
+      <div class="ob" data-t="Wealth"><svg><use href="#o-wallet"/></svg><span>Wallet</span></div>
+      <div class="ob" data-t="Life Events"><svg><use href="#o-gift"/></svg><span>Gift box</span></div>
+      <div class="ob" data-t="Community"><svg><use href="#o-chat"/></svg><span>Chat</span></div>
+    </div></div>
+    <div class="verdict"><b>Best at:</b> the "this is your life" feeling — it tells a story as you scroll. <b>Risk:</b> some topics don't belong to a time of day (Legal? Wealth?), so they get exiled to "Anytime" and the story frays.</div>
+  </section>
+
+  <!-- CONCEPT E : LOFI MESS -->
+  <section class="board" id="mess">
+    <h2>E · The Lofi Mess</h2>
+    <p class="why">Not a shelf, not a grid — a lived-in desk, mid-evening. Things landed where they landed. Warm light, small movements, and the two things that matter right now lit up.</p>
+    <div class="mess">
+      <span class="mote" style="left:12%; top:18%;"></span>
+      <span class="mote" style="left:55%; top:10%; animation-delay:1.2s;"></span>
+      <span class="mote" style="left:88%; top:40%; animation-delay:2.1s;"></span>
+      <div class="mrow">
+        <div class="mob r1" data-t="Content"><svg class="flicker"><use href="#o-tv"/></svg><span>TV</span></div>
+        <div class="mob r4 big" data-t="Travel"><svg class="flutter"><use href="#o-train"/></svg><span>Train ticket</span></div>
+        <div class="mob r2 small" data-t="Home"><svg><use href="#o-key"/></svg><span>Key</span></div>
+        <div class="mob r5" data-t="Pets"><svg><use href="#o-cat"/></svg><span>Cat</span></div>
+        <div class="mob r3"><svg><use href="#o-lamp"/></svg><span style="opacity:0.45">lamp · just vibes</span></div>
+      </div>
+      <div class="mrow">
+        <div class="mob r6 overlap" data-t="Wealth"><svg><use href="#o-wallet"/></svg><span>Wallet</span></div>
+        <div class="mob r2 hl-glow" data-t="Wealth"><svg><use href="#o-bill"/></svg><span>Bill</span><span class="note">Tax season — due soon</span></div>
+        <div class="mob r5" data-t="People"><svg class="steam" viewBox="0 0 36 26"><path d="M12 22 Q8 16 12 10 Q16 4 12 0" fill="none" stroke="#1F1C18" stroke-width="2" stroke-linecap="round"/><path d="M24 22 Q20 16 24 10 Q28 4 24 0" fill="none" stroke="#1F1C18" stroke-width="2" stroke-linecap="round"/></svg><svg><use href="#o-cups"/></svg><span>Coffee</span></div>
+        <div class="mob r1 big" data-t="Travel"><svg class="flutter"><use href="#o-flight"/></svg><span>Flight ticket</span></div>
+        <div class="mob r4 small" data-t="Career"><svg><use href="#o-badge"/></svg><span>Badge</span></div>
+      </div>
+      <div class="mrow">
+        <div class="mob r3" data-t="Pets"><svg><use href="#o-dog"/></svg><span>Dog</span></div>
+        <div class="mob r6 small" data-t="Health"><svg><use href="#o-bottle"/></svg><span>Bottle</span></div>
+        <div class="mob r2" data-t="Community"><svg><use href="#o-chat"/></svg><span><span class="dot"></span>Chat · NEW</span></div>
+        <div class="mob r5" data-t="Tech"><svg><use href="#o-phone"/></svg><span>Phone</span></div>
+        <div class="mob r1 small" data-t="Legal"><svg><use href="#o-doc"/></svg><span>Document</span></div>
+        <div class="mob r4" data-t="Life Skills"><svg><use href="#o-toolbox"/></svg><span>Toolbox</span></div>
+        <div class="mob r2 small" data-t="Life Events"><svg><use href="#o-gift"/></svg><span>Gift box</span></div>
+        <div class="mob r6 small" data-t="Fashion"><svg><use href="#o-tee"/></svg><span>Jacket</span></div>
+      </div>
+    </div>
+    <div class="verdict"><b>Best at:</b> vibe and identity — it feels like a lofi stream you want to stay in, and the mess is the point: real life isn't a grid. <b>Risk:</b> mess can bury topics — the fix is what you see here: labels always on, only two things lit up, and tapping anything reveals its topic.</div>
+  </section>
+
+  <!-- HIGHLIGHT STYLES -->
+  <section class="board" id="hl">
+    <h2>How "important" could look</h2>
+    <p class="why">Three treatments, same rule for all of them: at most 1–2 highlighted at once, and always with a reason. Tap any object anywhere on this page to see its topic.</p>
+    <div class="treats">
+      <div class="treat"><div class="hl-glow" style="display:inline-block"><svg><use href="#o-bill"/></svg></div><p><b>Glow + sticky note</b><br>Soft pulse, plus a note saying why: "Tax season — due soon". Warm, hard to miss.</p></div>
+      <div class="treat"><svg><use href="#o-chat"/></svg><p><b><span class="dot"></span>Dot + tag</b><br>A pulsing dot and a NEW tag. Quiet, works in a grid without shouting.</p></div>
+      <div class="treat"><svg class="floaty"><use href="#o-train"/></svg><p><b>Front of stage</b><br>The object gets big, floats gently, and carries one line explaining why this week.</p></div>
+    </div>
+    <div class="verdict"><b>My read, for when you're ready to pick:</b> B (the shelf) is the safest real homepage — it works on a phone and never confuses anyone. C (hero + shelf) is the most School of Adults: it gives the site a voice that says "this week, this matters". A is the most lovable and the hardest to keep tidy. D is a lovely second screen, not a homepage.</div>
+  </section>
+
+  <p style="text-align:center; color:#7a7f72; font-size:14px;">Mockups only. Tell me a letter — A, B, C, D, E — or mix pieces. E (the lofi mess) is the current direction; the others stay for reference. The real site stays untouched until you say build.</p>
+</div>
+<script>
+  var toast = document.getElementById('toast'), timer = null;
+  document.querySelectorAll('[data-t]').forEach(function (el) {
+    el.addEventListener('click', function () {
+      toast.textContent = '→ would open: ' + el.getAttribute('data-t');
+      toast.style.display = 'block';
+      clearTimeout(timer);
+      timer = setTimeout(function () { toast.style.display = 'none'; }, 1600);
+    });
+  });
+</script>
+</body>
+</html>
