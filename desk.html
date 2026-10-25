@@ -4,127 +4,40 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The Whole Desk — School of Adults (concept)</title>
-<style>
-  * { box-sizing: border-box; }
-  body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #F7F3E8; color: #1F1C18; line-height: 1.5; }
-  .wrap { max-width: 860px; margin: 0 auto; padding: 24px 16px 60px; }
-  h1 { font-family: Georgia, serif; font-size: 34px; margin: 0 0 6px; }
-  .sub { color: #5c6653; margin: 0 0 4px; }
-  .mocknote { background: #FFF3CD; border: 1px solid #E5C07B; border-radius: 8px; padding: 10px 14px; font-size: 14px; margin: 16px 0 24px; }
-  .nav { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 32px; }
-  .nav a { background: #1F1C18; color: #F7F3E8; text-decoration: none; padding: 8px 14px; border-radius: 999px; font-size: 14px; }
-  section.board { background: #FFFEF9; border: 2px solid #1F1C18; border-radius: 16px; padding: 20px 16px; margin-bottom: 36px; }
-  section.board h2 { font-family: Georgia, serif; font-size: 24px; margin: 0 0 4px; }
-  section.board .why { color: #5c6653; margin: 0 0 18px; font-size: 15px; }
-  .verdict { background: #F0EDE2; border-radius: 8px; padding: 10px 14px; font-size: 14px; margin-top: 18px; }
-  .verdict b { font-family: Georgia, serif; }
-  .ob { display: inline-flex; flex-direction: column; align-items: center; gap: 2px; cursor: pointer; padding: 6px; border-radius: 10px; }
-  .ob:active { background: #F0EDE2; }
-  .ob svg { width: 64px; height: 64px; }
-  .ob span { font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600; text-align: center; }
-  .ob small { font-size: 11px; color: #7a7f72; text-transform: none; letter-spacing: 0; font-weight: 400; }
-  /* room scene */
-  .room { border: 2px solid #1F1C18; border-radius: 12px; overflow: hidden; background: #FBF6E9; }
-  .room .shelfrow, .room .deskrow, .room .floorrow { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 10px; padding: 10px 6px; }
-  .room .shelfrow { border-bottom: 3px solid #C9A96A; }
-  .room .deskrow { border-bottom: 3px solid #8A6D3B; background: #F3EAD3; }
-  .room .floorrow { background: #EDE3CB; }
-  .room .rowlabel { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #8a8f82; text-align: center; padding-top: 8px; }
-  /* shelf grid */
-  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-  .card { border: 2px solid #1F1C18; border-radius: 12px; padding: 14px 10px; text-align: center; background: #fff; cursor: pointer; }
-  .card svg { width: 72px; height: 72px; }
-  .card .t { font-family: Georgia, serif; font-size: 18px; }
-  .card .d { font-size: 13px; color: #5c6653; }
-  /* hero */
-  .hero { border: 2px solid #1F1C18; border-radius: 12px; padding: 18px; text-align: center; background: #FFF8DC; margin-bottom: 14px; }
-  .hero svg { width: 110px; height: 110px; }
-  .hero .kicker { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #8a5a00; font-weight: 700; }
-  .hero .ht { font-family: Georgia, serif; font-size: 26px; margin: 4px 0; }
-  .hero .hw { font-size: 15px; color: #5c6653; }
-  .minigrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-  .mini { text-align: center; padding: 8px 2px; }
-  .mini svg { width: 48px; height: 48px; }
-  .mini span { display: block; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; font-weight: 600; }
-  /* day strip */
-  .slot { margin-bottom: 14px; }
-  .slot .when { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #8a8f82; font-weight: 700; margin-bottom: 4px; }
-  .slot .objs { display: flex; flex-wrap: wrap; gap: 4px 10px; }
-  /* highlight treatments */
-  .hl-glow { animation: glow 2.2s ease-in-out infinite; border-radius: 12px; }
-  @keyframes glow { 0%, 100% { box-shadow: 0 0 0 0 rgba(200,120,0,0); } 50% { box-shadow: 0 0 0 4px rgba(200,120,0,0.35), 0 0 22px 4px rgba(200,120,0,0.35); } }
-  .note { display: inline-block; background: #FFE08A; border: 1px solid #D9A400; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px; transform: rotate(-2deg); }
-  .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #C0392B; animation: blink 1.6s ease-in-out infinite; vertical-align: middle; margin-right: 4px; }
-  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
-  .flutter { animation: flutter 3.5s ease-in-out infinite; transform-origin: bottom left; }
-  @keyframes flutter { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(-2.5deg); } }
-  .flicker { animation: flick 4s linear infinite; }
-  @keyframes flick { 0%, 92%, 100% { opacity: 1; } 93% { opacity: 0.6; } 94% { opacity: 1; } 96% { opacity: 0.75; } }
-  .floaty { animation: floaty 3s ease-in-out infinite; }
-  @keyframes floaty { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
-  .treats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-  .treat { border: 2px solid #1F1C18; border-radius: 12px; padding: 14px; text-align: center; background: #fff; }
-  .treat svg { width: 64px; height: 64px; }
-  .treat p { font-size: 13px; color: #5c6653; margin: 8px 0 0; }
-  .mess { position: relative; border: 2px solid #1F1C18; border-radius: 12px; overflow: hidden; padding: 22px 10px 16px; background: radial-gradient(600px 300px at 82% 8%, rgba(255,214,120,0.55), rgba(255,214,120,0) 70%), linear-gradient(180deg, #FBEED3, #F6DFAE); }
-  .mess .mrow { display: flex; flex-wrap: wrap; justify-content: space-around; align-items: flex-end; gap: 6px 14px; }
-  .mess .mrow + .mrow { margin-top: 16px; }
-  .mob { display: inline-flex; flex-direction: column; align-items: center; cursor: pointer; padding: 4px; }
-  .mob svg { width: 64px; height: 64px; }
-  .mob.big svg { width: 88px; height: 88px; }
-  .mob.small svg { width: 50px; height: 50px; }
-  .mob svg.steam { width: 36px; height: 28px; }
-  .mob span { font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; font-weight: 600; text-align: center; }
-  .r1 { transform: rotate(-7deg); } .r2 { transform: rotate(5deg); } .r3 { transform: rotate(-3deg); } .r4 { transform: rotate(8deg); } .r5 { transform: rotate(-10deg); } .r6 { transform: rotate(3deg); }
-  .overlap { margin-left: -16px; }
-  .mote { position: absolute; width: 5px; height: 5px; border-radius: 50%; background: rgba(120,90,40,0.35); animation: floaty 5s ease-in-out infinite; }
-  .steam path { stroke-dasharray: 20; animation: steam 3s ease-in-out infinite; opacity: 0; }
-  .steam path:nth-child(2) { animation-delay: 1.5s; }
-  @keyframes steam { 0% { opacity: 0; transform: translateY(4px); } 30% { opacity: 0.8; } 100% { opacity: 0; transform: translateY(-8px); } }
-  .isosvg { width: 100%; height: auto; display: block; }
-  .isoglow { animation: isoglow 2.2s ease-in-out infinite; }
-  @keyframes isoglow { 0%, 100% { filter: drop-shadow(0 0 0 rgba(200,120,0,0)); } 50% { filter: drop-shadow(0 0 10px rgba(200,120,0,0.9)); } }
-  .legend { font-size: 13px; color: #5c6653; margin-top: 10px; }
-  .zone { margin-bottom: 28px; }
-  .zone-label { font-family: Georgia, serif; font-size: 16px; letter-spacing: 0.08em; text-transform: uppercase; color: #8a6d3b; border-bottom: 1px dashed #C9A96A; padding-bottom: 4px; margin-bottom: 12px; }
-  .cluster { display: inline-block; vertical-align: top; margin: 6px 16px 16px 0; max-width: 340px; }
-  .hero2 { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; cursor: pointer; }
-  .hero2 svg { width: 72px; height: 72px; flex-shrink: 0; }
-  .hero2 .ht2 { font-family: Georgia, serif; font-size: 19px; font-weight: bold; }
-  .mini2 { display: inline-flex; flex-direction: column; align-items: center; cursor: pointer; padding: 3px; margin: 2px; vertical-align: top; width: 64px; }
-  .mini2 svg { width: 42px; height: 42px; }
-  .mini2 span { font-size: 10px; letter-spacing: 0.03em; text-transform: uppercase; font-weight: 600; text-align: center; line-height: 1.25; }
-  .desk-wrap { position: relative; height: 100dvh; overflow: hidden; background: radial-gradient(600px 300px at 82% 8%, rgba(255,214,120,0.55), rgba(255,214,120,0) 70%), linear-gradient(180deg, #FBEED3, #F6DFAE); border-top: 2px solid #1F1C18; border-bottom: 2px solid #1F1C18; }
-  .desk { position: absolute; left: 0; top: 0; width: 1280px; padding: 24px; transform-origin: 0 0; transition: transform 0.45s ease; }
-  .dzone { margin-bottom: 20px; }
-  .dzone-label { font-family: Georgia, serif; font-size: 15px; letter-spacing: 0.08em; text-transform: uppercase; color: #8a6d3b; border-bottom: 1px dashed #C9A96A; padding-bottom: 3px; margin-bottom: 10px; }
-  .dclust { display: inline-block; vertical-align: top; margin: 0 22px 14px 0; max-width: 330px; transition: opacity 0.25s; }
-  .dclust.dim { opacity: 0.18; }
-  .demblem { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
-  .demblem svg { width: 54px; height: 54px; flex-shrink: 0; }
-  .demblem .dt { font-family: Georgia, serif; font-size: 20px; font-weight: bold; }
-  .dsub { display: inline-flex; flex-direction: column; align-items: center; cursor: pointer; padding: 2px; margin: 2px; vertical-align: top; width: 60px; }
-  .dsub svg { width: 40px; height: 40px; }
-  .dsub span { font-size: 11px; font-weight: 600; text-align: center; line-height: 1.25; }
-  .dpill { display: inline-block; font-size: 11px; font-weight: 600; padding: 3px 9px; margin: 2px; border: 1.5px solid #1F1C18; border-radius: 999px; background: #fff; cursor: pointer; }
-  #toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: #1F1C18; color: #F7F3E8; padding: 10px 18px; border-radius: 999px; font-size: 14px; display: none; z-index: 10; white-space: nowrap; }
-  @media (max-width: 560px) { .minigrid { grid-template-columns: repeat(3, 1fr); } .treats { grid-template-columns: 1fr; } }
-
-  /* desk page overrides: fullscreen, portrait-aware stage, centered fit */
-  body { display: flex; flex-direction: column; height: 100dvh; overflow: hidden; }
-  header { padding: 12px 16px 10px; }
-  header h1 { font-family: Georgia, serif; font-size: 24px; margin: 0; }
-  header p { margin: 2px 0 0; font-size: 13px; color: #5c6653; }
-  header a { color: #1F1C18; }
-  .desk-wrap { height: auto; flex: 1; min-height: 0; border-top: none; border-bottom: none; }
-  .desk { padding: 20px; }
-  @media (max-aspect-ratio: 1/1) { .desk { width: 720px; } }
-  .demblem svg { width: 60px; height: 60px; }
-  .demblem .dt { font-size: 22px; }
-  .dsub svg { width: 46px; height: 46px; }
-  .dsub span { font-size: 12px; }
-  .dpill { font-size: 12px; }
-</style>
+<style>*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#F7F3E8;color:#1F1C18;line-height:1.5;display:flex;flex-direction:column;height:100dvh;overflow:hidden}
+header{padding:12px 16px 10px}
+header h1{font-family:Georgia,serif;font-size:24px;margin:0}
+header p{margin:2px 0 8px;font-size:13px;color:#5c6653}
+header a{color:#1F1C18}
+.viewbtns{display:flex;gap:8px}
+.viewbtns button{background:#1F1C18;color:#F7F3E8;border:0;padding:8px 14px;border-radius:999px;font-size:14px;cursor:pointer}
+.viewbtns button.on{background:#8a6d3b}
+.desk-wrap{position:relative;flex:1;min-height:0;overflow:hidden;background:radial-gradient(600px 300px at 82% 8%,rgba(255,214,120,.55),rgba(255,214,120,0) 70%),linear-gradient(180deg,#FBEED3,#F6DFAE);touch-action:none;user-select:none;-webkit-user-select:none}
+.desk{position:absolute;left:0;top:0;width:1200px;padding:24px;transform-origin:0 0;transition:transform .45s ease}
+.dzone{margin-bottom:20px}
+.dzone-label{font-family:Georgia,serif;font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:#8a6d3b;border-bottom:1px dashed #C9A96A;padding-bottom:3px;margin-bottom:10px}
+.dclust{display:inline-block;vertical-align:top;margin:0 18px 14px 0;max-width:330px;transition:opacity .25s}
+.dclust.dim{opacity:.18}
+.demblem{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.demblem svg{width:64px;height:64px;flex-shrink:0}
+.demblem .dt{font-family:Georgia,serif;font-size:22px;font-weight:bold}
+.dsub{display:inline-flex;flex-direction:column;align-items:center;cursor:pointer;padding:2px;margin:2px;vertical-align:top;width:64px}
+.dsub svg{width:48px;height:48px}
+.dsub span{font-size:12px;font-weight:600;text-align:center;line-height:1.25}
+.dpill{display:inline-block;font-size:12px;font-weight:600;padding:3px 9px;margin:2px;border:1.5px solid #1F1C18;border-radius:999px;background:#fff;cursor:pointer}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:#C0392B;animation:blink 1.6s ease-in-out infinite;vertical-align:middle;margin-right:4px}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+.note{display:inline-block;background:#FFE08A;border:1px solid #D9A400;font-size:11px;font-weight:700;padding:2px 8px;border-radius:4px;transform:rotate(-2deg)}
+.hl-glow{animation:glow 2.2s ease-in-out infinite;border-radius:12px}
+@keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(200,120,0,0)}50%{box-shadow:0 0 0 4px rgba(200,120,0,.35),0 0 22px 4px rgba(200,120,0,.35)}}
+.flutter{animation:flutter 3.5s ease-in-out infinite;transform-origin:bottom left}
+@keyframes flutter{0%,100%{transform:rotate(0)}50%{transform:rotate(-2.5deg)}}
+.flicker{animation:flick 4s linear infinite}
+@keyframes flick{0%,92%,100%{opacity:1}93%{opacity:.6}94%{opacity:1}96%{opacity:.75}}
+.mote{position:absolute;width:5px;height:5px;border-radius:50%;background:rgba(120,90,40,.35);animation:floaty 5s ease-in-out infinite}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+#toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#1F1C18;color:#F7F3E8;padding:10px 18px;border-radius:999px;font-size:14px;display:none;z-index:10;white-space:nowrap}</style>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
@@ -188,7 +101,11 @@
 </defs></svg>
 <header>
   <h1>The Whole Desk</h1>
-  <p>School of Adults · concept — everything in one view. Tap a cluster to zoom it sharp; tap again (or the empty desk) to pull back. <a href="index.html#mess">← All concept boards</a></p>
+  <p>School of Adults · concept — drag to look around, tap a cluster to focus it, double-tap for the whole desk at once. <a href="index.html#mess">← All concept boards</a></p>
+  <div class="viewbtns">
+    <button type="button" id="btnExplore" class="on">Explore</button>
+    <button type="button" id="btnFit">Whole desk</button>
+  </div>
 </header>
 <div class="desk-wrap" id="deskWrap">
 <div class="desk" id="desk">
@@ -316,50 +233,89 @@
 </div>
 <div id="toast"></div>
 <script>
-  var toast = document.getElementById('toast'), timer = null;
-  document.querySelectorAll('[data-t]').forEach(function (el) {
-    el.addEventListener('click', function () {
-      toast.textContent = '→ would open: ' + el.getAttribute('data-t');
-      toast.style.display = 'block';
-      clearTimeout(timer);
-      timer = setTimeout(function () { toast.style.display = 'none'; }, 1600);
-    });
-  });
-</script><script>
   (function () {
     var wrap = document.getElementById('deskWrap');
     var desk = document.getElementById('desk');
+    var toast = document.getElementById('toast');
+    var btnFit = document.getElementById('btnFit');
+    var btnExplore = document.getElementById('btnExplore');
     if (!wrap || !desk) return;
-    var fit = 1, focused = null;
-    function applyFit() {
-      var s = Math.min(wrap.clientWidth / desk.offsetWidth, wrap.clientHeight / desk.offsetHeight);
-      fit = s;
-      var tx = (wrap.clientWidth - desk.offsetWidth * s) / 2;
-      var ty = (wrap.clientHeight - desk.offsetHeight * s) / 2;
-      desk.style.transform = 'translate(' + tx + 'px,' + ty + 'px) scale(' + s + ')';
+    var S = 1, TX = 0, TY = 0, mode = 'window', focused = null, timer = null;
+    var down = false, moved = false, suppressToast = false, x0 = 0, y0 = 0, tx0 = 0, ty0 = 0;
+    function apply() { desk.style.transform = 'translate(' + TX + 'px,' + TY + 'px) scale(' + S + ')'; }
+    function clearDim() { document.querySelectorAll('.dclust').forEach(function (c) { c.classList.remove('dim'); }); }
+    function setButtons() {
+      btnFit.classList.toggle('on', mode === 'fit');
+      btnExplore.classList.toggle('on', mode !== 'fit');
+    }
+    function clampPan() {
+      var sw = desk.offsetWidth * S, sh = desk.offsetHeight * S;
+      if (sw <= wrap.clientWidth) TX = (wrap.clientWidth - sw) / 2;
+      else TX = Math.max(wrap.clientWidth - sw, Math.min(0, TX));
+      if (sh <= wrap.clientHeight) TY = (wrap.clientHeight - sh) / 2;
+      else TY = Math.max(wrap.clientHeight - sh, Math.min(0, TY));
+    }
+    function fitView() {
+      S = Math.min(wrap.clientWidth / desk.offsetWidth, wrap.clientHeight / desk.offsetHeight);
+      TX = (wrap.clientWidth - desk.offsetWidth * S) / 2;
+      TY = (wrap.clientHeight - desk.offsetHeight * S) / 2;
+      mode = 'fit'; focused = null; clearDim(); apply(); setButtons();
+    }
+    function windowView() {
+      S = 1; TX = 0; TY = 0; clampPan();
+      mode = 'window'; focused = null; clearDim(); apply(); setButtons();
     }
     function focusCluster(el) {
       var cx = el.offsetLeft + el.offsetWidth / 2;
       var cy = el.offsetTop + el.offsetHeight / 2;
-      var z = fit * 2;
-      desk.style.transform = 'translate(' + (wrap.clientWidth / 2 - cx * z) + 'px,' + (wrap.clientHeight / 2 - cy * z) + 'px) scale(' + z + ')';
+      S = 1.8;
+      TX = wrap.clientWidth / 2 - cx * S;
+      TY = wrap.clientHeight / 2 - cy * S;
+      clampPan();
       document.querySelectorAll('.dclust').forEach(function (c) { c.classList.toggle('dim', c !== el); });
-      focused = el;
+      mode = 'focus'; focused = el; apply(); setButtons();
     }
-    function unfocus() {
-      focused = null;
-      document.querySelectorAll('.dclust').forEach(function (c) { c.classList.remove('dim'); });
-      applyFit();
+    function showToast(text) {
+      toast.textContent = text;
+      toast.style.display = 'block';
+      clearTimeout(timer);
+      timer = setTimeout(function () { toast.style.display = 'none'; }, 1600);
     }
-    document.querySelectorAll('.dclust').forEach(function (el) {
-      el.addEventListener('click', function (ev) {
-        ev.stopPropagation();
-        if (focused === el) unfocus(); else focusCluster(el);
+    document.querySelectorAll('[data-t]').forEach(function (el) {
+      el.addEventListener('click', function () {
+        if (suppressToast) { suppressToast = false; return; }
+        showToast('→ would open: ' + el.getAttribute('data-t'));
       });
     });
-    wrap.addEventListener('click', function () { if (focused) unfocus(); });
-    window.addEventListener('resize', function () { if (focused) focusCluster(focused); else applyFit(); });
-    applyFit();
+    wrap.addEventListener('pointerdown', function (e) {
+      down = true; moved = false; x0 = e.clientX; y0 = e.clientY; tx0 = TX; ty0 = TY;
+      desk.style.transition = 'none';
+    });
+    window.addEventListener('pointermove', function (e) {
+      if (!down) return;
+      var dx = e.clientX - x0, dy = e.clientY - y0;
+      if (Math.abs(dx) + Math.abs(dy) > 8) { moved = true; suppressToast = true; }
+      if (moved) { TX = tx0 + dx; TY = ty0 + dy; clampPan(); apply(); }
+    });
+    window.addEventListener('pointerup', function (e) {
+      if (!down) return;
+      down = false;
+      desk.style.transition = 'transform .45s ease';
+      if (moved) return;
+      var under = document.elementFromPoint(e.clientX, e.clientY);
+      var cl = under ? under.closest('.dclust') : null;
+      if (cl) { if (focused === cl) windowView(); else focusCluster(cl); }
+      else if (focused) { windowView(); }
+    });
+    wrap.addEventListener('dblclick', function () { if (mode === 'fit') windowView(); else fitView(); });
+    btnFit.addEventListener('click', fitView);
+    btnExplore.addEventListener('click', windowView);
+    window.addEventListener('resize', function () {
+      if (mode === 'fit') fitView();
+      else if (mode === 'focus' && focused) focusCluster(focused);
+      else { clampPan(); apply(); }
+    });
+    windowView();
   })();
 </script>
 </body>
