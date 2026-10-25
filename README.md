@@ -10,8 +10,9 @@ nothing here links to schoolofadults.com, and the live site is untouched.
 - `desk.html` — the Whole Desk as its own fullscreen page, smart layout: no
   banner, only the 14 topics shown, each with its own icon (no icon repeats
   any subtopic's icon); tapping a topic expands it right where it sits, its
-  subtopics fanning out around it while the other topics shrink slightly and
-  shift aside — all inside one viewport, no scrolling.
+  subtopics fanning out around it while the other topics grey out, dim, and
+  pack into the free space around the family with zero overlap — all inside
+  one viewport, no scrolling.
   - **A · The Room** — an illustrated scene: shelf, desk, floor.
   - **B · The Shelf** — a clean grid of object cards for all 14 topics.
   - **C · Hero + Shelf** — one "object of the week" over a quiet grid.

@@ -7,10 +7,12 @@
 <style>*{box-sizing:border-box}
 body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(600px 300px at 82% 8%,rgba(255,214,120,.55),rgba(255,214,120,0) 70%),linear-gradient(180deg,#FBEED3,#F6DFAE);color:#1F1C18;height:100dvh;overflow:hidden}
 #stage{position:absolute;inset:0;touch-action:manipulation}
-.it{position:absolute;left:0;top:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;cursor:pointer;transform-origin:0 0;transition:transform .5s cubic-bezier(.2,.8,.2,1),opacity .3s;text-align:center}
+.it{position:absolute;left:0;top:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;cursor:pointer;transform-origin:0 0;transition:transform .5s cubic-bezier(.2,.8,.2,1),opacity .3s,filter .3s;text-align:center}
 .it.topic{width:84px;height:102px}
 .it.sub{width:64px;height:78px}
 .it.pill{width:84px;height:30px;justify-content:center}
+.it.dimmed{filter:grayscale(1) brightness(.92)}
+.it.active-topic{box-shadow:0 0 0 3px rgba(180,120,0,.55),0 0 18px rgba(180,120,0,.35);border-radius:18px}
 .ic{display:block;line-height:0}
 .topic .ic svg{width:56px;height:56px}
 .sub .ic svg{width:40px;height:40px}
@@ -97,7 +99,7 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif
 <div class="mote" style="left:78%;top:12%"></div>
 <div class="mote" style="left:88%;top:70%"></div>
 </div>
-<a id="boardsLink" href="index.html#mess">\u2190 boards</a>
+<a id="boardsLink" href="index.html#mess">← boards</a>
 <div id="toast"></div>
 <script>
 (function () {
@@ -159,33 +161,45 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif
     return { cols: cols, rows: rows, cellW: cellW, cellH: cellH, pos: pos };
   }
   function ringSlots(expCx, expCy, n, W, H, cellW, cellH, tileW, tileH) {
-    var candidates = [];
+    var inBall = [], outBall = [];
     for (var r = 1; r <= 3; r++) {
       var ring = [];
       for (var dc = -r; dc <= r; dc++) ring.push([dc, -r]);
       for (var dr = -r + 1; dr <= r; dr++) ring.push([r, dr]);
       for (var dc2 = r - 1; dc2 >= -r; dc2--) ring.push([dc2, r]);
       for (var dr2 = r - 1; dr2 >= -r + 1; dr2--) ring.push([-r, dr2]);
-      var inB = [], outB = [];
       ring.forEach(function (d) {
         var cx = expCx + d[0] * cellW, cy = expCy + d[1] * cellH;
         var ok = cx - tileW / 2 >= PAD && cx + tileW / 2 <= W - PAD && cy - tileH / 2 >= PAD && cy + tileH / 2 <= H - PAD;
-        (ok ? inB : outB).push({ cx: cx, cy: cy });
+        if (ok) inBall.push({ cx: cx, cy: cy, clamped: false });
+        else outBall.push({ cx: cx, cy: cy, clamped: true });
       });
-      candidates = candidates.concat(inB, outB);
     }
+    var candidates = inBall.concat(outBall);
     var chosen = [];
     candidates.forEach(function (c) {
       if (chosen.length >= n) return;
-      var cx = Math.max(PAD + tileW / 2, Math.min(W - PAD - tileW / 2, c.cx));
-      var cy = Math.max(PAD + tileH / 2, Math.min(H - PAD - tileH / 2, c.cy));
+      var cx = c.clamped ? Math.max(PAD + tileW / 2, Math.min(W - PAD - tileW / 2, c.cx)) : c.cx;
+      var cy = c.clamped ? Math.max(PAD + tileH / 2, Math.min(H - PAD - tileH / 2, c.cy)) : c.cy;
+      if (c.clamped) {
+        var hitsTopic = Math.abs(cx - expCx) < (tileW + TOPIC_W) / 2 + 4 && Math.abs(cy - expCy) < (tileH + TOPIC_H) / 2 + 4;
+        if (hitsTopic) return;
+      }
       var clash = chosen.some(function (o) { return Math.abs(o.cx - cx) < tileW - 4 && Math.abs(o.cy - cy) < tileH - 4; });
       if (!clash) chosen.push({ cx: cx, cy: cy });
     });
     return chosen;
   }
+  function clearMarks() {
+    DATA.forEach(function (t) {
+      t._el.classList.remove('dimmed');
+      t._el.classList.remove('active-topic');
+      t.subs.forEach(function (s) { s._el.classList.remove('dimmed'); });
+    });
+  }
   function layoutCollapsed(W, H) {
     var g = topicGrid(W, H);
+    clearMarks();
     DATA.forEach(function (t, ti) {
       var p = g.pos[ti];
       place(t._el, p.x + p.jx, p.y + p.jy, 1, p.rot);
@@ -196,33 +210,75 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif
   function layoutExpanded(W, H, ti) {
     var g = topicGrid(W, H);
     var exp = g.pos[ti];
-    DATA.forEach(function (t, tj) {
-      var p = g.pos[tj];
-      if (tj === ti) {
-        place(t._el, p.x + p.jx, p.y + p.jy, 1, p.rot);
-        show(t._el);
-        return;
-      }
-      var dx = p.cx - exp.cx, dy = p.cy - exp.cy;
-      var dist = Math.sqrt(dx * dx + dy * dy) || 1;
-      var push = dist < 230 ? 85 : 50;
-      var ncx = p.cx + dx / dist * push, ncy = p.cy + dy / dist * push;
-      var hw = TOPIC_W * 0.9 / 2, hh = TOPIC_H * 0.9 / 2;
-      var loX = PAD + hw, hiX = W - PAD - hw, loY = PAD + hh, hiY = H - PAD - hh;
-      ncx = loX > hiX ? W / 2 : Math.max(loX, Math.min(hiX, ncx));
-      ncy = loY > hiY ? H / 2 : Math.max(loY, Math.min(hiY, ncy));
-      placeCenter(t._el, ncx, ncy, 0.9, TOPIC_W, TOPIC_H, p.rot);
-      show(t._el);
-      t.subs.forEach(function (s) { place(s._el, ncx - TOPIC_W * 0.9 / 2, ncy - TOPIC_H * 0.9 / 2, 0.5, 0); hide(s._el); });
-    });
     var T = DATA[ti];
+    clearMarks();
+    T._el.classList.add('active-topic');
+    var tx = exp.x + exp.jx, ty = exp.y + exp.jy;
+    place(T._el, tx, ty, 1, exp.rot);
+    show(T._el);
     var pillKind = T.subs.length > 0 && !!T.subs[0].pill;
     var tw = pillKind ? PILL_W : SUB_W, th = pillKind ? PILL_H : SUB_H;
     var slots = ringSlots(exp.cx, exp.cy, T.subs.length, W, H, g.cellW, g.cellH, tw, th);
+    var fx0 = tx - 4, fy0 = ty - 4, fx1 = tx + TOPIC_W + 4, fy1 = ty + TOPIC_H + 4;
     T.subs.forEach(function (s, k) {
       var sl = slots[k] || { cx: exp.cx, cy: exp.cy };
       placeCenter(s._el, sl.cx, sl.cy, 1, tw, th, 0);
       show(s._el);
+      fx0 = Math.min(fx0, sl.cx - tw / 2); fy0 = Math.min(fy0, sl.cy - th / 2);
+      fx1 = Math.max(fx1, sl.cx + tw / 2); fy1 = Math.max(fy1, sl.cy + th / 2);
+    });
+    var movers = [];
+    DATA.forEach(function (t, tj) {
+      if (tj !== ti) movers.push(t);
+    });
+    var regions = [
+      { x0: PAD, y0: PAD, x1: W - PAD, y1: fy0 - 8, hug: 'bottom' },
+      { x0: fx1 + 8, y0: fy0, x1: W - PAD, y1: fy1, hug: 'left' },
+      { x0: PAD, y0: fy1 + 8, x1: W - PAD, y1: H - PAD, hug: 'top' },
+      { x0: PAD, y0: fy0, x1: fx0 - 8, y1: fy1, hug: 'right' }
+    ].filter(function (r) { return r.x1 - r.x0 >= 40 && r.y1 - r.y0 >= 40; });
+    var GAP = 6, chosen = null;
+    [0.9, 0.8, 0.7, 0.6, 0.5].forEach(function (s) {
+      if (chosen) return;
+      var w = TOPIC_W * s, h = TOPIC_H * s;
+      var cap = 0;
+      regions.forEach(function (r) {
+        var cols = Math.floor((r.x1 - r.x0 + GAP) / (w + GAP));
+        var rows = Math.floor((r.y1 - r.y0 + GAP) / (h + GAP));
+        cap += Math.max(0, cols) * Math.max(0, rows);
+      });
+      if (cap >= movers.length) chosen = { s: s, w: w, h: h };
+    });
+    if (!chosen) chosen = { s: 0.5, w: TOPIC_W * 0.5, h: TOPIC_H * 0.5 };
+    var w = chosen.w, h = chosen.h, s = chosen.s;
+    var mi = 0;
+    regions.forEach(function (r) {
+      if (mi >= movers.length) return;
+      var rw = r.x1 - r.x0, rh = r.y1 - r.y0;
+      var cols = Math.max(1, Math.floor((rw + GAP) / (w + GAP)));
+      var rows = Math.max(1, Math.floor((rh + GAP) / (h + GAP)));
+      var take = Math.min(movers.length - mi, cols * rows);
+      if (take <= 0) return;
+      var rowsUsed = Math.ceil(take / cols);
+      var blockH = rowsUsed * h + (rowsUsed - 1) * GAP;
+      var y0 = r.hug === 'top' ? r.y0 : (r.hug === 'bottom' ? r.y1 - blockH : r.y0 + (rh - blockH) / 2);
+      for (var row = 0; row < rowsUsed; row++) {
+        var inRow = Math.min(cols, take - row * cols);
+        var rowW = inRow * w + (inRow - 1) * GAP;
+        var x0 = r.hug === 'left' ? r.x0 : (r.hug === 'right' ? r.x1 - rowW : r.x0 + (rw - rowW) / 2);
+        for (var c = 0; c < inRow; c++) {
+          var t = movers[mi++];
+          var cx = x0 + c * (w + GAP) + w / 2;
+          var cy = y0 + row * (h + GAP) + h / 2;
+          t._el.classList.add('dimmed');
+          placeCenter(t._el, cx, cy, s, TOPIC_W, TOPIC_H, 0);
+          show(t._el);
+          t.subs.forEach(function (su) {
+            place(su._el, cx - w / 2, cy - h / 2, 0.5, 0);
+            hide(su._el);
+          });
+        }
+      }
     });
   }
   function layout() {
