@@ -11,9 +11,10 @@ nothing here links to schoolofadults.com, and the live site is untouched.
   - **B · The Shelf** — a clean grid of object cards for all 14 topics.
   - **C · Hero + Shelf** — one "object of the week" over a quiet grid.
   - **D · The Day Strip** — morning to night, objects when you'd reach for them.
-  - **E · The Lofi Mess** — the current direction: a random, lived-in,
-    lofi-animated mess (warm light, steam, flicker, drifting dust, fluttering
-    tickets) with the important things highlighted.
+  - **E · The Whole Desk** — the current direction, now exhaustive: all 14
+    topics plus their 67 subtopics as one scrollable lofi desk, grouped so
+    related things sit closer (money &amp; work, home &amp; body, out &amp; about,
+    screens &amp; skills), with only two things highlighted.
   - **F · Isometric Room** — the same desk as a little 3D world: iso floor and
     furniture, objects standing on them, highlights floating above the scene.
 - Tap any object in the preview and it tells you which topic page it would open.
