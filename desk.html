@@ -11,13 +11,11 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif
 .it.topic{width:84px;height:102px}
 .it.sub{width:64px;height:78px}
 .it.pill{width:84px;height:30px;justify-content:center}
-.it.mini{justify-content:center}
 .ic{display:block;line-height:0}
 .topic .ic svg{width:56px;height:56px}
 .sub .ic svg{width:40px;height:40px}
 .lb{font-family:Georgia,serif;font-size:15px;font-weight:700;line-height:1.25;margin-top:4px}
 .sub .lb{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:11px;font-weight:600}
-.it.mini .lb,.it.mini .note{display:none}
 .dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#C0392B;animation:blink 1.6s ease-in-out infinite;vertical-align:middle;margin-right:4px}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
 .pl{display:inline-block;font-size:10px;font-weight:600;padding:2px 6px;border:1.5px solid #1F1C18;border-radius:999px;background:#fff;white-space:nowrap}
@@ -90,7 +88,10 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif
   <symbol id="o-chip" viewBox="0 0 96 96" fill="none" stroke="#1F1C18" stroke-width="2.5"><rect x="28" y="28" width="40" height="40" rx="6" fill="#2C3E50"/><line x1="38" y1="28" x2="38" y2="18" stroke-width="3"/><line x1="58" y1="28" x2="58" y2="18" stroke-width="3"/><line x1="38" y1="68" x2="38" y2="78" stroke-width="3"/><line x1="58" y1="68" x2="58" y2="78" stroke-width="3"/><line x1="28" y1="38" x2="18" y2="38" stroke-width="3"/><line x1="28" y1="58" x2="18" y2="58" stroke-width="3"/><line x1="68" y1="38" x2="78" y2="38" stroke-width="3"/><line x1="68" y1="58" x2="78" y2="58" stroke-width="3"/></symbol>
   <symbol id="o-bookmark" viewBox="0 0 96 96" fill="none" stroke="#1F1C18" stroke-width="2.5"><path d="M30 16 H66 V80 L48 66 L30 80 Z" fill="#F2C94C" stroke-linejoin="round"/></symbol>
   <symbol id="o-wheel" viewBox="0 0 96 96" fill="none" stroke="#1F1C18" stroke-width="2.5"><circle cx="48" cy="48" r="26"/><circle cx="48" cy="48" r="8"/><line x1="48" y1="22" x2="48" y2="40" stroke-width="3"/><line x1="26" y1="61" x2="41" y2="52" stroke-width="3"/><line x1="70" y1="61" x2="55" y2="52" stroke-width="3"/></symbol>
-</defs></svg>
+</defs><symbol id="o-case" viewBox="0 0 96 96"><rect x="22" y="34" width="52" height="44" rx="6" fill="#C98A4B" stroke="#1F1C18" stroke-width="2.5"/><path d="M38 34 V28 a6 6 0 0 1 6-6 h8 a6 6 0 0 1 6 6 v6" fill="none" stroke="#1F1C18" stroke-width="2.5"/><path d="M22 56 H74" stroke="#1F1C18" stroke-width="2"/><rect x="40" y="52" width="6" height="8" fill="#F7F3E8" stroke="#1F1C18" stroke-width="1.5"/><rect x="52" y="52" width="6" height="8" fill="#F7F3E8" stroke="#1F1C18" stroke-width="1.5"/></symbol>
+<symbol id="o-person" viewBox="0 0 96 96"><circle cx="48" cy="32" r="14" fill="#F2C29B" stroke="#1F1C18" stroke-width="2.5"/><path d="M20 82 Q20 56 48 56 Q76 56 76 82 Z" fill="#7FB3D5" stroke="#1F1C18" stroke-width="2.5"/></symbol>
+<symbol id="o-mug" viewBox="0 0 96 96"><path d="M28 30 H62 V62 a10 10 0 0 1-10 10 H38 a10 10 0 0 1-10-10 Z" fill="#E74C3C" stroke="#1F1C18" stroke-width="2.5"/><path d="M62 38 h5 a6 6 0 0 1 0 12 h-5" fill="none" stroke="#1F1C18" stroke-width="2.5"/><path d="M40 24 q3-4 0-8 M52 24 q3-4 0-8" fill="none" stroke="#1F1C18" stroke-width="2" stroke-linecap="round"/></symbol>
+</svg>
 <div id="stage">
 <div class="mote" style="left:12%;top:20%"></div>
 <div class="mote" style="left:78%;top:12%"></div>
@@ -100,7 +101,7 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif
 <div id="toast"></div>
 <script>
 (function () {
-  var DATA = [{"name": "Wealth", "icon": "o-wallet", "isNew": false, "subs": [{"name": "Generating Wealth", "icon": "o-chart", "glow": false, "note": null}, {"name": "Investing", "icon": "o-coin", "glow": false, "note": null}, {"name": "Insurance & Tax", "icon": "o-bill", "glow": true, "note": "Tax season — due soon"}, {"name": "Spending & Tracking", "icon": "o-cal", "glow": false, "note": null}, {"name": "Credit Cards & Loans", "icon": "o-card", "glow": false, "note": null}]}, {"name": "Career", "icon": "o-badge", "isNew": false, "subs": [{"name": "Choosing Career", "icon": "o-compass", "glow": false, "note": null}, {"name": "Job Search", "icon": "o-mag", "glow": false, "note": null}, {"name": "Career Ladder", "icon": "o-ladder", "glow": false, "note": null}, {"name": "Resigning", "icon": "o-door", "glow": false, "note": null}]}, {"name": "Legal", "icon": "o-doc", "isNew": false, "subs": [{"name": "Basic", "icon": "o-shield", "glow": false, "note": null}]}, {"name": "Community", "icon": "o-chat", "isNew": true, "subs": [{"name": "Analytics", "pill": true}, {"name": "Credit Risk", "pill": true}, {"name": "CXOs", "pill": true}, {"name": "Cybersecurity", "pill": true}, {"name": "Design", "pill": true}, {"name": "Finance", "pill": true}, {"name": "Freshers", "pill": true}, {"name": "Healthcare", "pill": true}, {"name": "HRs", "pill": true}, {"name": "Legal", "pill": true}, {"name": "Marketing", "pill": true}, {"name": "Sales", "pill": true}, {"name": "Software Eng.", "pill": true}, {"name": "Supply Chain", "pill": true}]}, {"name": "Home", "icon": "o-key", "isNew": false, "subs": [{"name": "Kitchen", "icon": "o-pan", "glow": false, "note": null}, {"name": "Bedroom", "icon": "o-bed", "glow": false, "note": null}, {"name": "Living Room", "icon": "o-sofa", "glow": false, "note": null}, {"name": "Bathroom", "icon": "o-bath", "glow": false, "note": null}, {"name": "Garden", "icon": "o-plant", "glow": false, "note": null}]}, {"name": "Health", "icon": "o-bottle", "isNew": false, "subs": [{"name": "Basics", "icon": "o-apple", "glow": false, "note": null}, {"name": "Exercise", "icon": "o-dumb", "glow": false, "note": null}, {"name": "Check Up", "icon": "o-heart", "glow": false, "note": null}, {"name": "Mental Health", "icon": "o-bulb", "glow": false, "note": null}, {"name": "Periods", "icon": "o-drop", "glow": false, "note": null}]}, {"name": "Pets", "icon": "o-paw", "isNew": false, "subs": [{"name": "Cats", "icon": "o-cat", "glow": false, "note": null}, {"name": "Dogs", "icon": "o-dog", "glow": false, "note": null}]}, {"name": "People", "icon": "o-cups", "isNew": false, "subs": [{"name": "Self", "icon": "o-star", "glow": false, "note": null}, {"name": "Parents", "icon": "o-heart", "glow": false, "note": null}, {"name": "Partner", "icon": "o-ring", "glow": false, "note": null}, {"name": "Kids", "icon": "o-ball", "glow": false, "note": null}, {"name": "Friends", "icon": "o-users", "glow": false, "note": null}, {"name": "Relatives", "icon": "o-house", "glow": false, "note": null}, {"name": "Colleagues", "icon": "o-chat", "glow": false, "note": null}, {"name": "Roommate", "icon": "o-key", "glow": false, "note": null}, {"name": "Enemies", "icon": "o-no", "glow": false, "note": null}]}, {"name": "Travel", "icon": "o-train", "isNew": false, "subs": [{"name": "Train", "icon": "o-train", "glow": false, "note": null}, {"name": "Flights", "icon": "o-flight", "glow": false, "note": null}]}, {"name": "Fashion", "icon": "o-tee", "isNew": false, "subs": [{"name": "Men", "icon": "o-tie", "glow": false, "note": null}, {"name": "Women", "icon": "o-dress", "glow": false, "note": null}]}, {"name": "Life Events", "icon": "o-gift", "isNew": false, "subs": [{"name": "Buying Home", "icon": "o-house", "glow": false, "note": null}, {"name": "Marriage", "icon": "o-ring", "glow": false, "note": null}, {"name": "Pregnancy", "icon": "o-heart", "glow": false, "note": null}, {"name": "Buying a Car", "icon": "o-car", "glow": false, "note": null}, {"name": "Moving to a New City", "icon": "o-truck", "glow": false, "note": null}]}, {"name": "Tech", "icon": "o-chip", "isNew": false, "subs": [{"name": "Mobile", "icon": "o-phone", "glow": false, "note": null}, {"name": "TV", "icon": "o-tv", "glow": false, "note": null}, {"name": "Earphones", "icon": "o-ears", "glow": false, "note": null}, {"name": "Power Bank", "icon": "o-batt", "glow": false, "note": null}]}, {"name": "Content", "icon": "o-book", "isNew": false, "subs": [{"name": "News", "icon": "o-news", "glow": false, "note": null}, {"name": "Movies & Shows", "icon": "o-tv", "glow": false, "note": null}, {"name": "Songs", "icon": "o-note", "glow": false, "note": null}, {"name": "Books", "icon": "o-bookmark", "glow": false, "note": null}]}, {"name": "Life Skills", "icon": "o-toolbox", "isNew": false, "subs": [{"name": "Driving", "icon": "o-wheel", "glow": false, "note": null}, {"name": "Swimming", "icon": "o-waves", "glow": false, "note": null}, {"name": "Hobbies", "icon": "o-star", "glow": false, "note": null}, {"name": "Problem Solving", "icon": "o-bulb", "glow": false, "note": null}, {"name": "Reminders", "icon": "o-cal", "glow": false, "note": null}]}];
+  var DATA = [{"name": "Wealth", "icon": "o-wallet", "isNew": false, "subs": [{"name": "Generating Wealth", "icon": "o-chart", "glow": false, "note": null}, {"name": "Investing", "icon": "o-coin", "glow": false, "note": null}, {"name": "Insurance & Tax", "icon": "o-bill", "glow": true, "note": "Tax season — due soon"}, {"name": "Spending & Tracking", "icon": "o-cal", "glow": false, "note": null}, {"name": "Credit Cards & Loans", "icon": "o-card", "glow": false, "note": null}]}, {"name": "Career", "icon": "o-badge", "isNew": false, "subs": [{"name": "Choosing Career", "icon": "o-compass", "glow": false, "note": null}, {"name": "Job Search", "icon": "o-mag", "glow": false, "note": null}, {"name": "Career Ladder", "icon": "o-ladder", "glow": false, "note": null}, {"name": "Resigning", "icon": "o-door", "glow": false, "note": null}]}, {"name": "Legal", "icon": "o-doc", "isNew": false, "subs": [{"name": "Basic", "icon": "o-shield", "glow": false, "note": null}]}, {"name": "Community", "icon": "o-chat", "isNew": true, "subs": [{"name": "Analytics", "pill": true}, {"name": "Credit Risk", "pill": true}, {"name": "CXOs", "pill": true}, {"name": "Cybersecurity", "pill": true}, {"name": "Design", "pill": true}, {"name": "Finance", "pill": true}, {"name": "Freshers", "pill": true}, {"name": "Healthcare", "pill": true}, {"name": "HRs", "pill": true}, {"name": "Legal", "pill": true}, {"name": "Marketing", "pill": true}, {"name": "Sales", "pill": true}, {"name": "Software Eng.", "pill": true}, {"name": "Supply Chain", "pill": true}]}, {"name": "Home", "icon": "o-key", "isNew": false, "subs": [{"name": "Kitchen", "icon": "o-pan", "glow": false, "note": null}, {"name": "Bedroom", "icon": "o-bed", "glow": false, "note": null}, {"name": "Living Room", "icon": "o-sofa", "glow": false, "note": null}, {"name": "Bathroom", "icon": "o-bath", "glow": false, "note": null}, {"name": "Garden", "icon": "o-plant", "glow": false, "note": null}]}, {"name": "Health", "icon": "o-bottle", "isNew": false, "subs": [{"name": "Basics", "icon": "o-apple", "glow": false, "note": null}, {"name": "Exercise", "icon": "o-dumb", "glow": false, "note": null}, {"name": "Check Up", "icon": "o-heart", "glow": false, "note": null}, {"name": "Mental Health", "icon": "o-bulb", "glow": false, "note": null}, {"name": "Periods", "icon": "o-drop", "glow": false, "note": null}]}, {"name": "Pets", "icon": "o-paw", "isNew": false, "subs": [{"name": "Cats", "icon": "o-cat", "glow": false, "note": null}, {"name": "Dogs", "icon": "o-dog", "glow": false, "note": null}]}, {"name": "People", "icon": "o-cups", "isNew": false, "subs": [{"name": "Self", "icon": "o-star", "glow": false, "note": null}, {"name": "Parents", "icon": "o-heart", "glow": false, "note": null}, {"name": "Partner", "icon": "o-ring", "glow": false, "note": null}, {"name": "Kids", "icon": "o-ball", "glow": false, "note": null}, {"name": "Friends", "icon": "o-users", "glow": false, "note": null}, {"name": "Relatives", "icon": "o-house", "glow": false, "note": null}, {"name": "Colleagues", "icon": "o-mug", "glow": false, "note": null}, {"name": "Roommate", "icon": "o-person", "glow": false, "note": null}, {"name": "Enemies", "icon": "o-no", "glow": false, "note": null}]}, {"name": "Travel", "icon": "o-case", "isNew": false, "subs": [{"name": "Train", "icon": "o-train", "glow": false, "note": null}, {"name": "Flights", "icon": "o-flight", "glow": false, "note": null}]}, {"name": "Fashion", "icon": "o-tee", "isNew": false, "subs": [{"name": "Men", "icon": "o-tie", "glow": false, "note": null}, {"name": "Women", "icon": "o-dress", "glow": false, "note": null}]}, {"name": "Life Events", "icon": "o-gift", "isNew": false, "subs": [{"name": "Buying Home", "icon": "o-house", "glow": false, "note": null}, {"name": "Marriage", "icon": "o-ring", "glow": false, "note": null}, {"name": "Pregnancy", "icon": "o-heart", "glow": false, "note": null}, {"name": "Buying a Car", "icon": "o-car", "glow": false, "note": null}, {"name": "Moving to a New City", "icon": "o-truck", "glow": false, "note": null}]}, {"name": "Tech", "icon": "o-chip", "isNew": false, "subs": [{"name": "Mobile", "icon": "o-phone", "glow": false, "note": null}, {"name": "TV", "icon": "o-tv", "glow": false, "note": null}, {"name": "Earphones", "icon": "o-ears", "glow": false, "note": null}, {"name": "Power Bank", "icon": "o-batt", "glow": false, "note": null}]}, {"name": "Content", "icon": "o-book", "isNew": false, "subs": [{"name": "News", "icon": "o-news", "glow": false, "note": null}, {"name": "Movies & Shows", "icon": "o-tv", "glow": false, "note": null}, {"name": "Songs", "icon": "o-note", "glow": false, "note": null}, {"name": "Books", "icon": "o-bookmark", "glow": false, "note": null}]}, {"name": "Life Skills", "icon": "o-toolbox", "isNew": false, "subs": [{"name": "Driving", "icon": "o-wheel", "glow": false, "note": null}, {"name": "Swimming", "icon": "o-waves", "glow": false, "note": null}, {"name": "Hobbies", "icon": "o-star", "glow": false, "note": null}, {"name": "Problem Solving", "icon": "o-bulb", "glow": false, "note": null}, {"name": "Reminders", "icon": "o-cal", "glow": false, "note": null}]}];
   var stage = document.getElementById('stage');
   var toastEl = document.getElementById('toast');
   var PAD = 14;
@@ -110,8 +111,7 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif
   function show(el) { el.style.opacity = '1'; el.style.pointerEvents = 'auto'; }
   function hide(el) { el.style.opacity = '0'; el.style.pointerEvents = 'none'; }
   function place(el, x, y, s, r) { el.style.transform = 'translate(' + x + 'px,' + y + 'px) rotate(' + (r || 0) + 'deg) scale(' + s + ')'; }
-  function placeCenter(el, cx, cy, s, w, h) { place(el, cx - w * s / 2, cy - h * s / 2, s, 0); }
-  function isPill(ti, si) { return !!DATA[ti].subs[si].pill; }
+  function placeCenter(el, cx, cy, s, w, h, r) { place(el, cx - w * s / 2, cy - h * s / 2, s, r || 0); }
   function tileSize(kind) {
     if (kind === 'topic') return [TOPIC_W, TOPIC_H];
     if (kind === 'pill') return [PILL_W, PILL_H];
@@ -144,151 +144,85 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif
     clearTimeout(toastTimer);
     toastTimer = setTimeout(function () { toastEl.style.display = 'none'; }, 1600);
   }
-  function gridGeom(W, H, bw, bh) {
-    return { cols: Math.max(2, Math.floor((W - 2 * PAD) / bw)), rows: Math.max(2, Math.floor((H - 2 * PAD) / bh)) };
+  function topicGrid(W, H) {
+    var cols = Math.max(3, Math.min(7, Math.floor((W - 2 * PAD) / 88)));
+    var rows = Math.ceil(DATA.length / cols);
+    var cellW = Math.min(88, (W - 2 * PAD) / cols);
+    var cellH = Math.min(106, (H - 2 * PAD) / rows);
+    var ox = (W - cols * cellW) / 2, oy = (H - rows * cellH) / 2;
+    var pos = DATA.map(function (t, k) {
+      var col = k % cols, row = Math.floor(k / cols);
+      var x = ox + col * cellW + (cellW - TOPIC_W) / 2;
+      var y = oy + row * cellH + (cellH - TOPIC_H) / 2;
+      return { x: x, y: y, cx: x + TOPIC_W / 2, cy: y + TOPIC_H / 2, rot: ((k * 37) % 5) - 2, jx: ((k * 53) % 7) - 3, jy: ((k * 29) % 5) - 2, cellW: cellW, cellH: cellH };
+    });
+    return { cols: cols, rows: rows, cellW: cellW, cellH: cellH, pos: pos };
   }
-  function collapsedGeom(W, H) {
-    var g = gridGeom(W, H, 88, 106), cellW = 88, cellH = 106;
-    if (g.cols * g.rows < 14) { g = gridGeom(W, H, 72, 88); cellW = 72; cellH = 88; }
-    if (g.cols * g.rows < 14) { g.cols = 3; g.rows = Math.ceil(14 / 3); cellW = (W - 2 * PAD) / 3; cellH = (H - 2 * PAD) / g.rows; }
-    return { cols: g.cols, rows: g.rows, cellW: cellW, cellH: cellH, cap: Math.max(0, g.cols * g.rows - 14) };
-  }
-  function featuredPerTopic(cap) {
-    var per = DATA.map(function () { return []; });
-    var taken = 0, round = 0, progressed = true;
-    while (taken < cap && progressed) {
-      progressed = false;
-      for (var ti = 0; ti < DATA.length && taken < cap; ti++) {
-        if (DATA[ti].subs[round]) { per[ti].push(round); taken++; progressed = true; }
-      }
-      round++;
+  function ringSlots(expCx, expCy, n, W, H, cellW, cellH, tileW, tileH) {
+    var candidates = [];
+    for (var r = 1; r <= 3; r++) {
+      var ring = [];
+      for (var dc = -r; dc <= r; dc++) ring.push([dc, -r]);
+      for (var dr = -r + 1; dr <= r; dr++) ring.push([r, dr]);
+      for (var dc2 = r - 1; dc2 >= -r; dc2--) ring.push([dc2, r]);
+      for (var dr2 = r - 1; dr2 >= -r + 1; dr2--) ring.push([-r, dr2]);
+      var inB = [], outB = [];
+      ring.forEach(function (d) {
+        var cx = expCx + d[0] * cellW, cy = expCy + d[1] * cellH;
+        var ok = cx - tileW / 2 >= PAD && cx + tileW / 2 <= W - PAD && cy - tileH / 2 >= PAD && cy + tileH / 2 <= H - PAD;
+        (ok ? inB : outB).push({ cx: cx, cy: cy });
+      });
+      candidates = candidates.concat(inB, outB);
     }
-    return per;
+    var chosen = [];
+    candidates.forEach(function (c) {
+      if (chosen.length >= n) return;
+      var cx = Math.max(PAD + tileW / 2, Math.min(W - PAD - tileW / 2, c.cx));
+      var cy = Math.max(PAD + tileH / 2, Math.min(H - PAD - tileH / 2, c.cy));
+      var clash = chosen.some(function (o) { return Math.abs(o.cx - cx) < tileW - 4 && Math.abs(o.cy - cy) < tileH - 4; });
+      if (!clash) chosen.push({ cx: cx, cy: cy });
+    });
+    return chosen;
   }
   function layoutCollapsed(W, H) {
-    var g = collapsedGeom(W, H);
-    var per = featuredPerTopic(g.cap);
-    var order = [];
-    DATA.forEach(function (t, ti) { order.push({ kind: 'topic', ti: ti }); per[ti].forEach(function (si) { order.push({ kind: 'sub', ti: ti, si: si }); }); });
-    var gw = g.cols * g.cellW, gh = g.rows * g.cellH;
-    var ox = (W - gw) / 2, oy = (H - gh) / 2;
-    var topicPos = {};
-    order.forEach(function (o, k) {
-      var col = k % g.cols, row = Math.floor(k / g.cols);
-      var kind = o.kind === 'topic' ? 'topic' : (isPill(o.ti, o.si) ? 'pill' : 'sub');
-      var sz = tileSize(kind);
-      var x = ox + col * g.cellW + (g.cellW - sz[0]) / 2;
-      var y = oy + row * g.cellH + (g.cellH - sz[1]) / 2;
-      var el = o.kind === 'topic' ? DATA[o.ti]._el : DATA[o.ti].subs[o.si]._el;
-      if (o.kind === 'topic') topicPos[o.ti] = { x: x, y: y };
-      el.classList.remove('mini');
-      place(el, x + ((k * 53) % 7) - 3, y + ((k * 29) % 5) - 2, 1, ((k * 37) % 5) - 2);
-      show(el);
-    });
+    var g = topicGrid(W, H);
     DATA.forEach(function (t, ti) {
-      t.subs.forEach(function (s, si) {
-        if (per[ti].indexOf(si) === -1) {
-          var p = topicPos[ti] || { x: W / 2, y: H / 2 };
-          s._el.classList.remove('mini');
-          place(s._el, p.x, p.y, 0.5, 0);
-          hide(s._el);
-        }
-      });
+      var p = g.pos[ti];
+      place(t._el, p.x + p.jx, p.y + p.jy, 1, p.rot);
+      show(t._el);
+      t.subs.forEach(function (s) { place(s._el, p.x, p.y, 0.5, 0); hide(s._el); });
     });
-  }
-  function tryFlow(minis, strips, s) {
-    var placements = [], placed = 0;
-    for (var si = 0; si < strips.length && placed < minis.length; si++) {
-      var st = strips[si];
-      var x = st[0], y = st[1], rh = 0;
-      while (placed < minis.length) {
-        var m = minis[placed];
-        var w = m.w * s, h = m.h * s;
-        if (x + w > st[2] + 1) {
-          if (x === st[0]) break;
-          y += rh + 6; rh = 0; x = st[0];
-          if (y + h > st[3] + 1) break;
-          continue;
-        }
-        placements.push({ it: m, x: x, y: y, s: s });
-        x += w + 6; rh = Math.max(rh, h); placed++;
-      }
-    }
-    return { placements: placements, placed: placed };
   }
   function layoutExpanded(W, H, ti) {
-    var T = DATA[ti], subs = T.subs;
-    var pillBlock = subs.length > 0 && !!subs[0].pill;
-    var hasGlow = subs.some(function (s) { return s.glow; });
-    var subCellW, subCellH, subCols;
-    if (pillBlock) { subCellW = 96; subCellH = 36; subCols = Math.min(3, subs.length); }
-    else { subCols = Math.min(4, Math.ceil(Math.sqrt(subs.length))); subCellW = 72; subCellH = hasGlow ? 100 : 86; }
-    var subRows = Math.ceil(subs.length / subCols);
-    var bw = Math.max(TOPIC_W, subCols * subCellW);
-    var bh = TOPIC_H + 12 + subRows * subCellH;
-    var bs = Math.min(1, (W - 2 * PAD) / bw, (H - 2 * PAD) / bh);
-    var bcx = W / 2, bcy = H / 2;
-    T._el.classList.remove('mini');
-    placeCenter(T._el, bcx, bcy + (-bh / 2 + TOPIC_H / 2) * bs, bs * 1.15, TOPIC_W, TOPIC_H);
-    show(T._el);
-    var gridW = subCols * subCellW;
-    var gridX0 = -gridW / 2, gridY0 = -bh / 2 + TOPIC_H + 12;
-    subs.forEach(function (s, k) {
-      var c = k % subCols, r = Math.floor(k / subCols);
-      var sz = tileSize(s.pill ? 'pill' : 'sub');
-      var lx = gridX0 + c * subCellW + subCellW / 2;
-      var ly = gridY0 + r * subCellH + subCellH / 2;
-      s._el.classList.remove('mini');
-      placeCenter(s._el, bcx + lx * bs, bcy + ly * bs, bs, sz[0], sz[1]);
+    var g = topicGrid(W, H);
+    var exp = g.pos[ti];
+    DATA.forEach(function (t, tj) {
+      var p = g.pos[tj];
+      if (tj === ti) {
+        place(t._el, p.x + p.jx, p.y + p.jy, 1, p.rot);
+        show(t._el);
+        return;
+      }
+      var dx = p.cx - exp.cx, dy = p.cy - exp.cy;
+      var dist = Math.sqrt(dx * dx + dy * dy) || 1;
+      var push = dist < 230 ? 85 : 50;
+      var ncx = p.cx + dx / dist * push, ncy = p.cy + dy / dist * push;
+      var hw = TOPIC_W * 0.9 / 2, hh = TOPIC_H * 0.9 / 2;
+      var loX = PAD + hw, hiX = W - PAD - hw, loY = PAD + hh, hiY = H - PAD - hh;
+      ncx = loX > hiX ? W / 2 : Math.max(loX, Math.min(hiX, ncx));
+      ncy = loY > hiY ? H / 2 : Math.max(loY, Math.min(hiY, ncy));
+      placeCenter(t._el, ncx, ncy, 0.9, TOPIC_W, TOPIC_H, p.rot);
+      show(t._el);
+      t.subs.forEach(function (s) { place(s._el, ncx - TOPIC_W * 0.9 / 2, ncy - TOPIC_H * 0.9 / 2, 0.5, 0); hide(s._el); });
+    });
+    var T = DATA[ti];
+    var pillKind = T.subs.length > 0 && !!T.subs[0].pill;
+    var tw = pillKind ? PILL_W : SUB_W, th = pillKind ? PILL_H : SUB_H;
+    var slots = ringSlots(exp.cx, exp.cy, T.subs.length, W, H, g.cellW, g.cellH, tw, th);
+    T.subs.forEach(function (s, k) {
+      var sl = slots[k] || { cx: exp.cx, cy: exp.cy };
+      placeCenter(s._el, sl.cx, sl.cy, 1, tw, th, 0);
       show(s._el);
-    });
-    var blockW = bw * bs, blockH = bh * bs;
-    var bx0 = bcx - blockW / 2 - 10, bx1 = bcx + blockW / 2 + 10;
-    var by0 = bcy - blockH / 2 - 10, by1 = bcy + blockH / 2 + 10;
-    var strips = [];
-    if (by0 - PAD > 20) strips.push([PAD, PAD, W - PAD, by0]);
-    if (H - PAD - by1 > 20) strips.push([PAD, by1, W - PAD, H - PAD]);
-    if (bx0 - PAD > 30) strips.push([PAD, by0, bx0, by1]);
-    if (W - PAD - bx1 > 30) strips.push([bx1, by0, W - PAD, by1]);
-    var capC = collapsedGeom(W, H).cap;
-    var per = featuredPerTopic(capC);
-    var minis = [], miniTopicPos = {};
-    DATA.forEach(function (t, tj) {
-      if (tj === ti) return;
-      minis.push({ el: t._el, w: TOPIC_W, h: TOPIC_H, ti: tj, kind: 'topic' });
-      per[tj].forEach(function (si) {
-        var s = t.subs[si];
-        minis.push({ el: s._el, w: s.pill ? Math.min(84, s.name.length * 5 + 14) : SUB_W, h: s.pill ? PILL_H : SUB_H, ti: tj, si: si, kind: s.pill ? 'pill' : 'sub' });
-      });
-    });
-    var best = null;
-    [1, 0.85, 0.7, 0.55, 0.45].forEach(function (s) {
-      if (best && best.placed === minis.length) return;
-      var r = tryFlow(minis, strips, s);
-      if (!best || r.placed > best.placed) best = r;
-      if (r.placed === minis.length) best = r;
-    });
-    var placedSet = new Set();
-    best.placements.forEach(function (p) {
-      p.it.el.classList.add('mini');
-      place(p.it.el, p.x, p.y, p.s, 0);
-      show(p.it.el);
-      placedSet.add(p.it.el);
-      if (p.it.kind === 'topic') miniTopicPos[p.it.ti] = { x: p.x, y: p.y };
-    });
-    minis.forEach(function (m) {
-      if (!placedSet.has(m.el)) { m.el.classList.add('mini'); hide(m.el); }
-    });
-    DATA.forEach(function (t, tj) {
-      if (tj === ti) return;
-      t.subs.forEach(function (s, si) {
-        if (per[tj].indexOf(si) === -1) {
-          var p = miniTopicPos[tj] || { x: W / 2, y: H / 2 };
-          s._el.classList.remove('mini');
-          place(s._el, p.x, p.y, 0.5, 0);
-          hide(s._el);
-        }
-      });
     });
   }
   function layout() {
