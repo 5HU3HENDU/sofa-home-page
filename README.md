@@ -15,7 +15,9 @@ nothing here links to schoolofadults.com, and the live site is untouched.
   one viewport, no scrolling.
 - `tabs.html` — three tabs: Designs (all boards + desk + 3D test in one
   place), Folders (14 topic folders, Android home-screen style — tap a
-  folder and it pops up centred over the dimmed grid, home grid stays put), and
+  folder and it pops up centred over the dimmed grid, home grid stays put;
+  modern treatment: soft-shadow gradient folder tiles, spring popup with
+  blurred backdrop, subtopics on white app-icon chips that stagger in), and
   Calendar (five views — Schedule, Day, Week, Month, Year — with sample events:
   flights, trains, health checkups, festivals, community events — clearly marked
   as samples, not real dates; each event type has its own hand-drawn icon).
