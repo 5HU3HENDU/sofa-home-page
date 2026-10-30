@@ -13,6 +13,12 @@ nothing here links to schoolofadults.com, and the live site is untouched.
   subtopics fanning out around it while the other topics grey out, dim, and
   pack into the free space around the family with zero overlap — all inside
   one viewport, no scrolling.
+- `tabs.html` — three tabs: Designs (all boards + desk + 3D test in one
+  place), Folders (14 topic folders, Android home-screen style — tap a
+  folder and its subtopics open over the grid, home grid stays put), and
+  Calendar (month view with sample events: flights, trains, health
+  checkups, festivals, community events — clearly marked as samples, not
+  real dates).
   - **A · The Room** — an illustrated scene: shelf, desk, floor.
   - **B · The Shelf** — a clean grid of object cards for all 14 topics.
   - **C · Hero + Shelf** — one "object of the week" over a quiet grid.

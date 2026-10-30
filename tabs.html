@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>School of Adults — tabs concept (mockup)</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #F7F3E8; color: #1F1C18; line-height: 1.5; }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 24px 16px 80px; }
+  h1 { font-family: Georgia, serif; font-size: 30px; margin: 0 0 6px; }
+  .sub { color: #5c6653; margin: 0 0 4px; }
+  .mocknote { background: #FFF3CD; border: 1px solid #E5C07B; border-radius: 8px; padding: 10px 14px; font-size: 14px; margin: 16px 0; }
+  .samplenote { background: #F0EDE2; border: 1px dashed #C9A96A; border-radius: 8px; padding: 8px 14px; font-size: 13px; margin: 0 0 16px; color: #5c6653; }
+  .tabbar { display: flex; gap: 8px; margin: 20px 0 24px; position: sticky; top: 0; background: #F7F3E8; padding: 10px 0; z-index: 5; }
+  .tab { flex: 1; border: 2px solid #1F1C18; border-radius: 999px; background: #FFFEF9; color: #1F1C18; font-size: 15px; font-weight: 700; padding: 10px 4px; cursor: pointer; }
+  .tab.active { background: #1F1C18; color: #F7F3E8; }
+  .panel { display: none; }
+  .panel.active { display: block; }
+  .panel h2 { font-family: Georgia, serif; font-size: 22px; margin: 0 0 4px; }
+  .panel .why { color: #5c6653; margin: 0 0 18px; font-size: 15px; }
+  /* designs */
+  .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .card { border: 2px solid #1F1C18; border-radius: 12px; padding: 16px 14px; background: #FFFEF9; text-decoration: none; color: inherit; display: block; }
+  .card b { font-family: Georgia, serif; font-size: 18px; }
+  .card p { font-size: 13px; color: #5c6653; margin: 4px 0 0; }
+  .card .go { font-size: 13px; font-weight: 700; margin-top: 10px; }
+  /* folders: Android-style home grid */
+  .folders { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px 10px; }
+  .folder { text-align: center; cursor: pointer; padding: 6px 2px; border-radius: 14px; }
+  .folder:active { background: #F0EDE2; }
+  .ftile { width: 64px; height: 64px; margin: 0 auto; border: 2px solid #1F1C18; border-radius: 16px; background: #FFFEF9; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; padding: 6px; gap: 3px; }
+  .ftile svg { width: 100%; height: 100%; }
+  .ftile .dot4 { background: #1F1C18; border-radius: 50%; width: 10px; height: 10px; margin: auto; }
+  .fname { font-size: 12px; font-weight: 700; margin-top: 6px; line-height: 1.25; }
+  .fcount { font-size: 11px; color: #7a7f72; }
+  .hint { font-size: 13px; color: #5c6653; text-align: center; margin-top: 22px; }
+  /* folder sheet */
+  .sheet { display: none; position: fixed; inset: 0; z-index: 20; }
+  .sheet.open { display: block; }
+  .backdrop { position: absolute; inset: 0; background: rgba(31,28,24,0.45); }
+  .sheetbox { position: absolute; left: 0; right: 0; bottom: 0; background: #F7F3E8; border-top: 3px solid #1F1C18; border-radius: 20px 20px 0 0; padding: 18px 16px 34px; max-height: 72dvh; overflow-y: auto; }
+  .sheetbox h2 { font-family: Georgia, serif; font-size: 22px; margin: 0 0 4px; }
+  .sheetbox .scount { color: #5c6653; font-size: 13px; margin-bottom: 16px; }
+  .sheetclose { position: absolute; right: 14px; top: 12px; width: 34px; height: 34px; border-radius: 50%; border: 2px solid #1F1C18; background: #FFFEF9; font-size: 20px; line-height: 1; cursor: pointer; }
+  .appgrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px 8px; }
+  .app { text-align: center; cursor: pointer; }
+  .app svg { width: 52px; height: 52px; }
+  .app span { display: block; font-size: 11px; font-weight: 600; line-height: 1.25; margin-top: 4px; }
+  .app .pill { display: inline-block; font-size: 11px; font-weight: 600; padding: 5px 10px; border: 1.5px solid #1F1C18; border-radius: 999px; background: #fff; margin-top: 12px; }
+  /* calendar */
+  .calhead { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+  .calhead button { width: 40px; height: 40px; border-radius: 50%; border: 2px solid #1F1C18; background: #FFFEF9; font-size: 22px; cursor: pointer; }
+  .calhead .mtitle { font-family: Georgia, serif; font-size: 22px; font-weight: bold; }
+  .weekday, .calgrid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+  .weekday { font-size: 11px; letter-spacing: 0.08em; color: #8a8f82; font-weight: 700; text-align: center; margin-bottom: 6px; }
+  .day { aspect-ratio: 1; border: 1.5px solid #DDD5BE; border-radius: 10px; background: #FFFEF9; font-size: 14px; cursor: pointer; position: relative; padding-top: 6px; text-align: center; }
+  .day.empty { border-color: transparent; background: transparent; cursor: default; }
+  .day.today { border-color: #1F1C18; border-width: 2px; font-weight: 700; }
+  .day.sel { background: #1F1C18; color: #F7F3E8; }
+  .day .dots { display: flex; justify-content: center; gap: 3px; margin-top: 2px; }
+  .day .dots i { width: 6px; height: 6px; border-radius: 50%; display: block; }
+  .dayevents { margin-top: 20px; }
+  .dayevents h3 { font-family: Georgia, serif; font-size: 18px; margin: 0 0 10px; }
+  .ev { display: flex; gap: 10px; align-items: flex-start; border: 2px solid #1F1C18; border-radius: 12px; background: #FFFEF9; padding: 12px 14px; margin-bottom: 10px; }
+  .ev .chip { flex-shrink: 0; font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 999px; color: #fff; margin-top: 1px; }
+  .ev b { font-size: 15px; }
+  .ev p { font-size: 13px; color: #5c6653; margin: 2px 0 0; }
+  .ev .none { color: #5c6653; font-size: 14px; }
+  #toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: #1F1C18; color: #F7F3E8; padding: 10px 18px; border-radius: 999px; font-size: 14px; display: none; z-index: 30; white-space: nowrap; }
+  @media (max-width: 560px) { .cards { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="o-train" viewBox="0 0 96 96"><rect x="8" y="30" width="80" height="38" rx="6" fill="#DCE9F5" stroke="#1F1C18" stroke-width="2.5"/><line x1="60" y1="30" x2="60" y2="68" stroke="#1F1C18" stroke-width="2" stroke-dasharray="4 4"/><rect x="16" y="38" width="14" height="10" rx="2" fill="#fff" stroke="#1F1C18" stroke-width="1.5"/><rect x="34" y="38" width="14" height="10" rx="2" fill="#fff" stroke="#1F1C18" stroke-width="1.5"/><text x="34" y="63" text-anchor="middle" font-size="10" font-weight="bold" fill="#1F1C18">TRAIN</text><circle cx="72" cy="49" r="7" fill="#fff" stroke="#1F1C18" stroke-width="1.5"/></symbol>
+  <symbol id="o-flight" viewBox="0 0 96 96"><rect x="8" y="30" width="80" height="38" rx="6" fill="#FDEBD7" stroke="#1F1C18" stroke-width="2.5"/><line x1="60" y1="30" x2="60" y2="68" stroke="#1F1C18" stroke-width="2" stroke-dasharray="4 4"/><path d="M30 52 L52 40 L52 46 L34 56 Z" fill="#1F1C18"/><path d="M30 56 L46 52 L46 58 L30 60 Z" fill="#1F1C18"/><text x="34" y="66" font-size="9" font-weight="bold" fill="#1F1C18">FLIGHT</text></symbol>
+  <symbol id="o-wallet" viewBox="0 0 96 96"><rect x="14" y="28" width="68" height="42" rx="8" fill="#B07D4F" stroke="#1F1C18" stroke-width="2.5"/><path d="M14 38 H82" stroke="#1F1C18" stroke-width="2"/><rect x="52" y="46" width="22" height="12" rx="4" fill="#F7F3E8" stroke="#1F1C18" stroke-width="1.5"/><circle cx="63" cy="52" r="2.5" fill="#1F1C18"/></symbol>
+  <symbol id="o-bill" viewBox="0 0 96 96"><rect x="22" y="20" width="52" height="58" rx="4" fill="#fff" stroke="#1F1C18" stroke-width="2.5"/><path d="M22 28 H60 L74 42 V78" fill="none" stroke="#1F1C18" stroke-width="2"/><line x1="30" y1="48" x2="66" y2="48" stroke="#1F1C18" stroke-width="2"/><line x1="30" y1="56" x2="66" y2="56" stroke="#1F1C18" stroke-width="2"/><line x1="30" y1="64" x2="52" y2="64" stroke="#1F1C18" stroke-width="2"/><text x="48" y="38" text-anchor="middle" font-size="10" font-weight="bold" fill="#C0392B">DUE</text></symbol>
+  <symbol id="o-dog" viewBox="0 0 96 96"><ellipse cx="28" cy="44" rx="10" ry="18" fill="#8A6D3B" stroke="#1F1C18" stroke-width="2.5"/><ellipse cx="68" cy="44" rx="10" ry="18" fill="#8A6D3B" stroke="#1F1C18" stroke-width="2.5"/><circle cx="48" cy="50" r="26" fill="#E8C98A" stroke="#1F1C18" stroke-width="2.5"/><ellipse cx="48" cy="60" rx="11" ry="8" fill="#fff" stroke="#1F1C18" stroke-width="1.5"/><circle cx="48" cy="56" r="3.5" fill="#1F1C18"/><circle cx="38" cy="44" r="3" fill="#1F1C18"/><circle cx="58" cy="44" r="3" fill="#1F1C18"/></symbol>
+  <symbol id="o-cat" viewBox="0 0 96 96"><path d="M24 34 L20 14 L40 24 Z" fill="#9AA0A6" stroke="#1F1C18" stroke-width="2.5" stroke-linejoin="round"/><path d="M72 34 L76 14 L56 24 Z" fill="#9AA0A6" stroke="#1F1C18" stroke-width="2.5" stroke-linejoin="round"/><circle cx="48" cy="52" r="26" fill="#D5D8DC" stroke="#1F1C18" stroke-width="2.5"/><line x1="14" y1="52" x2="28" y2="54" stroke="#1F1C18" stroke-width="1.5"/><line x1="14" y1="60" x2="28" y2="58" stroke="#1F1C18" stroke-width="1.5"/><line x1="82" y1="52" x2="68" y2="54" stroke="#1F1C18" stroke-width="1.5"/><line x1="82" y1="60" x2="68" y2="58" stroke="#1F1C18" stroke-width="1.5"/><circle cx="38" cy="46" r="3" fill="#1F1C18"/><circle cx="58" cy="46" r="3" fill="#1F1C18"/><path d="M44 56 Q48 60 52 56" fill="none" stroke="#1F1C18" stroke-width="1.5"/></symbol>
+  <symbol id="o-tv" viewBox="0 0 96 96"><rect x="10" y="24" width="76" height="48" rx="8" fill="#5D6D7E" stroke="#1F1C18" stroke-width="2.5"/><rect x="18" y="32" width="46" height="32" rx="3" fill="#AED6F1" stroke="#1F1C18" stroke-width="1.5"/><line x1="22" y1="40" x2="46" y2="40" stroke="#1F1C18" stroke-width="1.5" opacity="0.5"/><line x1="22" y1="48" x2="56" y2="48" stroke="#1F1C18" stroke-width="1.5" opacity="0.5"/><line x1="22" y1="56" x2="40" y2="56" stroke="#1F1C18" stroke-width="1.5" opacity="0.5"/><circle cx="72" cy="40" r="3" fill="#F7F3E8" stroke="#1F1C18" stroke-width="1.5"/><circle cx="72" cy="54" r="3" fill="#F7F3E8" stroke="#1F1C18" stroke-width="1.5"/><line x1="30" y1="72" x2="26" y2="82" stroke="#1F1C18" stroke-width="2.5"/><line x1="66" y1="72" x2="70" y2="82" stroke="#1F1C18" stroke-width="2.5"/><line x1="34" y1="24" x2="22" y2="10" stroke="#1F1C18" stroke-width="2"/><line x1="62" y1="24" x2="74" y2="10" stroke="#1F1C18" stroke-width="2"/></symbol>
+  <symbol id="o-key" viewBox="0 0 96 96"><circle cx="36" cy="34" r="14" fill="#F2C94C" stroke="#1F1C18" stroke-width="2.5"/><circle cx="36" cy="34" r="5" fill="#F7F3E8" stroke="#1F1C18" stroke-width="2"/><line x1="48" y1="42" x2="76" y2="70" stroke="#1F1C18" stroke-width="5" stroke-linecap="round"/><line x1="66" y1="60" x2="66" y2="70" stroke="#1F1C18" stroke-width="4"/><line x1="74" y1="68" x2="74" y2="78" stroke="#1F1C18" stroke-width="4"/></symbol>
+  <symbol id="o-bottle" viewBox="0 0 96 96"><rect x="40" y="12" width="16" height="10" rx="3" fill="#2E86C1" stroke="#1F1C18" stroke-width="2.5"/><path d="M40 22 H56 L60 32 V74 Q60 82 52 82 H44 Q36 82 36 74 V32 Z" fill="#AED6F1" stroke="#1F1C18" stroke-width="2.5"/><path d="M36 54 H60 V74 Q60 82 52 82 H44 Q36 82 36 74 Z" fill="#2E86C1" opacity="0.65"/></symbol>
+  <symbol id="o-badge" viewBox="0 0 96 96"><rect x="28" y="22" width="40" height="54" rx="6" fill="#F7F3E8" stroke="#1F1C18" stroke-width="2.5"/><circle cx="48" cy="38" r="8" fill="#F2C94C" stroke="#1F1C18" stroke-width="2"/><path d="M36 54 Q48 46 60 54 V70 H36 Z" fill="#DCE9F5" stroke="#1F1C18" stroke-width="1.5"/><rect x="42" y="12" width="12" height="12" rx="3" fill="#1F1C18"/></symbol>
+  <symbol id="o-cups" viewBox="0 0 96 96"><path d="M16 40 H40 L38 74 H18 Z" fill="#fff" stroke="#1F1C18" stroke-width="2.5"/><path d="M40 48 Q50 48 50 56 Q50 64 40 64" fill="none" stroke="#1F1C18" stroke-width="2.5"/><path d="M56 40 H80 L78 74 H58 Z" fill="#F5CBA7" stroke="#1F1C18" stroke-width="2.5"/><path d="M80 48 Q90 48 90 56 Q90 64 80 64" fill="none" stroke="#1F1C18" stroke-width="2.5"/><path d="M26 32 Q22 26 26 20 M34 32 Q30 26 34 20 M66 32 Q62 26 66 20 M74 32 Q70 26 74 20" fill="none" stroke="#1F1C18" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="o-toolbox" viewBox="0 0 96 96"><rect x="14" y="34" width="68" height="38" rx="6" fill="#C0392B" stroke="#1F1C18" stroke-width="2.5"/><path d="M34 34 V26 Q34 18 48 18 Q62 18 62 26 V34" fill="none" stroke="#1F1C18" stroke-width="4"/><rect x="42" y="44" width="12" height="10" rx="2" fill="#F2C94C" stroke="#1F1C18" stroke-width="1.5"/><line x1="14" y1="46" x2="82" y2="46" stroke="#1F1C18" stroke-width="2"/></symbol>
+  <symbol id="o-gift" viewBox="0 0 96 96"><rect x="20" y="34" width="56" height="42" rx="4" fill="#F5B7B1" stroke="#1F1C18" stroke-width="2.5"/><rect x="44" y="34" width="8" height="42" fill="#C0392B"/><rect x="16" y="24" width="64" height="12" rx="4" fill="#C0392B" stroke="#1F1C18" stroke-width="2"/><path d="M48 24 Q36 8 26 14 Q20 20 32 26 Q40 28 48 24" fill="#F7F3E8" stroke="#1F1C18" stroke-width="2"/><path d="M48 24 Q60 8 70 14 Q76 20 64 26 Q56 28 48 24" fill="#F7F3E8" stroke="#1F1C18" stroke-width="2"/></symbol>
+  <symbol id="o-phone" viewBox="0 0 96 96"><rect x="28" y="10" width="40" height="76" rx="10" fill="#2C3E50" stroke="#1F1C18" stroke-width="2.5"/><rect x="34" y="20" width="28" height="52" rx="3" fill="#AED6F1" stroke="#1F1C18" stroke-width="1.5"/><circle cx="48" cy="79" r="3" fill="#F7F3E8"/></symbol>
+  <symbol id="o-doc" viewBox="0 0 96 96"><rect x="26" y="12" width="44" height="72" rx="4" fill="#fff" stroke="#1F1C18" stroke-width="2.5"/><path d="M58 12 L70 24 H58 Z" fill="#D5D8DC" stroke="#1F1C18" stroke-width="1.5"/><line x1="34" y1="36" x2="62" y2="36" stroke="#1F1C18" stroke-width="2"/><line x1="34" y1="44" x2="62" y2="44" stroke="#1F1C18" stroke-width="2"/><line x1="34" y1="52" x2="52" y2="52" stroke="#1F1C18" stroke-width="2"/><circle cx="56" cy="66" r="9" fill="#F2C94C" stroke="#1F1C18" stroke-width="2"/></symbol>
+  <symbol id="o-chat" viewBox="0 0 96 96"><rect x="10" y="20" width="76" height="48" rx="14" fill="#ABEBC6" stroke="#1F1C18" stroke-width="2.5"/><path d="M28 68 L24 84 L44 68 Z" fill="#ABEBC6" stroke="#1F1C18" stroke-width="2.5" stroke-linejoin="round"/><circle cx="32" cy="44" r="4" fill="#1F1C18"/><circle cx="48" cy="44" r="4" fill="#1F1C18"/><circle cx="64" cy="44" r="4" fill="#1F1C18"/></symbol>
+  <symbol id="o-tee" viewBox="0 0 96 96"><path d="M34 22 Q34 12 48 12 Q62 12 62 22" fill="none" stroke="#1F1C18" stroke-width="2.5"/><path d="M26 26 L14 38 L24 48 L30 42 V76 H66 V42 L72 48 L82 38 L70 26 Q62 34 48 34 Q34 34 26 26 Z" fill="#A9CCE3" stroke="#1F1C18" stroke-width="2.5" stroke-linejoin="round"/></symbol>
+  <symbol id="o-lamp" viewBox="0 0 96 96"><circle cx="48" cy="30" r="20" fill="#FFE08A" opacity="0.5"/><path d="M32 34 H64 L56 58 H40 Z" fill="#F2C94C" stroke="#1F1C18" stroke-width="2.5"/><line x1="48" y1="58" x2="48" y2="82" stroke="#1F1C18" stroke-width="3"/><line x1="36" y1="82" x2="60" y2="82" stroke="#1F1C18" stroke-width="3" stroke-linecap="round"/></symbol>
+  <symbol id="o-coin" viewBox="0 0 96 96" fill="none" stroke="#1F1C18" stroke-width="2.5"><circle cx="48" cy="48" r="26" fill="#F2C94C"/><text x="48" y="59" text-anchor="middle" font-size="30" font-weight="bold" fill="#1F1C18" stroke="none">₹</text></symbol>
+  <symbol id="o-chart" viewBox="0 0 96 96" fill="none" stroke="#1F1C18" stroke-width="2.5"><line x1="24" y1="74" x2="74" y2="74"/><rect x="28" y="52" width="10" height="22" fill="#2E86C1"/><rect x="43" y="40" width="10" height="34" fill="#2E86C1"/><rect x="58" y="28" width="10" height="46" fill="#2E86C1"/></symbol>
+  <symbol id="o-shield" viewBox="0 0 96 96" fill="none" stroke="#1F1C18" stroke-width="2.5"><path d="M48 14 L74 24 V48 Q74 68 48 80 Q22 68 22 48 V24 Z" fill="#AED6F1"/></symbol>
+  <symbol id="o-card" viewBox="0 0 96 96" fill="none" stroke="#1F1C18" stroke-width="2.5"><rect x="14" y="28" width="68" height="40" rx="6" fill="#F7F3E8"/><rect x="14" y="38" width="68" height="8" fill="#1F1C18" stroke="none"/><rect x="20" y="54" width="16" height="6" fill="#F2C94C"/></symbol>
+  <symbol id="o-compass" viewBox="0 0 96 96" fill="none" stroke="#1F1C18" stroke-width="2.5"><circle cx="48" cy="48" r="26" fill="#F7F3E8"/><polygon points="48,28 56,56 48,50 40,56" fill="#C0392B"/></symbol>
+  <symbol id="o-mag" viewBox="0 0 96 96" fill="none" stroke="#1F1C18" stroke-width="2.5"><circle cx="40" cy="40" r="20" stroke-width="4"/><line x1="56" y1="56" x2="72" y2="72" stroke-width="5" stroke-linecap="round"/></symbol>
+  <symbol id="o-ladder" viewBox="0 0 96 96" fill="none" stroke="#1F1C18" stroke-width="2.5"><line x1="32" y1="16" x2="32" y2="80" stroke-width="4"/><line x1="64" y1="16" x2="64" y2="80" stroke-width="4"/><line x1="32" y1="34" x2="64" y2="34" stroke-width="3"/><line x1="32" y1="52" x2="64" y2="52" stroke-width="3"/><line x1="32" y1="70" x2="64" y2="70" stroke-width="3"/></symbol>
+  <symbol id="o-door" viewBox="0 0 96 96" fill="none" stroke="#1F1C18" stroke-width="2.5"><rect x="30" y="14" width="36" height="68" rx="3" fill="#D9A07A"/><circle cx="58" cy="48" r="3" fill="#1F1C18" stroke="none"/></symbol>
+  <symbol id="o-pan" viewBox="0 0 96 96" fill="none" stroke="#1F1C18" stroke-width="2.5"><circle cx="40" cy="52" r="22" fill="#5D6D7E"/><line x1="62" y1="52" x2="84" y2="52" stroke-width="5" stroke-linecap="round"/></symbol>
+  <symbol id="o-bed" viewBox="0 0 96 96" fill="none" stroke="#1F1C18" stroke-width="2.5"><rect x="14" y="44" width="68" height="22" rx="4" fill="#A9CCE3"/><rect x="14" y="30" width="16" height="16" rx="3" fill="#F7F3E8"/><line x1="20" y1="66" x2="20" y2="78" stroke-width="3"/><line x1="76" y1="66" x2="76" y2="78" stroke-width="3"/></symbol>
+  <symbol id="o-sofa" viewBox="0 0 96 96" fill="none" stroke="#1F1C18" stroke-width="2.5"><rect x="16" y="34" width="64" height="22" rx="6" fill="#F5CBA7"/><rect x="12" y="48" width="14" height="20" rx="4" fill="#F5CBA7"/><rect x="70" y="48" width="14" height="20" rx="4" fill="#F5CBA7"/><rect x="16" y="56" width="64" height="12" rx="4" fill="#F5CBA7"/></symbol>
+  <symbol id="o-bath" viewBox="0 0 96 96" fill="none" stroke="#1F1C18" stroke-width="2.5"><path d="M16 36 H80 Q80 66 62 66 H34 Q16 66 16 36 Z" fill="#AED6F1"/><line x1="28" y1="66" x2="26" y2="78" stroke-width="3"/><line x1="68" y1="66" x2="70" y2="78" stroke-width="3"/></symbol>
+  <symbol id="o-plant" viewBox="0 0 96 96" fill="none" stroke="#1F1C18" stroke-width="2.5"><path d="M36 54 H60 L56 78 H40 Z" fill="#C0392B"/><ellipse cx="48" cy="36" rx="8" ry="16" fill="#58A05C"/><ellipse cx="36" cy="44" rx="7" ry="12" fill="#58A05C" transform="rotate(-25 36 44)"/></symbol>
+  <symbol id="o-apple" viewBox="0 0 96 96" fill="none" stroke="#1F1C18" stroke-width="2.5"><circle cx="48" cy="54" r="24" fill="#C0392B"/><path d="M48 30 Q48 20 56 16" stroke-width="3"/><ellipse cx="60" cy="24" rx="8" ry="5" fill="#58A05C" transform="rotate(-20 60 24)"/></symbol>
+  <symbol id="o-dumb" viewBox="0 0 96 96" fill="none" stroke="#1F1C18" stroke-width="2.5"><line x1="22" y1="48" x2="74" y2="48" stroke-width="4"/><rect x="14" y="34" width="8" height="28" rx="2" fill="#1F1C18" stroke="none"/><rect x="24" y="38" width="7" height="20" rx="2" fill="#1F1C18" stroke="none"/><rect x="65" y="38" width="7" height="20" rx="2" fill="#1F1C18" stroke="none"/><rect x="74" y="34" width="8" height="28" rx="2" fill="#1F1C18" stroke="none"/></symbol>
+  <symbol id="o-heart" viewBox="0 0 96 96" fill="none" stroke="#1F1C18" stroke-width="2.5"><path d="M48 78 Q20 56 20 38 Q20 22 36 22 Q48 22 48 34 Q48 22 60 22 Q76 22 76 38 Q76 56 48 78 Z" fill="#E74C3C"/></symbol>
+  <symbol id="o-drop" viewBox="0 0 96 96" fill="none" stroke="#1F1C18" stroke-width="2.5"><path d="M48 14 Q62 40 70 54 Q70 72 48 78 Q26 72 26 54 Q34 40 48 14 Z" fill="#2E86C1"/></symbol>
+  <symbol id="o-bulb" viewBox="0 0 96 96" fill="none" stroke="#1F1C18" stroke-width="2.5"><circle cx="48" cy="40" r="22" fill="#F2C94C"/><line x1="38" y1="64" x2="58" y2="64" stroke-width="3"/><line x1="40" y1="72" x2="56" y2="72" stroke-width="3"/></symbol>
+  <symbol id="o-users" viewBox="0 0 96 96" fill="none" stroke="#1F1C18" stroke-width="2.5"><circle cx="34" cy="34" r="10" fill="#F7F3E8"/><circle cx="62" cy="34" r="10" fill="#F7F3E8"/><path d="M18 72 Q18 54 34 54 Q50 54 50 72 Z" fill="#A9CCE3"/><path d="M46 72 Q46 54 62 54 Q78 54 78 72 Z" fill="#A9CCE3"/></symbol>
+  <symbol id="o-no" viewBox="0 0 96 96" fill="none" stroke="#1F1C18" stroke-width="2.5"><circle cx="48" cy="48" r="26" stroke-width="4"/><line x1="30" y1="66" x2="66" y2="30" stroke-width="4" stroke-linecap="round"/></symbol>
+  <symbol id="o-house" viewBox="0 0 96 96" fill="none" stroke="#1F1C18" stroke-width="2.5"><path d="M48 14 L78 40 V78 H18 V40 Z" fill="#F5CBA7"/><rect x="40" y="56" width="16" height="22" fill="#8A6D3B"/></symbol>
+  <symbol id="o-ring" viewBox="0 0 96 96" fill="none" stroke="#1F1C18" stroke-width="2.5"><circle cx="48" cy="56" r="22" stroke="#F2C94C" stroke-width="5"/><polygon points="48,16 58,30 38,30" fill="#AED6F1"/></symbol>
+  <symbol id="o-car" viewBox="0 0 96 96" fill="none" stroke="#1F1C18" stroke-width="2.5"><rect x="14" y="44" width="68" height="18" rx="8" fill="#C0392B"/><path d="M26 44 Q30 28 48 28 Q66 28 70 44 Z" fill="#F7F3E8"/><circle cx="30" cy="66" r="9" fill="#1F1C18" stroke="none"/><circle cx="66" cy="66" r="9" fill="#1F1C18" stroke="none"/></symbol>
+  <symbol id="o-note" viewBox="0 0 96 96" fill="none" stroke="#1F1C18" stroke-width="2.5"><ellipse cx="34" cy="66" rx="10" ry="8" fill="#1F1C18" stroke="none"/><line x1="44" y1="66" x2="44" y2="22" stroke-width="3"/><path d="M44 22 Q60 26 58 40" stroke-width="3"/></symbol>
+  <symbol id="o-news" viewBox="0 0 96 96" fill="none" stroke="#1F1C18" stroke-width="2.5"><rect x="18" y="18" width="60" height="60" rx="4" fill="#fff"/><line x1="26" y1="30" x2="70" y2="30" stroke-width="3"/><line x1="26" y1="40" x2="50" y2="40" stroke-width="2"/><line x1="26" y1="48" x2="50" y2="48" stroke-width="2"/><rect x="56" y="38" width="14" height="18" fill="#AED6F1"/></symbol>
+  <symbol id="o-book" viewBox="0 0 96 96" fill="none" stroke="#1F1C18" stroke-width="2.5"><rect x="24" y="16" width="48" height="64" rx="4" fill="#5D6D7E"/><line x1="34" y1="16" x2="34" y2="80" stroke-width="2"/><line x1="44" y1="30" x2="64" y2="30" stroke-width="2"/><line x1="44" y1="40" x2="64" y2="40" stroke-width="2"/></symbol>
+  <symbol id="o-ears" viewBox="0 0 96 96" fill="none" stroke="#1F1C18" stroke-width="2.5"><path d="M20 52 Q20 22 48 22 Q76 22 76 52" stroke-width="4"/><rect x="14" y="50" width="12" height="18" rx="5" fill="#1F1C18" stroke="none"/><rect x="70" y="50" width="12" height="18" rx="5" fill="#1F1C18" stroke="none"/></symbol>
+  <symbol id="o-batt" viewBox="0 0 96 96" fill="none" stroke="#1F1C18" stroke-width="2.5"><rect x="14" y="32" width="58" height="32" rx="6" fill="#F7F3E8"/><rect x="72" y="42" width="8" height="12" rx="2" fill="#1F1C18" stroke="none"/><rect x="22" y="40" width="10" height="16" fill="#58A05C"/><rect x="36" y="40" width="10" height="16" fill="#58A05C"/></symbol>
+  <symbol id="o-waves" viewBox="0 0 96 96" fill="none" stroke="#2E86C1" stroke-width="3" stroke-linecap="round"><path d="M14 38 Q24 28 34 38 Q44 48 54 38 Q64 28 74 38"/><path d="M14 58 Q24 48 34 58 Q44 68 54 58 Q64 48 74 58"/></symbol>
+  <symbol id="o-star" viewBox="0 0 96 96" fill="none" stroke="#1F1C18" stroke-width="2.5"><polygon points="48,14 58,38 82,38 62,52 70,76 48,62 26,76 34,52 14,38 38,38" fill="#F2C94C" stroke-linejoin="round"/></symbol>
+  <symbol id="o-cal" viewBox="0 0 96 96" fill="none" stroke="#1F1C18" stroke-width="2.5"><rect x="18" y="22" width="60" height="56" rx="6" fill="#fff"/><line x1="18" y1="36" x2="78" y2="36" stroke-width="2"/><line x1="32" y1="14" x2="32" y2="26" stroke-width="4" stroke-linecap="round"/><line x1="64" y1="14" x2="64" y2="26" stroke-width="4" stroke-linecap="round"/><circle cx="32" cy="50" r="4" fill="#C0392B" stroke="none"/><circle cx="48" cy="50" r="4" fill="#1F1C18" stroke="none"/><circle cx="64" cy="50" r="4" fill="#1F1C18" stroke="none"/><circle cx="32" cy="64" r="4" fill="#1F1C18" stroke="none"/><circle cx="48" cy="64" r="4" fill="#1F1C18" stroke="none"/></symbol>
+  <symbol id="o-paw" viewBox="0 0 96 96" fill="none" stroke="#1F1C18" stroke-width="2.5"><ellipse cx="48" cy="62" rx="17" ry="12" fill="#D9C7A5"/><circle cx="28" cy="42" r="7" fill="#D9C7A5"/><circle cx="48" cy="32" r="7" fill="#D9C7A5"/><circle cx="68" cy="42" r="7" fill="#D9C7A5"/></symbol>
+  <symbol id="o-ball" viewBox="0 0 96 96" fill="none" stroke="#1F1C18" stroke-width="2.5"><circle cx="48" cy="48" r="26" fill="#F5CBA7"/><path d="M24 40 Q48 52 72 40" stroke-width="2"/></symbol>
+  <symbol id="o-tie" viewBox="0 0 96 96" fill="none" stroke="#1F1C18" stroke-width="2.5"><path d="M40 16 H56 L52 30 L60 74 L48 88 L36 74 L44 30 Z" fill="#C0392B" stroke-linejoin="round"/></symbol>
+  <symbol id="o-dress" viewBox="0 0 96 96" fill="none" stroke="#1F1C18" stroke-width="2.5"><path d="M36 16 Q48 24 60 16 L66 30 L78 76 Q48 86 18 76 L30 30 Z" fill="#F5B7B1" stroke-linejoin="round"/></symbol>
+  <symbol id="o-truck" viewBox="0 0 96 96" fill="none" stroke="#1F1C18" stroke-width="2.5"><rect x="12" y="30" width="42" height="30" rx="3" fill="#AED6F1"/><rect x="54" y="42" width="26" height="18" rx="3" fill="#F2C94C"/><circle cx="28" cy="66" r="9" fill="#1F1C18" stroke="none"/><circle cx="66" cy="66" r="9" fill="#1F1C18" stroke="none"/></symbol>
+  <symbol id="o-chip" viewBox="0 0 96 96" fill="none" stroke="#1F1C18" stroke-width="2.5"><rect x="28" y="28" width="40" height="40" rx="6" fill="#2C3E50"/><line x1="38" y1="28" x2="38" y2="18" stroke-width="3"/><line x1="58" y1="28" x2="58" y2="18" stroke-width="3"/><line x1="38" y1="68" x2="38" y2="78" stroke-width="3"/><line x1="58" y1="68" x2="58" y2="78" stroke-width="3"/><line x1="28" y1="38" x2="18" y2="38" stroke-width="3"/><line x1="28" y1="58" x2="18" y2="58" stroke-width="3"/><line x1="68" y1="38" x2="78" y2="38" stroke-width="3"/><line x1="68" y1="58" x2="78" y2="58" stroke-width="3"/></symbol>
+  <symbol id="o-bookmark" viewBox="0 0 96 96" fill="none" stroke="#1F1C18" stroke-width="2.5"><path d="M30 16 H66 V80 L48 66 L30 80 Z" fill="#F2C94C" stroke-linejoin="round"/></symbol>
+  <symbol id="o-wheel" viewBox="0 0 96 96" fill="none" stroke="#1F1C18" stroke-width="2.5"><circle cx="48" cy="48" r="26"/><circle cx="48" cy="48" r="8"/><line x1="48" y1="22" x2="48" y2="40" stroke-width="3"/><line x1="26" y1="61" x2="41" y2="52" stroke-width="3"/><line x1="70" y1="61" x2="55" y2="52" stroke-width="3"/></symbol>
+</defs><symbol id="o-case" viewBox="0 0 96 96"><rect x="22" y="34" width="52" height="44" rx="6" fill="#C98A4B" stroke="#1F1C18" stroke-width="2.5"/><path d="M38 34 V28 a6 6 0 0 1 6-6 h8 a6 6 0 0 1 6 6 v6" fill="none" stroke="#1F1C18" stroke-width="2.5"/><path d="M22 56 H74" stroke="#1F1C18" stroke-width="2"/><rect x="40" y="52" width="6" height="8" fill="#F7F3E8" stroke="#1F1C18" stroke-width="1.5"/><rect x="52" y="52" width="6" height="8" fill="#F7F3E8" stroke="#1F1C18" stroke-width="1.5"/></symbol>
+<symbol id="o-person" viewBox="0 0 96 96"><circle cx="48" cy="32" r="14" fill="#F2C29B" stroke="#1F1C18" stroke-width="2.5"/><path d="M20 82 Q20 56 48 56 Q76 56 76 82 Z" fill="#7FB3D5" stroke="#1F1C18" stroke-width="2.5"/></symbol>
+<symbol id="o-mug" viewBox="0 0 96 96"><path d="M28 30 H62 V62 a10 10 0 0 1-10 10 H38 a10 10 0 0 1-10-10 Z" fill="#E74C3C" stroke="#1F1C18" stroke-width="2.5"/><path d="M62 38 h5 a6 6 0 0 1 0 12 h-5" fill="none" stroke="#1F1C18" stroke-width="2.5"/><path d="M40 24 q3-4 0-8 M52 24 q3-4 0-8" fill="none" stroke="#1F1C18" stroke-width="2" stroke-linecap="round"/></symbol>
+</svg>
+<div class="wrap">
+  <h1>School of Adults — tabs</h1>
+  <p class="sub">Three views of the same homepage idea. A little less figuring it out alone.</p>
+  <div class="mocknote">⚠️ Mockup only — tap anything and it just tells you what it would open. Nothing here links to the real site, and nothing on schoolofadults.com has changed.</div>
+  <div class="tabbar">
+    <button class="tab active" data-tab="designs">Designs</button>
+    <button class="tab" data-tab="folders">Folders</button>
+    <button class="tab" data-tab="calendar">Calendar</button>
+  </div>
+
+  <section id="panel-designs" class="panel active">
+    <h2>All designs so far</h2>
+    <p class="why">Every homepage concept in this repo, in one place.</p>
+    <div class="cards">
+      <a class="card" href="index.html#room"><b>A · The Room</b><p>One illustrated scene — shelf, desk, floor. Objects live where they'd live.</p><div class="go">Open board →</div></a>
+      <a class="card" href="index.html#shelf"><b>B · The Shelf</b><p>A clean grid of object cards. Every topic equal, nothing to decode.</p><div class="go">Open board →</div></a>
+      <a class="card" href="index.html#hero"><b>C · Hero + Shelf</b><p>One object of the week takes the stage; the rest waits quietly below.</p><div class="go">Open board →</div></a>
+      <a class="card" href="index.html#day"><b>D · The Day Strip</b><p>Your life in a day, morning to night — objects when you'd reach for them.</p><div class="go">Open board →</div></a>
+      <a class="card" href="index.html#mess"><b>E · The Whole Desk</b><p>All 14 topics + 67 subtopics in one viewport. The current direction.</p><div class="go">Open board →</div></a>
+      <a class="card" href="desk.html"><b>E · Whole Desk, fullscreen</b><p>The desk on its own page — tap a topic to expand it where it sits.</p><div class="go">Open fullscreen →</div></a>
+      <a class="card" href="index.html#iso"><b>F · Isometric Room</b><p>The same desk as a little 3D world, seen from above at an angle.</p><div class="go">Open board →</div></a>
+      <a class="card" href="index.html#hl"><b>How "important" could look</b><p>Three highlight treatments — glow + note, dot + tag, front of stage.</p><div class="go">Open board →</div></a>
+      <a class="card" href="polyfork-test.html"><b>3D feel-test</b><p>One Polyfork object in 3D — drag to spin, pinch to zoom. Judging the 3D feel.</p><div class="go">Open test →</div></a>
+    </div>
+  </section>
+
+  <section id="panel-folders" class="panel">
+    <h2>All topics, in folders</h2>
+    <p class="why">Like an Android home screen — 14 folders, one per topic, subtopics inside like apps.</p>
+    <div class="folders" id="folderGrid"></div>
+    <p class="hint">Tap a folder — it opens over the grid, and the home grid stays exactly where it was underneath.</p>
+  </section>
+
+  <section id="panel-calendar" class="panel">
+    <h2>Calendar</h2>
+    <p class="why">What life has coming up — trips, checkups, festivals, community days.</p>
+    <div class="samplenote">Sample events, for judging the layout — not real dates. Real events would come from the community calendar.</div>
+    <div class="calhead"><button id="prevM" aria-label="Previous month">‹</button><div class="mtitle" id="calTitle"></div><button id="nextM" aria-label="Next month">›</button></div>
+    <div class="weekday"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div>
+    <div class="calgrid" id="calGrid"></div>
+    <div class="dayevents" id="dayEvents"></div>
+  </section>
+</div>
+
+<div class="sheet" id="sheet"><div class="backdrop" id="sheetBack"></div><div class="sheetbox">
+  <button class="sheetclose" id="sheetClose" aria-label="Close">×</button>
+  <h2 id="sheetTitle"></h2><div class="scount" id="sheetCount"></div>
+  <div class="appgrid" id="sheetGrid"></div>
+</div></div>
+<div id="toast"></div>
+<script>
+var DATA = [{"name": "Wealth", "icon": "o-wallet", "isNew": false, "subs": [{"name": "Generating Wealth", "icon": "o-chart", "glow": false, "note": null}, {"name": "Investing", "icon": "o-coin", "glow": false, "note": null}, {"name": "Insurance & Tax", "icon": "o-bill", "glow": true, "note": "Tax season — due soon"}, {"name": "Spending & Tracking", "icon": "o-cal", "glow": false, "note": null}, {"name": "Credit Cards & Loans", "icon": "o-card", "glow": false, "note": null}]}, {"name": "Career", "icon": "o-badge", "isNew": false, "subs": [{"name": "Choosing Career", "icon": "o-compass", "glow": false, "note": null}, {"name": "Job Search", "icon": "o-mag", "glow": false, "note": null}, {"name": "Career Ladder", "icon": "o-ladder", "glow": false, "note": null}, {"name": "Resigning", "icon": "o-door", "glow": false, "note": null}]}, {"name": "Legal", "icon": "o-doc", "isNew": false, "subs": [{"name": "Basic", "icon": "o-shield", "glow": false, "note": null}]}, {"name": "Community", "icon": "o-chat", "isNew": true, "subs": [{"name": "Analytics", "pill": true}, {"name": "Credit Risk", "pill": true}, {"name": "CXOs", "pill": true}, {"name": "Cybersecurity", "pill": true}, {"name": "Design", "pill": true}, {"name": "Finance", "pill": true}, {"name": "Freshers", "pill": true}, {"name": "Healthcare", "pill": true}, {"name": "HRs", "pill": true}, {"name": "Legal", "pill": true}, {"name": "Marketing", "pill": true}, {"name": "Sales", "pill": true}, {"name": "Software Eng.", "pill": true}, {"name": "Supply Chain", "pill": true}]}, {"name": "Home", "icon": "o-key", "isNew": false, "subs": [{"name": "Kitchen", "icon": "o-pan", "glow": false, "note": null}, {"name": "Bedroom", "icon": "o-bed", "glow": false, "note": null}, {"name": "Living Room", "icon": "o-sofa", "glow": false, "note": null}, {"name": "Bathroom", "icon": "o-bath", "glow": false, "note": null}, {"name": "Garden", "icon": "o-plant", "glow": false, "note": null}]}, {"name": "Health", "icon": "o-bottle", "isNew": false, "subs": [{"name": "Basics", "icon": "o-apple", "glow": false, "note": null}, {"name": "Exercise", "icon": "o-dumb", "glow": false, "note": null}, {"name": "Check Up", "icon": "o-heart", "glow": false, "note": null}, {"name": "Mental Health", "icon": "o-bulb", "glow": false, "note": null}, {"name": "Periods", "icon": "o-drop", "glow": false, "note": null}]}, {"name": "Pets", "icon": "o-paw", "isNew": false, "subs": [{"name": "Cats", "icon": "o-cat", "glow": false, "note": null}, {"name": "Dogs", "icon": "o-dog", "glow": false, "note": null}]}, {"name": "People", "icon": "o-cups", "isNew": false, "subs": [{"name": "Self", "icon": "o-star", "glow": false, "note": null}, {"name": "Parents", "icon": "o-heart", "glow": false, "note": null}, {"name": "Partner", "icon": "o-ring", "glow": false, "note": null}, {"name": "Kids", "icon": "o-ball", "glow": false, "note": null}, {"name": "Friends", "icon": "o-users", "glow": false, "note": null}, {"name": "Relatives", "icon": "o-house", "glow": false, "note": null}, {"name": "Colleagues", "icon": "o-mug", "glow": false, "note": null}, {"name": "Roommate", "icon": "o-person", "glow": false, "note": null}, {"name": "Enemies", "icon": "o-no", "glow": false, "note": null}]}, {"name": "Travel", "icon": "o-case", "isNew": false, "subs": [{"name": "Train", "icon": "o-train", "glow": false, "note": null}, {"name": "Flights", "icon": "o-flight", "glow": false, "note": null}]}, {"name": "Fashion", "icon": "o-tee", "isNew": false, "subs": [{"name": "Men", "icon": "o-tie", "glow": false, "note": null}, {"name": "Women", "icon": "o-dress", "glow": false, "note": null}]}, {"name": "Life Events", "icon": "o-gift", "isNew": false, "subs": [{"name": "Buying Home", "icon": "o-house", "glow": false, "note": null}, {"name": "Marriage", "icon": "o-ring", "glow": false, "note": null}, {"name": "Pregnancy", "icon": "o-heart", "glow": false, "note": null}, {"name": "Buying a Car", "icon": "o-car", "glow": false, "note": null}, {"name": "Moving to a New City", "icon": "o-truck", "glow": false, "note": null}]}, {"name": "Tech", "icon": "o-chip", "isNew": false, "subs": [{"name": "Mobile", "icon": "o-phone", "glow": false, "note": null}, {"name": "TV", "icon": "o-tv", "glow": false, "note": null}, {"name": "Earphones", "icon": "o-ears", "glow": false, "note": null}, {"name": "Power Bank", "icon": "o-batt", "glow": false, "note": null}]}, {"name": "Content", "icon": "o-book", "isNew": false, "subs": [{"name": "News", "icon": "o-news", "glow": false, "note": null}, {"name": "Movies & Shows", "icon": "o-tv", "glow": false, "note": null}, {"name": "Songs", "icon": "o-note", "glow": false, "note": null}, {"name": "Books", "icon": "o-bookmark", "glow": false, "note": null}]}, {"name": "Life Skills", "icon": "o-toolbox", "isNew": false, "subs": [{"name": "Driving", "icon": "o-wheel", "glow": false, "note": null}, {"name": "Swimming", "icon": "o-waves", "glow": false, "note": null}, {"name": "Hobbies", "icon": "o-star", "glow": false, "note": null}, {"name": "Problem Solving", "icon": "o-bulb", "glow": false, "note": null}, {"name": "Reminders", "icon": "o-cal", "glow": false, "note": null}]}];
+var SAMPLE = {
+  2:  [{ type: "Train",   title: "Train · Varanasi → Ayodhya",  note: "Morning train, 2 seats" }],
+  5:  [{ type: "Health",  title: "Health checkup · Annual full-body", note: "Blood tests + doctor visit" }],
+  7:  [{ type: "Flight",  title: "Flight · Mumbai → Delhi", note: "Evening flight" }],
+  9:  [{ type: "Event",   title: "Event · Community meetup", note: "Bombay Analytics, Mumbai" }],
+  12: [{ type: "Festival", title: "Festival · Diwali", note: "Family dinner + diyas" }],
+  14: [{ type: "Train",   title: "Train · Mumbai → Pune", note: "Weekend trip" }],
+  16: [{ type: "Health",  title: "Health checkup · Dental", note: "6-month cleaning" }],
+  19: [{ type: "Flight",  title: "Flight · Delhi → Bengaluru", note: "Work trip" }],
+  21: [{ type: "Event",   title: "Event · Book club evening", note: "This month's pick" }],
+  24: [{ type: "Festival", title: "Festival · Local food fest", note: "Street food walk" }],
+  27: [{ type: "Health",  title: "Health checkup · Eye test", note: "New glasses check" }],
+  29: [{ type: "Train",   title: "Train · Lucknow → Varanasi", note: "Return leg" }]
+};
+var TYPE_COLOR = { Flight: "#2E86C1", Train: "#58A05C", Health: "#C0392B", Festival: "#B7791F", Event: "#7D3C98" };
+var toast = document.getElementById("toast"), timer = null;
+function showToast(msg) {
+  toast.textContent = msg; toast.style.display = "block";
+  clearTimeout(timer); timer = setTimeout(function () { toast.style.display = "none"; }, 1600);
+}
+function esc(s) { return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+function icon(id) { return '<svg><use href="#' + id + '"/></svg>'; }
+
+/* tabs */
+document.querySelectorAll(".tab").forEach(function (btn) {
+  btn.addEventListener("click", function () {
+    document.querySelectorAll(".tab").forEach(function (b) { b.classList.toggle("active", b === btn); });
+    document.querySelectorAll(".panel").forEach(function (p) { p.classList.toggle("active", p.id === "panel-" + btn.getAttribute("data-tab")); });
+  });
+});
+
+/* folders */
+var folderGrid = document.getElementById("folderGrid");
+var sheet = document.getElementById("sheet");
+DATA.forEach(function (topic) {
+  var tile = document.createElement("div");
+  tile.className = "folder";
+  var mini = topic.subs.slice(0, 4).map(function (s) {
+    return s.pill ? '<span class="dot4"></span>' : icon(s.icon);
+  }).join("");
+  tile.innerHTML = '<div class="ftile">' + mini + '</div><div class="fname">' + esc(topic.name) +
+    (topic.isNew ? ' · NEW' : '') + '</div><div class="fcount">' + topic.subs.length + ' inside</div>';
+  tile.addEventListener("click", function () { openFolder(topic); });
+  folderGrid.appendChild(tile);
+});
+function openFolder(topic) {
+  document.getElementById("sheetTitle").textContent = topic.name;
+  document.getElementById("sheetCount").textContent = topic.subs.length + " subtopics";
+  var grid = document.getElementById("sheetGrid");
+  grid.innerHTML = "";
+  topic.subs.forEach(function (s) {
+    var app = document.createElement("div");
+    app.className = "app";
+    app.innerHTML = s.pill ? '<span class="pill">' + esc(s.name) + '</span>'
+                           : icon(s.icon) + "<span>" + esc(s.name) + "</span>";
+    app.addEventListener("click", function () { showToast("→ would open: " + topic.name + " — " + s.name); });
+    grid.appendChild(app);
+  });
+  sheet.classList.add("open");
+}
+document.getElementById("sheetClose").addEventListener("click", function () { sheet.classList.remove("open"); });
+document.getElementById("sheetBack").addEventListener("click", function () { sheet.classList.remove("open"); });
+
+/* calendar */
+var today = new Date();
+var viewY = today.getFullYear(), viewM = today.getMonth(), selDay = today.getDate();
+var MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+function renderCal() {
+  document.getElementById("calTitle").textContent = MONTHS[viewM] + " " + viewY;
+  var first = new Date(viewY, viewM, 1).getDay();
+  var days = new Date(viewY, viewM + 1, 0).getDate();
+  var grid = document.getElementById("calGrid");
+  grid.innerHTML = "";
+  for (var i = 0; i < first; i++) { var e = document.createElement("div"); e.className = "day empty"; grid.appendChild(e); }
+  for (var d = 1; d <= days; d++) {
+    (function (day) {
+      var cell = document.createElement("div");
+      cell.className = "day" +
+        (viewY === today.getFullYear() && viewM === today.getMonth() && day === today.getDate() ? " today" : "") +
+        (day === selDay ? " sel" : "");
+      var dots = (SAMPLE[day] || []).map(function (ev) {
+        return '<i style="background:' + TYPE_COLOR[ev.type] + '"></i>';
+      }).join("");
+      cell.innerHTML = day + '<div class="dots">' + dots + "</div>";
+      cell.addEventListener("click", function () { selDay = day; renderCal(); });
+      grid.appendChild(cell);
+    })(d);
+  }
+  var list = document.getElementById("dayEvents");
+  var evs = SAMPLE[selDay] || [];
+  var h = "<h3>" + MONTHS[viewM] + " " + selDay + ", " + viewY + "</h3>";
+  if (!evs.length) h += '<div class="ev"><span class="none">Nothing on this day — yet.</span></div>';
+  evs.forEach(function (ev) {
+    h += '<div class="ev"><span class="chip" style="background:' + TYPE_COLOR[ev.type] + '">' + ev.type +
+      '</span><div><b>' + esc(ev.title) + '</b><p>' + esc(ev.note) + '</p></div></div>';
+  });
+  list.innerHTML = h;
+}
+document.getElementById("prevM").addEventListener("click", function () {
+  viewM--; if (viewM < 0) { viewM = 11; viewY--; } selDay = 1; renderCal();
+});
+document.getElementById("nextM").addEventListener("click", function () {
+  viewM++; if (viewM > 11) { viewM = 0; viewY++; } selDay = 1; renderCal();
+});
+renderCal();
+</script>
+</body>
+</html>
