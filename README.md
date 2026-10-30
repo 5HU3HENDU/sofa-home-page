@@ -15,10 +15,10 @@ nothing here links to schoolofadults.com, and the live site is untouched.
   one viewport, no scrolling.
 - `tabs.html` — three tabs: Designs (all boards + desk + 3D test in one
   place), Folders (14 topic folders, Android home-screen style — tap a
-  folder and its subtopics open over the grid, home grid stays put), and
-  Calendar (month view with sample events: flights, trains, health
-  checkups, festivals, community events — clearly marked as samples, not
-  real dates).
+  folder and it pops up centred over the dimmed grid, home grid stays put), and
+  Calendar (five views — Schedule, Day, Week, Month, Year — with sample events:
+  flights, trains, health checkups, festivals, community events — clearly marked
+  as samples, not real dates; each event type has its own hand-drawn icon).
   - **A · The Room** — an illustrated scene: shelf, desk, floor.
   - **B · The Shelf** — a clean grid of object cards for all 14 topics.
   - **C · Hero + Shelf** — one "object of the week" over a quiet grid.

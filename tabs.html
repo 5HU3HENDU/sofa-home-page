@@ -35,11 +35,12 @@
   .fname { font-size: 12px; font-weight: 700; margin-top: 6px; line-height: 1.25; }
   .fcount { font-size: 11px; color: #7a7f72; }
   .hint { font-size: 13px; color: #5c6653; text-align: center; margin-top: 22px; }
-  /* folder sheet */
+  /* folder popup: Pixel-launcher style, centered over a dimmed home grid */
   .sheet { display: none; position: fixed; inset: 0; z-index: 20; }
   .sheet.open { display: block; }
-  .backdrop { position: absolute; inset: 0; background: rgba(31,28,24,0.45); }
-  .sheetbox { position: absolute; left: 0; right: 0; bottom: 0; background: #F7F3E8; border-top: 3px solid #1F1C18; border-radius: 20px 20px 0 0; padding: 18px 16px 34px; max-height: 72dvh; overflow-y: auto; }
+  .backdrop { position: absolute; inset: 0; background: rgba(31,28,24,0.5); }
+  .sheetbox { position: absolute; left: 50%; top: 50%; width: min(92vw, 520px); max-height: 80dvh; overflow-y: auto; background: #F7F3E8; border: 3px solid #1F1C18; border-radius: 24px; padding: 18px 16px 26px; transform: translate(-50%, -50%) scale(0.92); opacity: 0; transition: transform 0.22s ease, opacity 0.22s ease; box-shadow: 0 18px 50px rgba(0,0,0,0.35); }
+  .sheet.open .sheetbox { transform: translate(-50%, -50%) scale(1); opacity: 1; }
   .sheetbox h2 { font-family: Georgia, serif; font-size: 22px; margin: 0 0 4px; }
   .sheetbox .scount { color: #5c6653; font-size: 13px; margin-bottom: 16px; }
   .sheetclose { position: absolute; right: 14px; top: 12px; width: 34px; height: 34px; border-radius: 50%; border: 2px solid #1F1C18; background: #FFFEF9; font-size: 20px; line-height: 1; cursor: pointer; }
@@ -63,10 +64,28 @@
   .dayevents { margin-top: 20px; }
   .dayevents h3 { font-family: Georgia, serif; font-size: 18px; margin: 0 0 10px; }
   .ev { display: flex; gap: 10px; align-items: flex-start; border: 2px solid #1F1C18; border-radius: 12px; background: #FFFEF9; padding: 12px 14px; margin-bottom: 10px; }
+  .ev svg { width: 34px; height: 34px; flex-shrink: 0; }
   .ev .chip { flex-shrink: 0; font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 999px; color: #fff; margin-top: 1px; }
   .ev b { font-size: 15px; }
   .ev p { font-size: 13px; color: #5c6653; margin: 2px 0 0; }
   .ev .none { color: #5c6653; font-size: 14px; }
+  /* calendar view switcher */
+  .viewbar { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 18px; }
+  .viewbar button { border: 2px solid #1F1C18; border-radius: 999px; background: #FFFEF9; font-size: 13px; font-weight: 700; padding: 7px 13px; cursor: pointer; }
+  .viewbar button.active { background: #1F1C18; color: #F7F3E8; }
+  .calview { display: none; }
+  .calview.active { display: block; }
+  .weekgrid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+  .weekcol { border: 1.5px solid #DDD5BE; border-radius: 10px; background: #FFFEF9; padding: 6px 4px; min-height: 110px; }
+  .weekcol .wd { font-size: 11px; color: #8a8f82; font-weight: 700; text-align: center; }
+  .weekcol .wn { font-size: 14px; font-weight: 700; text-align: center; }
+  .weekcol .wev { display: flex; align-items: center; gap: 2px; margin-top: 6px; }
+  .weekcol .wev svg { width: 20px; height: 20px; flex-shrink: 0; }
+  .weekcol .wev span { font-size: 10px; font-weight: 600; line-height: 1.2; overflow: hidden; }
+  .yeargrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .minimonth { border: 2px solid #1F1C18; border-radius: 12px; background: #FFFEF9; padding: 12px 8px; text-align: center; cursor: pointer; }
+  .minimonth b { font-family: Georgia, serif; font-size: 15px; }
+  .minimonth .mdots { font-size: 12px; color: #5c6653; margin-top: 2px; }
   #toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: #1F1C18; color: #F7F3E8; padding: 10px 18px; border-radius: 999px; font-size: 14px; display: none; z-index: 30; white-space: nowrap; }
   @media (max-width: 560px) { .cards { grid-template-columns: 1fr; } }
 </style>
@@ -164,17 +183,39 @@
     <h2>All topics, in folders</h2>
     <p class="why">Like an Android home screen — 14 folders, one per topic, subtopics inside like apps.</p>
     <div class="folders" id="folderGrid"></div>
-    <p class="hint">Tap a folder — it opens over the grid, and the home grid stays exactly where it was underneath.</p>
+    <p class="hint">Tap a folder — it pops up in the middle of the screen, like a folder on your phone's home screen.</p>
   </section>
 
   <section id="panel-calendar" class="panel">
     <h2>Calendar</h2>
     <p class="why">What life has coming up — trips, checkups, festivals, community days.</p>
     <div class="samplenote">Sample events, for judging the layout — not real dates. Real events would come from the community calendar.</div>
-    <div class="calhead"><button id="prevM" aria-label="Previous month">‹</button><div class="mtitle" id="calTitle"></div><button id="nextM" aria-label="Next month">›</button></div>
-    <div class="weekday"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div>
-    <div class="calgrid" id="calGrid"></div>
-    <div class="dayevents" id="dayEvents"></div>
+    <div class="viewbar">
+      <button data-view="schedule" class="active">Schedule</button>
+      <button data-view="day">Day</button>
+      <button data-view="week">Week</button>
+      <button data-view="month">Month</button>
+      <button data-view="year">Year</button>
+    </div>
+    <div class="calview active" id="view-schedule"><div class="dayevents" id="schedList"></div></div>
+    <div class="calview" id="view-day">
+      <div class="calhead"><button id="prevD" aria-label="Previous day">‹</button><div class="mtitle" id="dayTitle"></div><button id="nextD" aria-label="Next day">›</button></div>
+      <div class="dayevents" id="dayList"></div>
+    </div>
+    <div class="calview" id="view-week">
+      <div class="calhead"><button id="prevW" aria-label="Previous week">‹</button><div class="mtitle" id="weekTitle"></div><button id="nextW" aria-label="Next week">›</button></div>
+      <div class="weekgrid" id="weekGrid"></div>
+    </div>
+    <div class="calview" id="view-month">
+      <div class="calhead"><button id="prevM" aria-label="Previous month">‹</button><div class="mtitle" id="calTitle"></div><button id="nextM" aria-label="Next month">›</button></div>
+      <div class="weekday"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div>
+      <div class="calgrid" id="calGrid"></div>
+      <div class="dayevents" id="dayEvents"></div>
+    </div>
+    <div class="calview" id="view-year">
+      <div class="calhead"><button id="prevY" aria-label="Previous year">‹</button><div class="mtitle" id="yearTitle"></div><button id="nextY" aria-label="Next year">›</button></div>
+      <div class="yeargrid" id="yearGrid"></div>
+    </div>
   </section>
 </div>
 
@@ -201,6 +242,12 @@ var SAMPLE = {
   29: [{ type: "Train",   title: "Train · Lucknow → Varanasi", note: "Return leg" }]
 };
 var TYPE_COLOR = { Flight: "#2E86C1", Train: "#58A05C", Health: "#C0392B", Festival: "#B7791F", Event: "#7D3C98" };
+var TYPE_ICON = { Flight: "o-flight", Train: "o-train", Health: "o-heart", Festival: "o-gift", Event: "o-chat" };
+function evRow(ev, dateLine) {
+  return '<div class="ev">' + icon(TYPE_ICON[ev.type]) +
+    '<span class="chip" style="background:' + TYPE_COLOR[ev.type] + '">' + ev.type +
+    '</span><div><b>' + esc(ev.title) + '</b><p>' + esc(ev.note) + (dateLine ? " · " + dateLine : "") + "</p></div></div>";
+}
 var toast = document.getElementById("toast"), timer = null;
 function showToast(msg) {
   toast.textContent = msg; toast.style.display = "block";
@@ -278,18 +325,116 @@ function renderCal() {
   var evs = SAMPLE[selDay] || [];
   var h = "<h3>" + MONTHS[viewM] + " " + selDay + ", " + viewY + "</h3>";
   if (!evs.length) h += '<div class="ev"><span class="none">Nothing on this day — yet.</span></div>';
-  evs.forEach(function (ev) {
-    h += '<div class="ev"><span class="chip" style="background:' + TYPE_COLOR[ev.type] + '">' + ev.type +
-      '</span><div><b>' + esc(ev.title) + '</b><p>' + esc(ev.note) + '</p></div></div>';
-  });
+  evs.forEach(function (ev) { h += evRow(ev, null); });
   list.innerHTML = h;
 }
+
+/* calendar view switcher */
+var calViews = ["schedule", "day", "week", "month", "year"];
+document.querySelectorAll(".viewbar button").forEach(function (btn) {
+  btn.addEventListener("click", function () {
+    var v = btn.getAttribute("data-view");
+    document.querySelectorAll(".viewbar button").forEach(function (b) { b.classList.toggle("active", b === btn); });
+    calViews.forEach(function (name) {
+      document.getElementById("view-" + name).classList.toggle("active", name === v);
+    });
+    if (v === "schedule") renderSchedule();
+    if (v === "day") renderDay();
+    if (v === "week") renderWeek();
+    if (v === "month") renderCal();
+    if (v === "year") renderYear();
+  });
+});
+
+/* schedule: upcoming agenda, rest of this month then next month */
+function sampleDays() { return Object.keys(SAMPLE).map(Number).sort(function (a, b) { return a - b; }); }
+function renderSchedule() {
+  var items = [];
+  sampleDays().forEach(function (d) {
+    if (d >= today.getDate()) items.push({ m: today.getMonth(), y: today.getFullYear(), day: d, evs: SAMPLE[d] });
+  });
+  var nm = today.getMonth() + 1, ny = today.getFullYear();
+  if (nm > 11) { nm = 0; ny++; }
+  sampleDays().forEach(function (d) { items.push({ m: nm, y: ny, day: d, evs: SAMPLE[d] }); });
+  var h = "<h3>Upcoming</h3>";
+  items.forEach(function (it) {
+    it.evs.forEach(function (ev) { h += evRow(ev, MONTHS[it.m] + " " + it.day); });
+  });
+  document.getElementById("schedList").innerHTML = h;
+}
+
+/* day view */
+var dayCursor = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+function renderDay() {
+  document.getElementById("dayTitle").textContent =
+    MONTHS[dayCursor.getMonth()] + " " + dayCursor.getDate() + ", " + dayCursor.getFullYear();
+  var evs = SAMPLE[dayCursor.getDate()] || [];
+  var h = "";
+  if (!evs.length) h += '<div class="ev"><span class="none">Nothing on this day — yet.</span></div>';
+  evs.forEach(function (ev) { h += evRow(ev, null); });
+  document.getElementById("dayList").innerHTML = h;
+}
+function shiftDay(n) { dayCursor.setDate(dayCursor.getDate() + n); renderDay(); }
+document.getElementById("prevD").addEventListener("click", function () { shiftDay(-1); });
+document.getElementById("nextD").addEventListener("click", function () { shiftDay(1); });
+
+/* week view */
+var weekCursor = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+weekCursor.setDate(weekCursor.getDate() - weekCursor.getDay());
+var WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+function renderWeek() {
+  var end = new Date(weekCursor.getFullYear(), weekCursor.getMonth(), weekCursor.getDate() + 6);
+  document.getElementById("weekTitle").textContent =
+    MONTHS[weekCursor.getMonth()] + " " + weekCursor.getDate() + " – " +
+    MONTHS[end.getMonth()] + " " + end.getDate();
+  var grid = document.getElementById("weekGrid");
+  grid.innerHTML = "";
+  for (var i = 0; i < 7; i++) {
+    (function (off) {
+      var d = new Date(weekCursor.getFullYear(), weekCursor.getMonth(), weekCursor.getDate() + off);
+      var col = document.createElement("div");
+      col.className = "weekcol";
+      var h = '<div class="wd">' + WEEKDAYS[d.getDay()] + '</div><div class="wn">' + d.getDate() + "</div>";
+      (SAMPLE[d.getDate()] || []).forEach(function (ev) {
+        h += '<div class="wev">' + icon(TYPE_ICON[ev.type]) + "<span>" + esc(ev.title.replace(/^[^·]+·\s*/, "")) + "</span></div>";
+      });
+      col.innerHTML = h;
+      grid.appendChild(col);
+    })(i);
+  }
+}
+function shiftWeek(n) { weekCursor.setDate(weekCursor.getDate() + 7 * n); renderWeek(); }
+document.getElementById("prevW").addEventListener("click", function () { shiftWeek(-1); });
+document.getElementById("nextW").addEventListener("click", function () { shiftWeek(1); });
+
+/* year view */
+var yearCursor = today.getFullYear();
+function renderYear() {
+  document.getElementById("yearTitle").textContent = yearCursor;
+  var grid = document.getElementById("yearGrid");
+  grid.innerHTML = "";
+  for (var m = 0; m < 12; m++) {
+    (function (month) {
+      var cell = document.createElement("div");
+      cell.className = "minimonth";
+      cell.innerHTML = "<b>" + MONTHS[month] + '</b><div class="mdots">' + sampleDays().length + " sample days</div>";
+      cell.addEventListener("click", function () {
+        viewM = month; viewY = yearCursor; selDay = 1;
+        document.querySelector('.viewbar button[data-view="month"]').click();
+      });
+      grid.appendChild(cell);
+    })(m);
+  }
+}
+document.getElementById("prevY").addEventListener("click", function () { yearCursor--; renderYear(); });
+document.getElementById("nextY").addEventListener("click", function () { yearCursor++; renderYear(); });
 document.getElementById("prevM").addEventListener("click", function () {
   viewM--; if (viewM < 0) { viewM = 11; viewY--; } selDay = 1; renderCal();
 });
 document.getElementById("nextM").addEventListener("click", function () {
   viewM++; if (viewM > 11) { viewM = 0; viewY++; } selDay = 1; renderCal();
 });
+renderSchedule();
 renderCal();
 </script>
 </body>
